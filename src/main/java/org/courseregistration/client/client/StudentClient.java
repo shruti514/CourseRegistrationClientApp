@@ -1,4 +1,4 @@
-package org.courseregistration.client;
+package org.courseregistration.client.client;
 
 import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.StudentResponse;
@@ -6,7 +6,7 @@ import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
-public class TestRestEasy_shrutee {
+public class StudentClient {
 
 	public static void getStudent() {
 

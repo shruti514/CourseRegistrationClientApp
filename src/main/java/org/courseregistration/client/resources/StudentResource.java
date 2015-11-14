@@ -14,4 +14,9 @@ public interface StudentResource {
 	@Path("/students/{id}")
 	StudentResponse getStudent(@PathParam("id") int id);
 
+	@GET
+	@Produces("application/json")
+	@Path("/students")
+	StudentResponse getAllStudents();
+
 }

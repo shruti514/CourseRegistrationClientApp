@@ -7,6 +7,7 @@ import org.courseregistration.client.model.Student;
 
 public class StudentResponse {
     private Student student;
+    private List<Student> content;
     private List<Link> links;
 
     public Student getStudent() {
@@ -24,6 +25,15 @@ public class StudentResponse {
     public void setLinks(List<Link> links) {
         this.links = links;
     }
+
+    public List<Student> getAllStudents () {
+        return content;
+    }
+
+    public void setAllStudents () {
+        this.content = content;
+    }
+
 
     @Override
     public String toString() {
