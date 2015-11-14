@@ -1,7 +1,6 @@
 package org.courseregistration.client;
 
-import org.courseregistration.client.client.SectionClient;
-import org.courseregistration.client.client.StudentClient;
+import org.courseregistration.client.client.*;
 
 public class Main {
 
@@ -12,6 +11,8 @@ public class Main {
 		StudentClient.getStudent();
 		// CxfTest_Shrutee.getStudent();
 
-		SectionClient.getSection();
+		StudentClient.getAllStudents();
+
+		//SectionClient.getSection();
 	}
 }

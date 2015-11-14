@@ -9,14 +9,48 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 public class StudentClient {
 
 	public static void getStudent() {
-
-		ResteasyClient restEasyClient = new ResteasyClientBuilder().build();
-
-		StudentResource client = ProxyFactory.create(StudentResource.class,
+		//ResteasyClient restEasyClient = new ResteasyClientBuilder().build();
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
 				"http://localhost:8888/api.courseregistration/");
-		StudentResponse student = client.getStudent(100025);
+		StudentResponse student = studentResource.getStudent(100025);
 
 		System.out.println(student.toString());
+	}
+
+	public static void getAllStudents () {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+		StudentResponse student = studentResource.getAllStudents();
+
+		System.out.println(student.toString());
+	}
+
+	public static void setStudent() {
+
+	}
+	// post multiple students
+	public static void setAllStudents() {
+
+	}
+	// delete single student
+	public static void deleteStudent() {
+
+	}
+	// delete all students
+	public static void deleteAllStudents() {
+
+	}
+	// update student details
+	public static void updateStudent() {
+
+	}
+	// enroll to a section
+	public static void enrollSection() {
+
+	}
+	// delete a section
+	public static void deleteSection() {
+
 	}
 
 }

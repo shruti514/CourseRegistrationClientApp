@@ -34,6 +34,10 @@ public class StudentResponse {
         this.content = content;
     }
 
+    public void deleteStudent() {
+
+    }
+
 
     @Override
     public String toString() {
