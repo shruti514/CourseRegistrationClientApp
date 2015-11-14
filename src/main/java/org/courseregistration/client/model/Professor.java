@@ -13,8 +13,8 @@ public class Professor extends BaseEntity {
 	private Address address;
 	private String facultyType;
 	private Integer yearsOfExperience;
-	private Date officeHoursFromTime;
-	private Date officeHoursToTime;
+	private String officeHoursFromTime;
+	private String officeHoursToTime;
 
 	private Link link;
 
@@ -48,22 +48,6 @@ public class Professor extends BaseEntity {
 
 	public void setYearsOfExperience(Integer yearsOfExperience) {
 		this.yearsOfExperience = yearsOfExperience;
-	}
-
-	public Date getOfficeHoursFromTime() {
-		return officeHoursFromTime;
-	}
-
-	public void setOfficeHoursFromTime(Date officeHoursFromTime) {
-		this.officeHoursFromTime = officeHoursFromTime;
-	}
-
-	public Date getOfficeHoursToTime() {
-		return officeHoursToTime;
-	}
-
-	public void setOfficeHoursToTime(Date officeHoursToTime) {
-		this.officeHoursToTime = officeHoursToTime;
 	}
 
 	public String getPhoneNumber() {
@@ -102,8 +86,8 @@ public class Professor extends BaseEntity {
 		builder.append(address.toString());
 		builder.append("\n\t[ Faculty type: " + facultyType);
 		builder.append(", Years of Experience: " + yearsOfExperience);
-		builder.append(", Office hours: from " + officeHoursFromTime + " to "
-				+ officeHoursToTime + "] ");
+		builder.append(", Office hours: from " + getOfficeHoursFromTime() + " to "
+				+ getOfficeHoursToTime() + "] ");
 
 		return builder.toString();
 	}
@@ -138,6 +122,22 @@ public class Professor extends BaseEntity {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	public String getOfficeHoursFromTime() {
+		return officeHoursFromTime;
+	}
+
+	public void setOfficeHoursFromTime(String officeHoursFromTime) {
+		this.officeHoursFromTime = officeHoursFromTime;
+	}
+
+	public String getOfficeHoursToTime() {
+		return officeHoursToTime;
+	}
+
+	public void setOfficeHoursToTime(String officeHoursToTime) {
+		this.officeHoursToTime = officeHoursToTime;
 	}
 
 }

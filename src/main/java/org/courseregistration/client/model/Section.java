@@ -18,6 +18,7 @@ public class Section extends BaseEntity {
 	private String modeOfInstruction;
 	private Integer price;
 	private List<Student> students;
+	private List<Link> links;
 
 	public Professor getProfessor() {
 		return professor;
@@ -123,11 +124,11 @@ public class Section extends BaseEntity {
 		return price;
 	}
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
 
-    public void setPrice(Integer price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -211,5 +212,13 @@ public class Section extends BaseEntity {
 		builder.append("\n");
 
 		return builder.toString();
+	}
+
+	public List<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
 	}
 }
