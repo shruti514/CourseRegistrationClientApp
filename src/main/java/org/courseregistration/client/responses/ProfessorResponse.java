@@ -1,4 +1,4 @@
-package org.courseregistration.client.professor;
+package org.courseregistration.client.responses;
 
 
 import org.courseregistration.client.student.Link;

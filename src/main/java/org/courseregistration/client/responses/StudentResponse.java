@@ -1,6 +1,9 @@
-package org.courseregistration.client.student;
+package org.courseregistration.client.responses;
 
 import java.util.List;
+
+import org.courseregistration.client.student.Link;
+import org.courseregistration.client.student.Student;
 
 public class StudentResponse {
     private Student student;

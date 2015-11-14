@@ -1,7 +1,8 @@
 package org.courseregistration.client;
 
 
-import org.courseregistration.client.student.StudentResponse;
+import org.courseregistration.client.resources.StudentResource;
+import org.courseregistration.client.responses.StudentResponse;
 import org.jboss.resteasy.client.ProxyFactory;
 
 

@@ -2,10 +2,11 @@ package org.courseregistration.client;
 
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
-import org.courseregistration.client.student.StudentResponse;
+import org.courseregistration.client.responses.StudentResponse;
 import org.jboss.resteasy.client.ProxyFactory;
 
 import javax.ws.rs.core.Response;
+
 import java.util.ArrayList;
 import java.util.List;
 

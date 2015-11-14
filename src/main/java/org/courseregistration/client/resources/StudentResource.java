@@ -1,6 +1,6 @@
-package org.courseregistration.client;
+package org.courseregistration.client.resources;
 
-import org.courseregistration.client.student.StudentResponse;
+import org.courseregistration.client.responses.StudentResponse;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
