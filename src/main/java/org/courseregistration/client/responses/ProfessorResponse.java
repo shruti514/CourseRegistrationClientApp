@@ -2,9 +2,9 @@ package org.courseregistration.client.responses;
 
 import java.util.List;
 
-import org.courseregistration.client.student.Link;
-import org.courseregistration.client.student.Page;
-import org.courseregistration.client.student.Professor;
+import org.courseregistration.client.model.Link;
+import org.courseregistration.client.model.Page;
+import org.courseregistration.client.model.Professor;
 
 public class ProfessorResponse {
 	private Professor professor;

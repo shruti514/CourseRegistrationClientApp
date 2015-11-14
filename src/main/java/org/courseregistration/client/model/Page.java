@@ -1,4 +1,4 @@
-package org.courseregistration.client.student;
+package org.courseregistration.client.model;
 
 public class Page {
 	private int size;
