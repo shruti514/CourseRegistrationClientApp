@@ -46,11 +46,16 @@ public class StudentResponse {
         this.page = page;
     }
 
+    public void deleteStudent(Student student) {
+        System.out.println("Student Deleted");
+    }
+
     @Override
     public String toString() {
         return "StudentResponse{" +
                 //"student=" + student.toString() +
                 ", links=" + links.toString() +
                 '}';
-    }
+        }
 }
+

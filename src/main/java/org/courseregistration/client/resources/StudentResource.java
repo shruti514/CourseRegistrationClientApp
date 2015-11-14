@@ -58,6 +58,6 @@ public interface StudentResource {
 	@POST
 	@Produces("application/json")
 	@Path("{id}/sections/{section_id}")
-	StudentResponse deleteSection();
+	StudentResponse deleteSection(@PathParam("id") Long id, @PathParam("section_id") Long section_id);
 
 }

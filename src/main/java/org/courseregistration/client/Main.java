@@ -20,7 +20,9 @@ public class Main {
 		//SectionClient.getSection();
 
 		//TestAuthResource.getResource();
-		StudentClient.getAllStudents();
+		//StudentClient.getAllStudents();
+
+		StudentClient.deleteStudent();
 
 		//SectionClient.getSection();
 	}

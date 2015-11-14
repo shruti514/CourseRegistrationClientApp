@@ -36,7 +36,11 @@ public class StudentClient {
 	}
 	// delete single student
 	public static void deleteStudent() {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+		StudentResponse student = studentResource.deleteStudent(100025);
 
+		System.out.println(student.toString());
 	}
 	// delete all students
 	public static void deleteAllStudents() {
