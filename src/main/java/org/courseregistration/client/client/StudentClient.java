@@ -6,6 +6,8 @@ import org.jboss.resteasy.client.ProxyFactory;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
+import javax.ws.rs.core.Response;
+
 public class StudentClient {
 
 	public static void getStudent() {
