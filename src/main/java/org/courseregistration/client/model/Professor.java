@@ -1,142 +1,143 @@
 package org.courseregistration.client.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.Date;
 
-public class Professor  extends BaseEntity{
-    @JsonProperty("firstname")
-    private String firstName;
-    private String username;
-    @JsonProperty("lastname")
-    private String lastName;
-    @JsonProperty("email")
-    private String emailId;
-    private String phoneNumber;
-    private Date dateOfBirth;
-    private Address address;
-    private String facultyType;
-    private Integer yearsOfExperience;
-    private Date officeHoursFromTime;
-    private Date officeHoursToTime;
+public class Professor extends BaseEntity {
+	private String firstName;
+	private String username;
+	private String lastName;
+	private String middleName;
+	private String emailId;
+	private String phoneNumber;
+	private Date dateOfBirth;
+	private Address address;
+	private String facultyType;
+	private Integer yearsOfExperience;
+	private Date officeHoursFromTime;
+	private Date officeHoursToTime;
 
-    private Link link;
+	private Link link;
 
-    public Link getLink() {
-        return link;
-    }
+	public Link getLink() {
+		return link;
+	}
 
-    public void setLink(Link link) {
-        this.link = link;
-    }
+	public void setLink(Link link) {
+		this.link = link;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getFacultyType() {
-        return facultyType;
-    }
+	public String getFacultyType() {
+		return facultyType;
+	}
 
-    public void setFacultyType(String facultyType) {
-        this.facultyType = facultyType;
-    }
+	public void setFacultyType(String facultyType) {
+		this.facultyType = facultyType;
+	}
 
-    public Integer getYearsOfExperience() {
-        return yearsOfExperience;
-    }
+	public Integer getYearsOfExperience() {
+		return yearsOfExperience;
+	}
 
-    public void setYearsOfExperience(Integer yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
-    }
+	public void setYearsOfExperience(Integer yearsOfExperience) {
+		this.yearsOfExperience = yearsOfExperience;
+	}
 
-    public Date getOfficeHoursFromTime() {
-        return officeHoursFromTime;
-    }
+	public Date getOfficeHoursFromTime() {
+		return officeHoursFromTime;
+	}
 
-    public void setOfficeHoursFromTime(Date officeHoursFromTime) {
-        this.officeHoursFromTime = officeHoursFromTime;
-    }
+	public void setOfficeHoursFromTime(Date officeHoursFromTime) {
+		this.officeHoursFromTime = officeHoursFromTime;
+	}
 
-    public Date getOfficeHoursToTime() {
-        return officeHoursToTime;
-    }
+	public Date getOfficeHoursToTime() {
+		return officeHoursToTime;
+	}
 
-    public void setOfficeHoursToTime(Date officeHoursToTime) {
-        this.officeHoursToTime = officeHoursToTime;
-    }
+	public void setOfficeHoursToTime(Date officeHoursToTime) {
+		this.officeHoursToTime = officeHoursToTime;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 
-    public String getEmailId() {
-        return emailId;
-    }
+	public Address getAddress() {
+		return address;
+	}
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String toString() {
+		// TODO Auto-generated method stub
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+		StringBuilder builder = new StringBuilder();
+		builder.append("\n\tProfessor:__________________________________");
+		builder.append("\n\tName :\t" + getFirstName() + " " + getLastName());
+		builder.append("\n\t[ Email: " + emailId);
+		builder.append(", Phone: " + phoneNumber);
+		builder.append(", Date of birth :" + dateOfBirth + "] ");
+		builder.append(address.toString());
+		builder.append("\n\t[ Faculty type: " + facultyType);
+		builder.append(", Years of Experience: " + yearsOfExperience);
+		builder.append(", Office hours: from " + officeHoursFromTime + " to "
+				+ officeHoursToTime + "] ");
 
+		return builder.toString();
+	}
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public Address getAddress() {
-        return address;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
+	public String getMiddleName() {
+		return middleName;
+	}
 
-    public String toString() {
-        // TODO Auto-generated method stub
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
 
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n\tProfessor:__________________________________");
-        builder.append("\n\tName :\t" + firstName + " "
-            + lastName);
-        builder.append("\n\t[ Email: " + emailId);
-        builder.append(", Phone: " + phoneNumber);
-        builder.append(", Date of birth :" + dateOfBirth + "] ");
-        builder.append(address.toString());
-        builder.append("\n\t[ Faculty type: " + facultyType);
-        builder.append(", Years of Experience: " + yearsOfExperience);
-        builder.append(", Office hours: from " + officeHoursFromTime + " to "
-            + officeHoursToTime + "] ");
+	public String getEmailId() {
+		return emailId;
+	}
 
-        return builder.toString();
-    }
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
 
 }

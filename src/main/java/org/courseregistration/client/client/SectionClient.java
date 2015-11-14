@@ -1,7 +1,7 @@
 package org.courseregistration.client.client;
 
+import org.courseregistration.client.model.Section;
 import org.courseregistration.client.resources.SectionResource;
-import org.courseregistration.client.responses.SectionResponse;
 import org.jboss.resteasy.client.ProxyFactory;
 
 public class SectionClient {
@@ -10,8 +10,8 @@ public class SectionClient {
 
 		SectionResource resource = ProxyFactory.create(SectionResource.class,
 				"http://localhost:8888/api.courseregistration/");
-		SectionResponse response = resource.getSection(100035);
+		Section response = resource.getSection(100020);
 
-		System.out.println(response.getSection().toString());
+		System.out.println(response.toString());
 	}
 }
