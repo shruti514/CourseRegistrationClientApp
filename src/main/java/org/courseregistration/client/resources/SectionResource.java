@@ -13,4 +13,9 @@ public interface SectionResource {
 	@Produces("application/json")
 	@Path("/sections/{id}")
 	SectionResponse getSection(@PathParam("id") int id);
+
+	// @GET
+	// @Produces("application/json")
+	// @Path("/sections/{id}")
+	// SectionResponse
 }

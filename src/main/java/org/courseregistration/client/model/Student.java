@@ -1,34 +1,26 @@
-package org.courseregistration.client.student;
+package org.courseregistration.client.model;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Professor  extends BaseEntity{
-    @JsonProperty("firstname")
+public class Student  extends BaseEntity{
+
     private String firstName;
     private String username;
-    @JsonProperty("lastname")
+
+    private String middleName;
     private String lastName;
-    @JsonProperty("email")
     private String emailId;
     private String phoneNumber;
+
     private Date dateOfBirth;
     private Address address;
-    private String facultyType;
-    private Integer yearsOfExperience;
-    private Date officeHoursFromTime;
-    private Date officeHoursToTime;
+    private String admissionType;
+    private String previousDegree;
 
-    private Link link;
-
-    public Link getLink() {
-        return link;
-    }
-
-    public void setLink(Link link) {
-        this.link = link;
-    }
+    private List<Section> sections = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -38,36 +30,38 @@ public class Professor  extends BaseEntity{
         this.username = username;
     }
 
-    public String getFacultyType() {
-        return facultyType;
+    public String getAdmissionType() {
+        return admissionType;
     }
 
-    public void setFacultyType(String facultyType) {
-        this.facultyType = facultyType;
+    public void setAdmissionType(String admissionType) {
+        this.admissionType = admissionType;
     }
 
-    public Integer getYearsOfExperience() {
-        return yearsOfExperience;
+    public String getPreviousDegree() {
+        return previousDegree;
     }
 
-    public void setYearsOfExperience(Integer yearsOfExperience) {
-        this.yearsOfExperience = yearsOfExperience;
+    public void setPreviousDegree(String previousDegree) {
+        this.previousDegree = previousDegree;
     }
 
-    public Date getOfficeHoursFromTime() {
-        return officeHoursFromTime;
+    public List<Section> getSections() {
+        return sections;
     }
 
-    public void setOfficeHoursFromTime(Date officeHoursFromTime) {
-        this.officeHoursFromTime = officeHoursFromTime;
+    public void setSections(List<Section> sections) {
+        this.sections = sections;
     }
 
-    public Date getOfficeHoursToTime() {
-        return officeHoursToTime;
+    public void addSection(Section section) {
+        this.sections.add(section);
     }
 
-    public void setOfficeHoursToTime(Date officeHoursToTime) {
-        this.officeHoursToTime = officeHoursToTime;
+    public void dropSection(Section section) {
+        if (this.sections.contains(section)) {
+            this.sections.remove(section);
+        }
     }
 
     public String getFirstName() {
@@ -76,6 +70,14 @@ public class Professor  extends BaseEntity{
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getLastName() {
@@ -102,7 +104,6 @@ public class Professor  extends BaseEntity{
         this.phoneNumber = phoneNumber;
     }
 
-
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -119,24 +120,23 @@ public class Professor  extends BaseEntity{
         this.address = address;
     }
 
-
+    @Override
     public String toString() {
         // TODO Auto-generated method stub
 
+        String userDetails = super.toString();
         StringBuilder builder = new StringBuilder();
-        builder.append("\n\tProfessor:__________________________________");
-        builder.append("\n\tName :\t" + firstName + " "
+        builder.append("\n\tStudent:__________________________________");
+        builder.append(userDetails);
+        builder.append("\n\tName :\t" + firstName + " " + middleName + " "
             + lastName);
         builder.append("\n\t[ Email: " + emailId);
         builder.append(", Phone: " + phoneNumber);
         builder.append(", Date of birth :" + dateOfBirth + "] ");
         builder.append(address.toString());
-        builder.append("\n\t[ Faculty type: " + facultyType);
-        builder.append(", Years of Experience: " + yearsOfExperience);
-        builder.append(", Office hours: from " + officeHoursFromTime + " to "
-            + officeHoursToTime + "] ");
+        builder.append("\n\t[ Admission Type: " + admissionType);
+        builder.append(", Previous Degree: " + previousDegree + "]");
 
         return builder.toString();
     }
-
 }

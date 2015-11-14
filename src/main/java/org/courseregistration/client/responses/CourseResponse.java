@@ -1,8 +1,8 @@
 package org.courseregistration.client.responses;
 
 
-import org.courseregistration.client.student.Course;
-import org.courseregistration.client.student.Link;
+import org.courseregistration.client.model.Course;
+import org.courseregistration.client.model.Link;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.courseregistration.client.student;
+package org.courseregistration.client.model;
 
 import java.util.List;
 
