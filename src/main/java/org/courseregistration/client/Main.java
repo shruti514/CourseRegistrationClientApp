@@ -6,6 +6,7 @@ public class Main {
 
         System.out.println("Client app");
 
-        TestRestEasy_shrutee.getStudent();
+        //TestRestEasy_shrutee.getStudent();
+        CxfTest_Shrutee.getStudent();
     }
 }
