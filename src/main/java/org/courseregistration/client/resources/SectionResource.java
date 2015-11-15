@@ -6,6 +6,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import org.courseregistration.client.model.Section;
+import org.courseregistration.client.responses.SectionResponse;
 
 public interface SectionResource {
 
@@ -14,8 +15,8 @@ public interface SectionResource {
 	@Path("/sections/{id}")
 	Section getSection(@PathParam("id") int id);
 
-	// @GET
-	// @Produces("application/json")
-	// @Path("/sections/{id}")
-	// SectionResponse
+	@GET
+	@Produces("application/json")
+	@Path("/sections")
+	SectionResponse getAllSections();
 }

@@ -13,5 +13,7 @@ public class Main {
 		// CxfTest_Shrutee.getStudent();
 
 		SectionClient.getSection();
+
+		SectionClient.getAllSections();
 	}
 }
