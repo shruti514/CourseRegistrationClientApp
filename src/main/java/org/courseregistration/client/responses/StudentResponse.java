@@ -3,12 +3,16 @@ package org.courseregistration.client.responses;
 import java.util.List;
 
 import org.courseregistration.client.model.Link;
+import org.courseregistration.client.model.Page;
 import org.courseregistration.client.model.Student;
 
 public class StudentResponse {
     private Student student;
-    private List<Student> content;
+    private List<StudentResponse> content;
     private List<Link> links;
+    private Page page;
+
+
 
     public Student getStudent() {
         return student;
@@ -16,6 +20,14 @@ public class StudentResponse {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public List<StudentResponse> getContent() {
+        return content;
+    }
+
+    public void setContent(List<StudentResponse> content) {
+        this.content = content;
     }
 
     public List<Link> getLinks() {
@@ -26,20 +38,24 @@ public class StudentResponse {
         this.links = links;
     }
 
-    public List<Student> getAllStudents () {
-        return content;
+    public Page getPage() {
+        return page;
     }
 
-    public void setAllStudents () {
-        this.content = content;
+    public void setPage(Page page) {
+        this.page = page;
     }
 
+    public void deleteStudent(Student student) {
+
+    }
 
     @Override
     public String toString() {
         return "StudentResponse{" +
-                "student=" + student.toString() +
+                //"student=" + student.toString() +
                 ", links=" + links.toString() +
                 '}';
-    }
+        }
 }
+
