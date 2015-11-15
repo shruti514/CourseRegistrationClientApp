@@ -22,8 +22,9 @@ public class Main {
 		//TestAuthResource.getResource();
 		//StudentClient.getAllStudents();
 
-		StudentClient.deleteStudent();
+		//StudentClient.deleteStudent();
 
+		StudentClient.setStudent();
 		//SectionClient.getSection();
 	}
 }

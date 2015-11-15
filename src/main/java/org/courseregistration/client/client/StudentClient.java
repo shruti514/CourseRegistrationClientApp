@@ -28,6 +28,12 @@ public class StudentClient {
 	}
 
 	public static void setStudent() {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+
+		StudentResponse student = studentResource.setStudent(12345);
+
+		System.out.println("Student Added");
 
 	}
 	// post multiple students
