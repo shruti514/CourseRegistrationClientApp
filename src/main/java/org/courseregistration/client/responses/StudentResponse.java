@@ -47,7 +47,7 @@ public class StudentResponse {
     }
 
     public void deleteStudent(Student student) {
-        System.out.println("Student Deleted");
+
     }
 
     @Override

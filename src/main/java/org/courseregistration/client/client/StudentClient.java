@@ -38,6 +38,10 @@ public class StudentClient {
 	}
 	// post multiple students
 	public static void setAllStudents() {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+
+		StudentResponse student = studentResource.setMultipleStudents();
 
 	}
 	// delete single student
@@ -50,18 +54,34 @@ public class StudentClient {
 	}
 	// delete all students
 	public static void deleteAllStudents() {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+
+		StudentResponse student = studentResource.deleteMultipleStudents();
 
 	}
 	// update student details
 	public static void updateStudent() {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+
+		StudentResponse student = studentResource.updateStudent(100031);
 
 	}
 	// enroll to a section
 	public static void enrollSection() {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+
+		StudentResponse student = studentResource.enrollSection(100031,100020);
 
 	}
 	// delete a section
 	public static void deleteSection() {
+		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
+				"http://localhost:8888/api.courseregistration/");
+
+		StudentResponse student = studentResource.deleteSection(100031, 100020);
 
 	}
 

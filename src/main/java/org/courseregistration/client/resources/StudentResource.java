@@ -29,14 +29,20 @@ public interface StudentResource {
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
-	@Path("/students/list")
-	StudentResponse setAllStudents();
+	@Path("/students")
+	StudentResponse setMultipleStudents();
 
 	// delete student
 	@DELETE
 	@Produces("application/json")
 	@Path("/students/{id}")
 	StudentResponse deleteStudent(@PathParam("id") int id);
+
+	// delete student
+	@DELETE
+	@Produces("application/json")
+	@Path("/students/{id}")
+	StudentResponse deleteMultipleStudents();
 
 	// update student details
 	@PUT
@@ -51,13 +57,13 @@ public interface StudentResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("{id}/sections/{section_id}")
-	StudentResponse enrollSection(@PathParam("id") Long id,@PathParam("section_id") Long section_id);
+	StudentResponse enrollSection(@PathParam("id") int id,@PathParam("section_id") int section_id);
 
 
 	// delete a section
 	@POST
 	@Produces("application/json")
 	@Path("{id}/sections/{section_id}")
-	StudentResponse deleteSection(@PathParam("id") Long id, @PathParam("section_id") Long section_id);
+	StudentResponse deleteSection(@PathParam("id") int id, @PathParam("section_id") int section_id);
 
 }
