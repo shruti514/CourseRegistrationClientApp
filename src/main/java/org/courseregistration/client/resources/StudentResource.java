@@ -3,6 +3,7 @@ package org.courseregistration.client.resources;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
+import org.courseregistration.client.model.Student;
 import org.courseregistration.client.responses.StudentResponse;
 
 public interface StudentResource {
@@ -24,7 +25,7 @@ public interface StudentResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/students/{id}")
-	StudentResponse setStudent(@PathParam("id") int id);
+	StudentResponse setStudent(Student student);
 
 	// create multiple students
 	@POST

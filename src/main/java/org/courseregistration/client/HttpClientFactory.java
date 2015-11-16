@@ -48,6 +48,24 @@ public class HttpClientFactory {
         final BasicHttpContext localContext = new BasicHttpContext();
         localContext.setAttribute(HttpClientContext.AUTH_CACHE, authCache);
 
+        final ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient,localContext);
+        final ResteasyClient resteasyClient = new ResteasyClientBuilder().httpEngine(engine).build();
+        return resteasyClient.target(httpConfig.getBaseUrl());
+    }
+
+
+    public static ResteasyWebTarget getWebTargetForAnonymousUser() {
+
+        final HttpConfig httpConfig = new HttpConfig.Builder().build();
+
+        final PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+        cm.setMaxTotal(httpConfig.getMaxTotalConnections());
+        cm.setDefaultMaxPerRoute(httpConfig.getMaxDefaultConnectionsPerRoute());
+
+        final CloseableHttpClient httpClient = HttpClientBuilder.create()
+                .setConnectionManager(cm)
+                .build();
+
         final ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient);
         final ResteasyClient resteasyClient = new ResteasyClientBuilder().httpEngine(engine).build();
         return resteasyClient.target(httpConfig.getBaseUrl());
