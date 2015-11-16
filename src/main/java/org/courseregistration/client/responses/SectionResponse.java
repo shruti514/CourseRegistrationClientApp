@@ -2,7 +2,6 @@ package org.courseregistration.client.responses;
 
 import java.util.List;
 
-import org.courseregistration.client.model.Content;
 import org.courseregistration.client.model.Link;
 import org.courseregistration.client.model.Page;
 import org.courseregistration.client.model.Section;
@@ -10,7 +9,7 @@ import org.courseregistration.client.model.Section;
 public class SectionResponse {
 	private Section section;
 	private List<Link> links;
-	private List<Content> content;
+	private List<SectionResponse> content;
 	private Page page;
 
 	public Section getSection() {
@@ -43,11 +42,11 @@ public class SectionResponse {
 				+ ", links=" + links.toString() + '}';
 	}
 
-	public List<Content> getContent() {
+	public List<SectionResponse> getContent() {
 		return content;
 	}
 
-	public void setContent(List<Content> content) {
+	public void setContent(List<SectionResponse> content) {
 		this.content = content;
 	}
 
