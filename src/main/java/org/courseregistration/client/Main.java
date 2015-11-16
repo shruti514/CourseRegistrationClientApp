@@ -18,7 +18,7 @@ public class Main {
 	String exitCode = "Quit";
 	UserContext userContext = null;
 
-	SectionClient sectionClient;
+	// SectionClient sectionClient;
 	StudentClient studentClient;
 	// CourseClient courseClient;
 	ProfessorClient professorClient;
@@ -26,7 +26,7 @@ public class Main {
 	public static void main(String arg[]) {
 		Main main = new Main();
 
-		main.sectionClient = new SectionClient();
+		// main.sectionClient = new SectionClient();
 		main.studentClient = new StudentClient();
 		// main.courseClient = new CourseClient();
 		main.professorClient = new ProfessorClient();
@@ -85,6 +85,8 @@ public class Main {
 				System.out.println("Invalid input");
 			}
 			start();
+		} else {
+			System.exit(0);
 		}
 	}
 
@@ -148,6 +150,7 @@ public class Main {
 
 	private void showListOfCourses() {
 		try {
+			SectionClient sectionClient = new SectionClient();
 			sectionClient.getConnection(userContext);
 			SectionResponse sectionResponse = sectionClient.getAllSections();
 			List<SectionResponse> contents = sectionResponse.getContent();
@@ -157,6 +160,8 @@ public class Main {
 				System.out.println(content.toString());
 			}
 			showAllCoursesMenu();
+			sectionClient.closeConection();
+
 		} catch (ServerException e) {
 			System.out.println("Sorry! Could not find courses.");
 			System.out.println();
@@ -197,11 +202,13 @@ public class Main {
 		String input = getUserInput();
 
 		try {
+			SectionClient sectionClient = new SectionClient();
 			sectionClient.getConnection(userContext);
 			int id = Integer.parseInt(input);
 			SectionResponse sectionResponse = sectionClient.getSection(id);
 			System.out.println("__________________________________________");
 			System.out.println(sectionResponse.toString());
+			sectionClient.closeConection();
 			showACourseMenu();
 		} catch (ServerException e) {
 			System.out.printf("\nSorry! Could not find course of Id: %s\n",
