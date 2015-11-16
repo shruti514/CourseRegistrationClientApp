@@ -19,7 +19,7 @@ public class Main {
 	String exitCode = "Quit";
 	UserContext userContext = null;
 
-	// SectionClient sectionClient;
+	SectionClient sectionClient;
 	StudentClient studentClient;
 	// CourseClient courseClient;
 	ProfessorClient professorClient;
@@ -27,7 +27,7 @@ public class Main {
 	public static void main(String arg[]) {
 		Main main = new Main();
 
-		// main.sectionClient = new SectionClient();
+		main.sectionClient = new SectionClient();
 		main.studentClient = new StudentClient();
 		// main.courseClient = new CourseClient();
 		main.professorClient = new ProfessorClient();
@@ -41,15 +41,11 @@ public class Main {
 		System.out.println("2. Register");
 
 		System.out.println("3. List of courses");
-		System.out.println("4. List of professors");
-		System.out.println("5. List of students");
+		System.out.println("4. Search for a course");
 
-		System.out.println("6. Add new course");
-		System.out.println("7. Search for a course");
+		System.out.println("5. List of professors");
+		System.out.println("6. List of students");
 
-		System.out.println("8. Search for a professor");
-
-		System.out.println("9. Search for a student");
 		System.out.println("Quit. Exit from the system");
 
 		String userInput = getUserInput();
@@ -65,17 +61,15 @@ public class Main {
 				showListOfCourses();
 				break;
 			case "4":
-				showListOfProfessors();
-				break;
-			case "5":
-				showListOfStudents();
-				break;
-			case "6":
-				addNewCourse();
-				break;
-			case "7":
 				searchForACourse();
 				break;
+			case "5":
+				showListOfProfessors();
+				break;
+			case "6":
+				showListOfStudents();
+				break;
+
 			case "8":
 				searchForACourse();
 				break;
@@ -95,8 +89,8 @@ public class Main {
 		System.out.println("Enter Username : ");
 		String username = getUserInput();
 		System.out.println("Enter Password : ");
-		// String password = getUserInput();
-		String password = getPassword();
+		String password = getUserInput();
+		// String password = getPassword();
 
 		try {
 			LoginResponse loginResponse = UserClient.login(username, password);
@@ -106,11 +100,11 @@ public class Main {
 			userContext = UserContext.forUser(username, password, user);
 
 			System.out.println("Welcome " + userContext.getUsername());
-			// if (userContext.isStudent()) {
-			// showAllStudentsMenu();
-			// } else {
-			// showProfessorMenu();
-			// }
+			if (userContext.isStudent()) {
+				showAllStudentsMenu();
+			} else {
+				showProfessorMenu();
+			}
 		} catch (ServerException error) {
 			System.out
 					.println("Sorry! Could not find user with given user name. Try again.");
@@ -152,7 +146,6 @@ public class Main {
 
 	private void showListOfCourses() {
 		try {
-			SectionClient sectionClient = new SectionClient();
 			sectionClient.getConnection(userContext);
 			SectionResponse sectionResponse = sectionClient.getAllSections();
 			List<SectionResponse> contents = sectionResponse.getContent();
@@ -204,7 +197,6 @@ public class Main {
 		String input = getUserInput();
 
 		try {
-			SectionClient sectionClient = new SectionClient();
 			sectionClient.getConnection(userContext);
 			int id = Integer.parseInt(input);
 			SectionResponse sectionResponse = sectionClient.getSection(id);
@@ -231,55 +223,69 @@ public class Main {
 		System.out.println("return - Return to main menu");
 
 		String input = getUserInput();
-		switch (input) {
-		case "register":
-			if (userContext == null) {
-				System.out
-						.println("Please Login as a Student. Follow the Login Menu");
-				handleLogin();
+		if (input.equalsIgnoreCase("return")) {
+			if (userContext == null)
+				start();
+			else
+				showAllStudentsMenu();
+		}
+		if (!input.equalsIgnoreCase("return")) {
+			switch (input) {
+			case "register":
+				if (userContext == null) {
+					System.out
+							.println("Please Login as a Student. Follow the Login Menu");
+					handleLogin();
+				}
+				// registerToACourse(); //TODO Student can register to the
+				// course in
+				// this method
+				break;
+			case "unregister":
+				if (userContext == null) {
+					System.out
+							.println("Please Login as a Student. Follow the Login Menu");
+					handleLogin();
+				}
+				// unRegisterToACourse(); //TODO Student can unregister to the
+				// course in
+				// this method
+				break;
+			case "show course":
+				// showCourseDetails(); //TODO Show course details
+				break;
+			case "edit":
+				if (userContext == null) {
+					System.out
+							.println("Please Login as a Professor or Admin. Follow the Login Menu");
+					handleLogin();
+				}
+				// editCourseDetails(); //TODO Professor or admin can edit the
+				// course;
+				break;
+			case "delete":
+				if (userContext == null) {
+					System.out
+							.println("Please Login as a Professor or Admin. Follow the Login Menu");
+					handleLogin();
+				}
+				// deleteCourseDetails(); //TODO Professor or admin can delete
+				// the
+				// course;
+				break;
+			case "return":
+				if (userContext == null)
+					start();
+				else
+					showAllStudentsMenu();
+				break;
+			default:
+				System.out.println();
+				System.out.println("Invalid input");
+				System.out.println();
+				start();
 			}
-			// registerToACourse(); //TODO Student can register to the course in
-			// this method
-			break;
-		case "unregister":
-			if (userContext == null) {
-				System.out
-						.println("Please Login as a Student. Follow the Login Menu");
-				handleLogin();
-			}
-			// unRegisterToACourse(); //TODO Student can unregister to the
-			// course in
-			// this method
-			break;
-		case "show course":
-			// showCourseDetails(); //TODO Show course details
-			break;
-		case "edit":
-			if (userContext == null) {
-				System.out
-						.println("Please Login as a Professor or Admin. Follow the Login Menu");
-				handleLogin();
-			}
-			// editCourseDetails(); //TODO Professor or admin can edit the
-			// course;
-			break;
-		case "delete":
-			if (userContext == null) {
-				System.out
-						.println("Please Login as a Professor or Admin. Follow the Login Menu");
-				handleLogin();
-			}
-			// deleteCourseDetails(); //TODO Professor or admin can delete the
-			// course;
-			break;
-		case "return":
-			start();
-			break;
-		default:
-			System.out.println();
-			System.out.println("Invalid input");
-			System.out.println();
-			start();
+			showACourseMenu();
 		}
 	}
 
@@ -296,7 +302,6 @@ public class Main {
 				System.out.println(content.toString());
 			}
 
-			showAllStudentsMenu();
 		} catch (Exception e) {
 			System.out.println("Sorry! Could not find students.");
 			System.out.println();
@@ -310,7 +315,10 @@ public class Main {
 		System.out.println("1. See profile");
 		System.out.println("2. Update profile");
 		System.out.println("3. Delete profile");
-		System.out.println("4. List of all sections");
+		System.out.println("4. Search for course");
+		System.out.println("5. List of all sections");
+		System.out.println("6. Search for a professor");
+		System.out.println("7. Logout");
 
 		String input = getUserInput();
 		switch (input) {
@@ -338,10 +346,20 @@ public class Main {
 			// delete his profile
 			break;
 		case "4":
+			searchForACourse();
+			break;
+		case "5":
 			if (userContext != null) {
 				userContext.getLoggedInUser();
 				// Make it as student and list all sections
 			}
+			break;
+		case "6":
+			showListOfProfessors();
+			break;
+		case "7":
+			userContext = null; // TODO Logout
+			start();
 			break;
 		default:
 			System.out.println();
@@ -367,7 +385,10 @@ public class Main {
 		System.out.println("1. See profile");
 		System.out.println("2. Update profile");
 		System.out.println("3. Delete profile");
-		System.out.println("4. List of all sections");
+		System.out.println("4. Add new Course");
+		System.out.println("5. List of all sections");
+		System.out.println("6. Search for a student");
+		System.out.println("7. Logout");
 
 		String input = getUserInput();
 		switch (input) {
@@ -397,8 +418,22 @@ public class Main {
 		case "4":
 			if (userContext != null) {
 				userContext.getLoggedInUser();
+				addNewCourse();
+			}
+			break;
+
+		case "5":
+			if (userContext != null) {
+				userContext.getLoggedInUser();
 				// Make it as Professor and list all sections
 			}
+			break;
+		case "6":
+			showListOfStudents();
+			break;
+		case "7":
+			userContext = null; // TODO Logout
+			start();
 			break;
 		default:
 			System.out.println();
