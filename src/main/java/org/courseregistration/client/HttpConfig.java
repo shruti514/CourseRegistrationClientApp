@@ -11,7 +11,7 @@ public class HttpConfig {
     private final String realmName;
     private final String baseUrl;
 
-    private HttpConfig(Builder builder){
+    private HttpConfig(Builder builder) {
         this.host = builder.host;
         this.port = builder.port;
         this.protocol = builder.protocol;
@@ -60,40 +60,49 @@ public class HttpConfig {
 
         public Builder setHost(String host) {
             this.host = host;
-            return  this;
+            return this;
         }
 
         public Builder setPort(int port) {
             this.port = port;
-            return  this;
+            return this;
         }
 
         public Builder setProtocol(String protocol) {
             this.protocol = protocol;
-            return  this;
+            return this;
         }
 
         public Builder setMaxDefaultConnectionsPerRoute(Integer maxDefaultConnectionsPerRoute) {
             this.maxDefaultConnectionsPerRoute = maxDefaultConnectionsPerRoute;
-            return  this;
+            return this;
         }
 
         public Builder setMaxTotalConnections(Integer maxTotalConnections) {
             this.maxTotalConnections = maxTotalConnections;
-            return  this;
+            return this;
         }
 
         public Builder setRealmName(String realmName) {
             this.realmName = realmName;
-            return  this;
-        }
-        public Builder setBaseUrl(String baseUrl) {
-            this.baseUrl = baseUrl;
-            return  this;
+            return this;
         }
 
-        public HttpConfig build(){
-            return  new HttpConfig(this);
+        public Builder setBaseUrl(String baseUrl) {
+            this.baseUrl = baseUrl;
+            return this;
+        }
+
+        public HttpConfig build() {
+            return new HttpConfig(this);
+        }
+
+        public HttpConfig buildHttpsConfig() {
+            this.host = "localhost";
+            this.port = 8443;
+            this.protocol = "https";
+            this.baseUrl = "https://localhost:8443/api.courseregistration";
+            return new HttpConfig(this);
         }
     }
 

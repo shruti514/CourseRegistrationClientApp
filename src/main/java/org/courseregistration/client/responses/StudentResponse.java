@@ -1,17 +1,16 @@
 package org.courseregistration.client.responses;
 
-import java.util.List;
-
 import org.courseregistration.client.model.Link;
 import org.courseregistration.client.model.Page;
 import org.courseregistration.client.model.Student;
+
+import java.util.List;
 
 public class StudentResponse {
     private Student student;
     private List<StudentResponse> content;
     private List<Link> links;
     private Page page;
-
 
 
     public Student getStudent() {
@@ -53,28 +52,28 @@ public class StudentResponse {
     @Override
     public String toString() {
         StringBuilder toReturn = new StringBuilder("StudentResponse{");
-        if(student != null){
+        if (student != null) {
             toReturn.append("student :{");
             toReturn.append(student.toString());
             toReturn.append("}");
         }
-        if(content!=null){
+        if (content != null) {
             toReturn.append("content : [");
-            for(StudentResponse response : content){
+            for (StudentResponse response : content) {
                 toReturn.append("{");
                 toReturn.append(response.toString());
                 toReturn.append("}");
             }
             toReturn.append("]");
         }
-        if(links!=null){
+        if (links != null) {
             toReturn.append("links : [");
-            for(Link link : links){
+            for (Link link : links) {
                 toReturn.append(link.toString());
             }
             toReturn.append("]");
         }
-        if(page !=null){
+        if (page != null) {
             toReturn.append(page.toString());
         }
         toReturn.append("}");

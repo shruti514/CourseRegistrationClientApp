@@ -72,9 +72,13 @@ public class Main {
         System.out.println("2 - Want to register as Professor?: ");
 
         String input = getUserInput();
-        switch (input){
-            case "1":handleStudentRegistration();break;
-            case "2":handleProfessorRegistration();break;
+        switch (input) {
+            case "1":
+                handleStudentRegistration();
+                break;
+            case "2":
+                handleProfessorRegistration();
+                break;
             default:
                 System.out.println();
                 System.out.println("Invalid input");
@@ -100,16 +104,16 @@ public class Main {
 
         try {
             LoginResponse loginResponse = UserClient.login(username, password);
-            User user  = loginResponse.isProfessor()?loginResponse.getProfessor().getProfessor():loginResponse.getStudent().getStudent();
-            userContext = UserContext.forUser(username,password,user);
+            User user = loginResponse.isProfessor() ? loginResponse.getProfessor().getProfessor() : loginResponse.getStudent().getStudent();
+            userContext = UserContext.forUser(username, password, user);
 
             System.out.println("Welcome " + userContext.getUsername());
-            if(userContext.isStudent()){
+            if (userContext.isStudent()) {
                 showStudentMenu();
-            }else{
+            } else {
                 showProfessorMenu();
             }
-        }catch (ServerException error){
+        } catch (ServerException error) {
             System.out.println("Sorry! Could not find user with given user name. Try again.");
             System.out.println();
             start();

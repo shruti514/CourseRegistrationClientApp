@@ -4,11 +4,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.HttpMethod;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 public class DigestAuthDetails {
     private static final Logger logger = LoggerFactory.getLogger(DigestAuthDetails.class);
@@ -113,11 +110,11 @@ public class DigestAuthDetails {
      * response = md5("H1:nonce:nc:cnonce:qop:H2")
      */
     private String calculateResponse() throws UnsupportedEncodingException, NoSuchAlgorithmException {
-            String hash_1 = DigestUtils.md5Hex((username + ":" + realm + ":" + password));
-            String hash_2 = DigestUtils.md5Hex((httpMethod + ":" + uri));
+        String hash_1 = DigestUtils.md5Hex((username + ":" + realm + ":" + password));
+        String hash_2 = DigestUtils.md5Hex((httpMethod + ":" + uri));
 
-            String hash_3_string = hash_1 + ":" + nonce + ":" + nounceCount +
-                    ":" + clientNonce + ":" + qop + ":" + hash_2;
+        String hash_3_string = hash_1 + ":" + nonce + ":" + nounceCount +
+                ":" + clientNonce + ":" + qop + ":" + hash_2;
 
         return DigestUtils.md5Hex(hash_3_string);
 

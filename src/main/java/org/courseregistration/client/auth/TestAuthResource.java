@@ -2,10 +2,9 @@ package org.courseregistration.client.auth;
 
 
 import org.courseregistration.client.HttpClientFactory;
-import org.courseregistration.client.model.Professor;
+import org.courseregistration.client.client.ServerException;
 import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.StudentResponse;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 import javax.ws.rs.HttpMethod;
@@ -41,10 +40,10 @@ public class TestAuthResource {
 
             response = target.request()
                     .header("Authorization", from(username, password)
-                            .forHTTPMethod(HttpMethod.GET)
-                            .withNonce(authHeaderParser.getNonce())
-                            .withNounceCount(2)
-                            .withUri("api.courseregistration/student/100025").getDigestHeader()
+                                    .forHTTPMethod(HttpMethod.GET)
+                                    .withNonce(authHeaderParser.getNonce())
+                                    .withNounceCount(2)
+                                    .withUri("api.courseregistration/student/100025").getDigestHeader()
                     )
                     .accept(APPLICATION_JSON)
                     .get();
@@ -55,7 +54,7 @@ public class TestAuthResource {
     }
 
 
-    public static void test(){
+    public static void test() throws ServerException {
 
         String username = "userProf1234";
         String password = "pass";
