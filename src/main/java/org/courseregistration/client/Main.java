@@ -26,12 +26,16 @@ public class Main {
 		System.out.println("Welcome login to Course Registration");
 		System.out.println("1. Login");
 		System.out.println("2. Register");
+
 		System.out.println("3. List of courses");
 		System.out.println("4. List of professors");
 		System.out.println("5. List of students");
+
 		System.out.println("6. Add new course");
 		System.out.println("7. Search for a course");
+
 		System.out.println("8. Search for a professor");
+
 		System.out.println("9. Search for a student");
 		System.out.println("Quit. Exit from the system");
 
@@ -71,7 +75,8 @@ public class Main {
 			System.out.println("Invalid input");
 			start();
 		}
-
+		if (!userInput.equalsIgnoreCase("quit"))
+			start();
 	}
 
 	private void handleLogin() {
@@ -88,11 +93,11 @@ public class Main {
 			userContext = UserContext.forUser(username, password, user);
 
 			System.out.println("Welcome " + userContext.getUsername());
-			if (userContext.isStudent()) {
-				showAllStudentsMenu();
-			} else {
-				showProfessorMenu();
-			}
+			// if (userContext.isStudent()) {
+			// showAllStudentsMenu();
+			// } else {
+			// showProfessorMenu();
+			// }
 		} catch (ServerException error) {
 			System.out
 					.println("Sorry! Could not find user with given user name. Try again.");
