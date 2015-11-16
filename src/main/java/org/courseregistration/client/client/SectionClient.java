@@ -2,7 +2,6 @@ package org.courseregistration.client.client;
 
 import java.util.List;
 
-import org.courseregistration.client.model.Content;
 import org.courseregistration.client.model.Section;
 import org.courseregistration.client.resources.SectionResource;
 import org.courseregistration.client.responses.SectionResponse;
@@ -16,8 +15,12 @@ public class SectionClient {
 
 	public static void getSection() {
 
+		// Section response = resource.getSection(100020);
+		//
+		// System.out.println(response.toString());
 		Section response = resource.getSection(100020);
 
+		getAllSections();
 		System.out.println(response.toString());
 	}
 
@@ -28,9 +31,8 @@ public class SectionClient {
 		// List<Section> list = response.getContent();
 		// List<Section> list = content.getSection();
 
-		List<Content> contents = response.getContent();
-
-		for (Content content : contents) {
+		List<SectionResponse> contents = response.getContent();
+		for (SectionResponse content : contents) {
 			System.out.println(content.getSection().toString());
 		}
 	}

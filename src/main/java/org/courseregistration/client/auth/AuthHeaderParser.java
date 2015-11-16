@@ -53,7 +53,7 @@ public class AuthHeaderParser {
 
     /**
      * A string of data, specified by the server, which should be returned
-     *  by the client unchanged in the Authorization header of subsequent
+     * by the client unchanged in the Authorization header of subsequent
      * requests with URIs in the same protection space.
      */
     private String mOpaque;
@@ -147,7 +147,7 @@ public class AuthHeaderParser {
     /**
      * @return True iff this is the  BASIC-authentication request.
      */
-    public boolean isBasic () {
+    public boolean isBasic() {
         return mScheme == BASIC;
     }
 
@@ -257,6 +257,7 @@ public class AuthHeaderParser {
     /**
      * Parses the authentication scheme name. If we have a Digest
      * scheme, sets the algorithm value to the default of MD5.
+     *
      * @return The authentication scheme parameters string to be
      * parsed later (if the scheme is supported) or null if failed
      * to parse the scheme (the header value is null?).
@@ -289,8 +290,8 @@ public class AuthHeaderParser {
      * parameters.
      */
     private void parseParameters(String parameters) {
-            logger.debug("AuthHeaderParser.parseParameters():" +
-                    " parameters: " + parameters);
+        logger.debug("AuthHeaderParser.parseParameters():" +
+                " parameters: " + parameters);
 
         if (parameters != null) {
             int i;
@@ -320,9 +321,9 @@ public class AuthHeaderParser {
                 String value =
                         trimDoubleQuotesIfAny(parameter.substring(i + 1).trim());
 
-                    logger.debug("AuthHeaderParser.parseParameter():" +
-                            " token: " + token +
-                            " value: " + value);
+                logger.debug("AuthHeaderParser.parseParameter():" +
+                        " token: " + token +
+                        " value: " + value);
 
                 if (token.equalsIgnoreCase(REALM_TOKEN)) {
                     mRealm = value;
@@ -382,6 +383,7 @@ public class AuthHeaderParser {
 
     /**
      * Trims double-quotes around a parameter value if there are any.
+     *
      * @return The string value without the outermost pair of double-
      * quotes or null if the original value is null.
      */

@@ -1,7 +1,6 @@
 package org.courseregistration.client.model;
 
 
-
 public class LoginRequest {
 
     private String username;

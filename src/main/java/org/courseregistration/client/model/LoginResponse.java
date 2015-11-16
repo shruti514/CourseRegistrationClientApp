@@ -66,8 +66,8 @@ public class LoginResponse {
                 ", isStudent=" + isStudent +
                 ", isProfessor=" + isProfessor +
                 ", isAdmin=" + isAdmin +
-                ", student=" + (student!=null?student.toString():"{}") +
-                ", professor=" + (professor!=null?professor.toString():"{}") +
+                ", student=" + (student != null ? student.toString() : "{}") +
+                ", professor=" + (professor != null ? professor.toString() : "{}") +
                 '}';
     }
 }
