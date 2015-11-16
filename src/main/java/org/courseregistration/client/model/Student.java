@@ -139,7 +139,7 @@ public class Student extends User {
         builder.append("\n\tStudent:__________________________________");
         builder.append(userDetails);
         builder.append("\n\tName :\t" + firstName + " " + middleName + " "
-            + lastName);
+                + lastName);
         builder.append("\n\t[ Email: " + emailId);
         builder.append(", Phone: " + phoneNumber);
         builder.append(", Date of birth :" + dateOfBirth + "] ");

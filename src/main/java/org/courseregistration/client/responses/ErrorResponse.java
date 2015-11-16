@@ -1,7 +1,6 @@
 package org.courseregistration.client.responses;
 
 
-import org.courseregistration.client.model.*;
 import org.courseregistration.client.model.Error;
 
 import java.util.List;
