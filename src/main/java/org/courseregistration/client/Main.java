@@ -1,6 +1,9 @@
 package org.courseregistration.client;
 
 import org.courseregistration.client.auth.TestAuthResource;
+import org.courseregistration.client.auth.User;
+import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.client.ServerException;
 import org.courseregistration.client.client.UserClient;
 import org.courseregistration.client.model.LoginResponse;
 
@@ -9,6 +12,7 @@ import java.util.Scanner;
 public class Main {
     Scanner scanner = new Scanner(System.in);
     String exitCode = "Quit";
+    UserContext userContext = null;
 
     public static void main(String arg[]) {
         Main main = new Main();
@@ -47,9 +51,17 @@ public class Main {
         System.out.println("Enter Password : ");
         String password = getUserInput();
 
-        LoginResponse loginResponse = UserClient.login(username, password);
+        try {
+            LoginResponse loginResponse = UserClient.login(username, password);
+            User user  = loginResponse.isProfessor()?loginResponse.getProfessor().getProfessor():loginResponse.getStudent().getStudent();
+            userContext = UserContext.forUser(username,password,user);
 
-        System.out.println("Welcome " + loginResponse.getUsername());
+            System.out.println("Welcome " + userContext.getUsername());
+        }catch (ServerException error){
+            System.out.println("Sorry! Could not find user with given user name. Try again.");
+            System.out.println();
+            start();
+        }
 
     }
 

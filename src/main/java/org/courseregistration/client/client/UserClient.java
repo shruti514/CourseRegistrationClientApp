@@ -1,17 +1,17 @@
 package org.courseregistration.client.client;
 
 import org.courseregistration.client.HttpClientFactory;
+import org.courseregistration.client.responses.ErrorResponse;
 import org.courseregistration.client.model.LoginRequest;
 import org.courseregistration.client.model.LoginResponse;
 import org.courseregistration.client.resources.UserResource;
-import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 import javax.ws.rs.core.Response;
 
 public class UserClient {
 
-    public static LoginResponse login(final String username, final String password){
+    public static LoginResponse login(final String username, final String password) throws ServerException {
 
         ResteasyWebTarget target = HttpClientFactory.getWebTarget(username, password);
 
@@ -23,12 +23,13 @@ public class UserClient {
 
         Response response = proxy.login(request);
 
-        LoginResponse loginResponse = response.readEntity(LoginResponse.class);
+        if(response.getStatus() == 200){
+            return response.readEntity(LoginResponse.class);
+        }
 
-        System.out.println(loginResponse);
-
+        ErrorResponse errorResponse = response.readEntity(ErrorResponse.class);
         target.getResteasyClient().close();
 
-        return  loginResponse;
+        throw new ServerException(errorResponse);
     }
 }
