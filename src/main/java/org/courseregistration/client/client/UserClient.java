@@ -31,7 +31,7 @@ public class UserClient {
 
         String errorResponse = response.readEntity(String.class);
         target.getResteasyClient().close();
-        System.out.println("Error:"+response.getStatus()+errorResponse);
+        logger.error("Error:"+response.getStatus()+errorResponse);
         throw new ServerException(errorResponse);
     }
 }
