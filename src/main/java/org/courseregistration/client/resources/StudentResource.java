@@ -25,7 +25,7 @@ public interface StudentResource {
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/students/{id}")
-	StudentResponse setStudent(Student student);
+	StudentResponse setStudent(Long id);
 
 	// create multiple students
 	@POST
