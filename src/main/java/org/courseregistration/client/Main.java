@@ -1,37 +1,71 @@
 package org.courseregistration.client;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-
 import org.courseregistration.client.auth.TestAuthResource;
-import org.courseregistration.client.client.SectionClient;
-import org.courseregistration.client.client.StudentClient;
+import org.courseregistration.client.client.UserClient;
+import org.courseregistration.client.model.LoginResponse;
+
+import java.util.Scanner;
 
 public class Main {
+    Scanner scanner = new Scanner(System.in);
+    String exitCode = "Quit";
 
-	public static void main(String arg[]) throws UnsupportedEncodingException,
-			NoSuchAlgorithmException {
+    public static void main(String arg[]) {
+        Main main = new Main();
+        main.start();
+        TestAuthResource.test();
+    }
 
-		System.out.println("Client app");
 
-		// StudentClient.getStudent();
-		// CxfTest_Shrutee.getStudent();
+    private void start() {
+        System.out.println("Welcome login to Course Registration");
+        System.out.println("Press 1 - to login");
+        System.out.println("Press 2 - to register");
 
-		// SectionClient.getSection();
+        String userInput = getUserInput();
 
-		// TestAuthResource.getResource();
-		// StudentClient.getAllStudents();
-		//TestAuthResource.getResource();
-		//StudentClient.getAllStudents();
-		//TestAuthResource.getResource();
-		TestAuthResource.test();
-		//StudentClient.getAllStudents();
+        switch (userInput) {
+            case "1":
+                handleLogin();
+                break;
+            case "2":
+                handleRegistration();
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
 
-		// StudentClient.deleteStudent();
+    }
 
-		//StudentClient.setStudent();
-		//SectionClient.getSection();
+    private void handleRegistration() {
 
-		// SectionClient.getAllSections();
-	}
+    }
+
+    private void handleLogin() {
+        System.out.println("Enter Username : ");
+        String username = getUserInput();
+        System.out.println("Enter Password : ");
+        String password = getUserInput();
+
+        LoginResponse loginResponse = UserClient.login(username, password);
+
+        System.out.println("Welcome " + loginResponse.getUsername());
+
+    }
+
+    private String getUserInput() {
+        String input = "INVALID";
+        if ((input = scanner.nextLine()) != null
+                && !exitCode.equalsIgnoreCase(input)) {
+            return input.trim();
+
+        } else {
+
+            System.out.println("Invalid input - Enter again");
+            getUserInput();
+        }
+        return input;
+    }
+
+
 }

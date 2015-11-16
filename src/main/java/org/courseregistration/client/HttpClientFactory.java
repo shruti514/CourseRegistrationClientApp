@@ -13,14 +13,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.protocol.BasicHttpContext;
-import org.courseregistration.client.auth.UserContext;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine;
 
 public class HttpClientFactory {
 
-    public static ResteasyClient getClient(final UserContext userContext) {
+    public static ResteasyWebTarget getWebTarget(final String username, final String password) {
 
         final HttpConfig httpConfig = new HttpConfig.Builder().build();
 
@@ -32,7 +32,7 @@ public class HttpClientFactory {
 
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(new AuthScope(targetHost.getHostName(), targetHost.getPort()),
-                new UsernamePasswordCredentials(userContext.getUsername(), userContext.getPassword()));
+                new UsernamePasswordCredentials(username, password));
 
         final CloseableHttpClient httpClient = HttpClientBuilder.create()
                 .setDefaultCredentialsProvider(credentialsProvider)
@@ -49,7 +49,8 @@ public class HttpClientFactory {
         localContext.setAttribute(HttpClientContext.AUTH_CACHE, authCache);
 
         final ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient);
-        return new ResteasyClientBuilder().httpEngine(engine).build();
+        final ResteasyClient resteasyClient = new ResteasyClientBuilder().httpEngine(engine).build();
+        return resteasyClient.target(httpConfig.getBaseUrl());
     }
 
 

@@ -1,39 +1,17 @@
 package org.courseregistration.client.auth;
 
 
-import org.apache.http.HttpHost;
-import org.apache.http.HttpMessage;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.AuthCache;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.impl.auth.DigestScheme;
-import org.apache.http.impl.client.*;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.protocol.BasicHttpContext;
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.model.Professor;
-import org.courseregistration.client.model.Student;
 import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.StudentResponse;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine;
-import sun.net.www.http.HttpClient;
-import sun.net.www.protocol.http.AuthScheme;
 
-import javax.swing.*;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Link;
 import javax.ws.rs.core.Response;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -81,12 +59,8 @@ public class TestAuthResource {
 
         String username = "userProf1234";
         String password = "pass";
-        Professor professor = new Professor();
 
-        UserContext userContext = UserContext.forUser(username,password,professor);
-
-        ResteasyClient resteasyClient = HttpClientFactory.getClient(userContext);
-        ResteasyWebTarget target = resteasyClient.target("http://localhost:8888/api.courseregistration");
+        ResteasyWebTarget target = HttpClientFactory.getWebTarget(username, password);
 
         StudentResource proxy = target.proxy(StudentResource.class);
 
@@ -94,7 +68,7 @@ public class TestAuthResource {
 
         System.out.println(studentResponse.readEntity(StudentResponse.class));
 
-        resteasyClient.close();
+        target.getResteasyClient().close();
     }
 
 }

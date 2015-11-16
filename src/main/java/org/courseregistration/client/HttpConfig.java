@@ -9,6 +9,7 @@ public class HttpConfig {
     private final int maxDefaultConnectionsPerRoute;
     private final int maxTotalConnections;
     private final String realmName;
+    private final String baseUrl;
 
     private HttpConfig(Builder builder){
         this.host = builder.host;
@@ -17,6 +18,7 @@ public class HttpConfig {
         this.maxDefaultConnectionsPerRoute = builder.maxDefaultConnectionsPerRoute;
         this.maxTotalConnections = builder.maxTotalConnections;
         this.realmName = builder.realmName;
+        this.baseUrl = builder.baseUrl;
     }
 
     public String getHost() {
@@ -43,6 +45,10 @@ public class HttpConfig {
         return realmName;
     }
 
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
     public static class Builder {
         private  String host = "localhost";
         private  int port=8888;
@@ -50,6 +56,7 @@ public class HttpConfig {
         private  int maxDefaultConnectionsPerRoute =100;
         private  int maxTotalConnections=100;
         private  String realmName="Resource Realm via Digest Authentication";
+        private String baseUrl="http://localhost:8888/api.courseregistration";
 
         public Builder setHost(String host) {
             this.host = host;
@@ -78,6 +85,10 @@ public class HttpConfig {
 
         public Builder setRealmName(String realmName) {
             this.realmName = realmName;
+            return  this;
+        }
+        public Builder setBaseUrl(String baseUrl) {
+            this.baseUrl = baseUrl;
             return  this;
         }
 

@@ -52,10 +52,33 @@ public class StudentResponse {
 
     @Override
     public String toString() {
-        return "StudentResponse{" +
-                //"student=" + student.toString() +
-                ", links=" + links.toString() +
-                '}';
+        StringBuilder toReturn = new StringBuilder("StudentResponse{");
+        if(student != null){
+            toReturn.append("student :{");
+            toReturn.append(student.toString());
+            toReturn.append("}");
         }
+        if(content!=null){
+            toReturn.append("content : [");
+            for(StudentResponse response : content){
+                toReturn.append("{");
+                toReturn.append(response.toString());
+                toReturn.append("}");
+            }
+            toReturn.append("]");
+        }
+        if(links!=null){
+            toReturn.append("links : [");
+            for(Link link : links){
+                toReturn.append(link.toString());
+            }
+            toReturn.append("]");
+        }
+        if(page !=null){
+            toReturn.append(page.toString());
+        }
+        toReturn.append("}");
+        return toReturn.toString();
+    }
 }
 

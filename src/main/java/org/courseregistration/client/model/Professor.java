@@ -11,6 +11,7 @@ public class Professor extends User{
 	private String lastName;
 	private String middleName;
 	private String emailId;
+    private String bio;
 	private String phoneNumber;
 	private Date dateOfBirth;
 	private Address address;
@@ -85,7 +86,15 @@ public class Professor extends User{
 		this.address = address;
 	}
 
-	public String toString() {
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String toString() {
 		// TODO Auto-generated method stub
 
 		StringBuilder builder = new StringBuilder();

@@ -38,4 +38,13 @@ public class Page {
 		this.number = number;
 	}
 
+	@Override
+	public String toString() {
+		return "Page{" +
+				"size=" + size +
+				", totalElements=" + totalElements +
+				", totalPages=" + totalPages +
+				", number=" + number +
+				'}';
+	}
 }
