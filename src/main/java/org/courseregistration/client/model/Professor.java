@@ -1,8 +1,11 @@
 package org.courseregistration.client.model;
 
+import org.courseregistration.client.auth.User;
+
 import java.util.Date;
 
-public class Professor extends BaseEntity {
+public class Professor extends User{
+	private Long id;
 	private String firstName;
 	private String username;
 	private String lastName;
@@ -20,6 +23,14 @@ public class Professor extends BaseEntity {
 
 	public Link getLink() {
 		return link;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setLink(Link link) {

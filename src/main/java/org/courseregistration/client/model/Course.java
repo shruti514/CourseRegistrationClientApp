@@ -1,9 +1,9 @@
 package org.courseregistration.client.model;
 
-import java.util.List;
 
-public class Course extends BaseEntity {
+public class Course {
 
+    private Long id;
     private String code;
     private String name;
     private String description;
@@ -20,6 +20,15 @@ public class Course extends BaseEntity {
 
     public void setLink(Link link) {
         this.link = link;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCode() {

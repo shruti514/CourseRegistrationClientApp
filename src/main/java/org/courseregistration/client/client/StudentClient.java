@@ -11,10 +11,10 @@ import javax.ws.rs.core.Response;
 public class StudentClient {
 
 	public static void getStudent() {
-		//ResteasyClient restEasyClient = new ResteasyClientBuilder().build();
+		//ResteasyClient restEasyClient = new ResteasyClientBuilder().getDigestHeader();
 		StudentResource studentResource = ProxyFactory.create(StudentResource.class,
 				"http://localhost:8888/api.courseregistration/");
-		StudentResponse student = studentResource.getStudent(100025);
+		Response student = studentResource.getStudent(100025);
 
 		System.out.println(student.toString());
 	}

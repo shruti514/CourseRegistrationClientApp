@@ -1,105 +1,113 @@
 package org.courseregistration.client.model;
 
-public class Address extends BaseEntity {
+public class Address {
 
+    private Long id;
 
-	private String streetName;
+    private String streetName;
 
-	private Integer aptNo;
+    private Integer aptNo;
 
-	private Integer zipcode;
+    private Integer zipcode;
 
-	private String city;
+    private String city;
 
-	private String state;
+    private String state;
 
+    public Long getId() {
+        return id;
+    }
 
-	public String getStreetName() {
-		return streetName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
-	}
+    public String getStreetName() {
+        return streetName;
+    }
 
-	public Integer getAptNo() {
-		return aptNo;
-	}
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
 
-	public void setAptNo(Integer aptNo) {
-		this.aptNo = aptNo;
-	}
+    public Integer getAptNo() {
+        return aptNo;
+    }
 
-	public Integer getZipcode() {
-		return zipcode;
-	}
+    public void setAptNo(Integer aptNo) {
+        this.aptNo = aptNo;
+    }
 
-	public void setZipcode(Integer zipcode) {
-		this.zipcode = zipcode;
-	}
+    public Integer getZipcode() {
+        return zipcode;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public void setZipcode(Integer zipcode) {
+        this.zipcode = zipcode;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getState() {
-		return state;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setState(String state) {
-		this.state = state;
-	}
+    public String getState() {
+        return state;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (!(o instanceof Address))
-			return false;
+    public void setState(String state) {
+        this.state = state;
+    }
 
-		Address address = (Address) o;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Address))
+            return false;
 
-		if (!getId().equals(address.getId()))
-			return false;
-		if (!streetName.equals(address.streetName))
-			return false;
-		if (aptNo != null ? !aptNo.equals(address.aptNo)
-				: address.aptNo != null)
-			return false;
-		if (!zipcode.equals(address.zipcode))
-			return false;
-		if (!city.equals(address.city))
-			return false;
-		return state.equals(address.state);
+        Address address = (Address) o;
 
-	}
+        if (!getId().equals(address.getId()))
+            return false;
+        if (!streetName.equals(address.streetName))
+            return false;
+        if (aptNo != null ? !aptNo.equals(address.aptNo)
+                : address.aptNo != null)
+            return false;
+        if (!zipcode.equals(address.zipcode))
+            return false;
+        if (!city.equals(address.city))
+            return false;
+        return state.equals(address.state);
 
-	@Override
-	public int hashCode() {
-		int result = getId().hashCode();
-		result = 31 * result + streetName.hashCode();
-		result = 31 * result + (aptNo != null ? aptNo.hashCode() : 0);
-		result = 31 * result + zipcode.hashCode();
-		result = 31 * result + city.hashCode();
-		result = 31 * result + state.hashCode();
-		return result;
-	}
+    }
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + streetName.hashCode();
+        result = 31 * result + (aptNo != null ? aptNo.hashCode() : 0);
+        result = 31 * result + zipcode.hashCode();
+        result = 31 * result + city.hashCode();
+        result = 31 * result + state.hashCode();
+        return result;
+    }
 
-		StringBuilder builder = new StringBuilder();
-		builder.append("\n\t[ Address: " + streetName);
-		builder.append(" #" + aptNo);
-		builder.append(", " + city);
-		builder.append(" " + zipcode);
-		builder.append(", " + state + " ]");
-		return builder.toString();
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
 
-	}
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n\t[ Address: " + streetName);
+        builder.append(" #" + aptNo);
+        builder.append(", " + city);
+        builder.append(" " + zipcode);
+        builder.append(", " + state + " ]");
+        return builder.toString();
+
+    }
 }

@@ -3,7 +3,8 @@ package org.courseregistration.client.model;
 import java.util.Date;
 import java.util.List;
 
-public class Section extends BaseEntity {
+public class Section{
+	private Long id;
 	private Professor professor;
 	private Course course;
 	private String semester;
@@ -23,6 +24,14 @@ public class Section extends BaseEntity {
 
 	public Professor getProfessor() {
 		return professor;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setProfessor(Professor professor) {

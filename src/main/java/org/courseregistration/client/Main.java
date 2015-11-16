@@ -20,6 +20,11 @@ public class Main {
 
 		// TestAuthResource.getResource();
 		// StudentClient.getAllStudents();
+		//TestAuthResource.getResource();
+		//StudentClient.getAllStudents();
+		//TestAuthResource.getResource();
+		TestAuthResource.test();
+		//StudentClient.getAllStudents();
 
 		// StudentClient.deleteStudent();
 

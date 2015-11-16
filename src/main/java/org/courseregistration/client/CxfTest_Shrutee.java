@@ -1,16 +1,16 @@
 package org.courseregistration.client;
 
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.cxf.jaxrs.client.WebClient;
 import org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider;
-import org.courseregistration.client.responses.StudentResponse;
+import org.courseregistration.client.responses.StudentResponse;*/
 
 public class CxfTest_Shrutee {
 
 	public static void getStudent() {
-		List<Object> providers = new ArrayList<>();
+		/*List<Object> providers = new ArrayList<>();
 		providers.add(new JacksonJaxbJsonProvider());
 
 		WebClient client = WebClient.create(
@@ -19,6 +19,6 @@ public class CxfTest_Shrutee {
 				.path("/students/100025");
 
 		StudentResponse studentResponse = client.get(StudentResponse.class);
-		System.out.println("Student Response:" + studentResponse.toString());
+		System.out.println("Student Response:" + studentResponse.toString());*/
 	}
 }
