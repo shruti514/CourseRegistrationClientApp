@@ -1,9 +1,8 @@
 package org.courseregistration.client;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Scanner;
-import java.io.Console;
-import java.util.concurrent.Callable;
 
 import org.courseregistration.client.auth.User;
 import org.courseregistration.client.auth.UserContext;
@@ -95,10 +94,9 @@ public class Main {
 	private void handleLogin() {
 		System.out.println("Enter Username : ");
 		String username = getUserInput();
-	//	System.out.println("Enter Password : ");
-	//	String password = getUserInput();
-
-        String password = getPassword();
+		System.out.println("Enter Password : ");
+		// String password = getUserInput();
+		String password = getPassword();
 
 		try {
 			LoginResponse loginResponse = UserClient.login(username, password);
@@ -429,18 +427,23 @@ public class Main {
 		return input;
 	}
 
-    private String getPassword(){
-        String password="INVALID";
-        Console console = System.console();
-        if (console != null) {
-            char passwordArray[] = console.readPassword("Enter your password : ");
-            return new String(passwordArray).trim();
-        }  else {
+	private String getPassword() {
+		String password = "";
+		Console console = System.console();
+		if (console == null) {
+			System.out.println("Couldn't get Console instance");
+			System.exit(0);
+		}
+		if (console != null) {
+			char passwordArray[] = console.readPassword();
+			if (passwordArray.toString().trim().isEmpty()) {
+				System.out.println("Invalid input - Enter again");
+				getPassword();
+			}
 
-            System.out.println("Invalid input - Enter again");
-            getPassword();
-        }
-        return password;
-    }
+			return new String(passwordArray).trim();
+		}
+		return password;
+	}
 
 }
