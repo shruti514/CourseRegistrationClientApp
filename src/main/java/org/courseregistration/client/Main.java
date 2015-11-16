@@ -7,10 +7,10 @@ import org.courseregistration.client.auth.User;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
-import org.courseregistration.client.client.StudentClient;
 import org.courseregistration.client.client.UserClient;
 import org.courseregistration.client.model.LoginResponse;
 import org.courseregistration.client.responses.SectionResponse;
+import org.courseregistration.client.responses.StudentResponse;
 
 public class Main {
 	Scanner scanner = new Scanner(System.in);
@@ -29,9 +29,10 @@ public class Main {
 		System.out.println("3. List of courses");
 		System.out.println("4. List of professors");
 		System.out.println("5. List of students");
-		System.out.println("6. Search for a course");
-		System.out.println("7. Search for a professor");
-		System.out.println("8. Search for a student");
+		System.out.println("6. Add new course");
+		System.out.println("7. Search for a course");
+		System.out.println("8. Search for a professor");
+		System.out.println("9. Search for a student");
 		System.out.println("Quit. Exit from the system");
 
 		String userInput = getUserInput();
@@ -53,12 +54,15 @@ public class Main {
 			showListOfStudents();
 			break;
 		case "6":
-			searchForACourse();
+			addNewCourse();
 			break;
 		case "7":
 			searchForACourse();
 			break;
 		case "8":
+			searchForACourse();
+			break;
+		case "9":
 			searchForACourse();
 			break;
 		case "quit":
@@ -84,7 +88,7 @@ public class Main {
 
 			System.out.println("Welcome " + userContext.getUsername());
 			if (userContext.isStudent()) {
-				showStudentMenu();
+				showAllStudentsMenu();
 			} else {
 				showProfessorMenu();
 			}
@@ -113,9 +117,17 @@ public class Main {
 			System.out.println();
 			System.out.println("Invalid input");
 			System.out.println();
-			start();
 		}
 
+		start();
+	}
+
+	private void handleProfessorRegistration() {
+		// TODO Post Method call for Professor registration
+	}
+
+	private void handleStudentRegistration() {
+		// TODO Post Method call for Student registration
 	}
 
 	private void showListOfCourses() {
@@ -157,6 +169,11 @@ public class Main {
 			System.out.println();
 			start();
 		}
+	}
+
+	private void addNewCourse() {
+		// TODO Auto-generated method stub
+		// Post method call for Section
 	}
 
 	private void searchForACourse() {
@@ -239,18 +256,76 @@ public class Main {
 
 	private void showListOfStudents() {
 		// TODO Auto-generated method stub
-		StudentClient.getAllStudents();
+
+		try {
+			StudentResponse studentResponse = null;
+			// studentResponse = StudentClient.getAllStudents();
+			List<StudentResponse> contents = studentResponse.getContent();
+			for (StudentResponse content : contents) {
+				System.out
+						.println("__________________________________________");
+				System.out.println(content.toString());
+			}
+
+			showAllStudentsMenu();
+		} catch (Exception e) {
+			System.out.println("Sorry! Could not find students.");
+			System.out.println();
+			start();
+		}
+	}
+
+	private void showAllStudentsMenu() {
+		System.out.println();
+		System.out.println("1. See profile");
+		System.out.println("2. Update profile");
+		System.out.println("3. Delete profile");
+		System.out.println("4. List of all sections");
+
+		String input = getUserInput();
+		switch (input) {
+		case "1":
+			searchForAStudent(); // Select a student by ID
+			break;
+		case "2":
+
+			if (userContext == null) {
+				System.out
+						.println("Please Login as a Student. Follow the Login Menu");
+				handleLogin();
+			}
+			// updateAProfile(userContext.getLoggedUser()) ;//TODO Student can
+			// update his profile
+			break;
+		case "3":
+
+			if (userContext == null) {
+				System.out
+						.println("Please Login as a Student. Follow the Login Menu");
+				handleLogin();
+			}
+			// deleteAProfile(userContext.getLoggedUser()) ;//TODO Student can
+			// delete his profile
+			break;
+		case "4":
+			if (userContext != null) {
+				userContext.getLoggedInUser();
+				// Make it as student and list all sections
+			}
+			break;
+		default:
+			System.out.println();
+			System.out.println("Invalid input");
+			System.out.println();
+			start();
+		}
+	}
+
+	private void searchForAStudent() {
+		// TODO Auto-generated method stub
 	}
 
 	private void showListOfProfessors() {
-		// TODO
-	}
-
-	private void handleProfessorRegistration() {
-		// TODO
-	}
-
-	private void handleStudentRegistration() {
 		// TODO
 	}
 
@@ -260,14 +335,49 @@ public class Main {
 		System.out.println("2. Update profile");
 		System.out.println("3. Delete profile");
 		System.out.println("4. List of all sections");
+
+		String input = getUserInput();
+		switch (input) {
+		case "1":
+			searchForAProfessor(); // Select a student by ID
+			break;
+		case "2":
+
+			if (userContext == null) {
+				System.out
+						.println("Please Login as a Professor. Follow the Login Menu");
+				handleLogin();
+			}
+			// updateAProfile(userContext.getLoggedUser()) ;//TODO Professor can
+			// update his profile
+			break;
+		case "3":
+
+			if (userContext == null) {
+				System.out
+						.println("Please Login as a Professor. Follow the Login Menu");
+				handleLogin();
+			}
+			// deleteAProfile(userContext.getLoggedUser()) ;//TODO Professor can
+			// delete his profile
+			break;
+		case "4":
+			if (userContext != null) {
+				userContext.getLoggedInUser();
+				// Make it as Professor and list all sections
+			}
+			break;
+		default:
+			System.out.println();
+			System.out.println("Invalid input");
+			System.out.println();
+			start();
+		}
 	}
 
-	private void showStudentMenu() {
-		System.out.println();
-		System.out.println("1. See profile");
-		System.out.println("2. Update profile");
-		System.out.println("3. Delete profile");
-		System.out.println("4. List of all sections");
+	private void searchForAProfessor() {
+		// TODO Auto-generated method stub
+
 	}
 
 	private String getUserInput() {
