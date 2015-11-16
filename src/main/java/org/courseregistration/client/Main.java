@@ -69,6 +69,7 @@ public class Main {
 			break;
 		default:
 			System.out.println("Invalid input");
+			start();
 		}
 
 	}
@@ -128,6 +129,7 @@ public class Main {
 
 	private void handleStudentRegistration() {
 		// TODO Post Method call for Student registration
+
 	}
 
 	private void showListOfCourses() {
@@ -174,6 +176,7 @@ public class Main {
 	private void addNewCourse() {
 		// TODO Auto-generated method stub
 		// Post method call for Section
+		start();
 	}
 
 	private void searchForACourse() {
@@ -323,10 +326,12 @@ public class Main {
 
 	private void searchForAStudent() {
 		// TODO Auto-generated method stub
+		start();
 	}
 
 	private void showListOfProfessors() {
 		// TODO
+		start();
 	}
 
 	private void showProfessorMenu() {
@@ -377,7 +382,7 @@ public class Main {
 
 	private void searchForAProfessor() {
 		// TODO Auto-generated method stub
-
+		start();
 	}
 
 	private String getUserInput() {
