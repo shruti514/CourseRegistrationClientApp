@@ -9,6 +9,7 @@ import org.courseregistration.client.auth.User;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
+import org.courseregistration.client.client.StudentClient;
 import org.courseregistration.client.client.UserClient;
 import org.courseregistration.client.model.LoginResponse;
 import org.courseregistration.client.responses.SectionResponse;
@@ -19,61 +20,74 @@ public class Main {
 	String exitCode = "Quit";
 	UserContext userContext = null;
 
+	SectionClient sectionClient;
+	StudentClient studentClient;
+	// CourseClient courseClient;
+	ProfessorClient professorClient;
+
 	public static void main(String arg[]) {
 		Main main = new Main();
+
+		main.sectionClient = new SectionClient();
+		main.studentClient = new StudentClient();
+		// main.courseClient = new CourseClient();
+		main.professorClient = new ProfessorClient();
+
 		main.start();
 	}
 
 	private void start() {
-		System.out.println("Welcome login to Course Registration");
+		System.out.println("\n\nWelcome login to Course Registration");
 		System.out.println("1. Login");
 		System.out.println("2. Register");
+
 		System.out.println("3. List of courses");
 		System.out.println("4. List of professors");
 		System.out.println("5. List of students");
+
 		System.out.println("6. Add new course");
 		System.out.println("7. Search for a course");
+
 		System.out.println("8. Search for a professor");
+
 		System.out.println("9. Search for a student");
 		System.out.println("Quit. Exit from the system");
 
 		String userInput = getUserInput();
-
-		switch (userInput) {
-		case "1":
-			handleLogin();
-			break;
-		case "2":
-			handleRegistration();
-			break;
-		case "3":
-			showListOfCourses();
-			break;
-		case "4":
-			showListOfProfessors();
-			break;
-		case "5":
-			showListOfStudents();
-			break;
-		case "6":
-			addNewCourse();
-			break;
-		case "7":
-			searchForACourse();
-			break;
-		case "8":
-			searchForACourse();
-			break;
-		case "9":
-			searchForACourse();
-			break;
-		case "quit":
-			break;
-		default:
-			System.out.println("Invalid input");
+		if (!userInput.equalsIgnoreCase("quit")) {
+			switch (userInput) {
+			case "1":
+				handleLogin();
+				break;
+			case "2":
+				handleRegistration();
+				break;
+			case "3":
+				showListOfCourses();
+				break;
+			case "4":
+				showListOfProfessors();
+				break;
+			case "5":
+				showListOfStudents();
+				break;
+			case "6":
+				addNewCourse();
+				break;
+			case "7":
+				searchForACourse();
+				break;
+			case "8":
+				searchForACourse();
+				break;
+			case "9":
+				searchForACourse();
+				break;
+			default:
+				System.out.println("Invalid input");
+			}
 			start();
 		}
-
 	}
 
 	private void handleLogin() {
@@ -92,11 +106,11 @@ public class Main {
 			userContext = UserContext.forUser(username, password, user);
 
 			System.out.println("Welcome " + userContext.getUsername());
-			if (userContext.isStudent()) {
-				showAllStudentsMenu();
-			} else {
-				showProfessorMenu();
-			}
+			// if (userContext.isStudent()) {
+			// showAllStudentsMenu();
+			// } else {
+			// showProfessorMenu();
+			// }
 		} catch (ServerException error) {
 			System.out
 					.println("Sorry! Could not find user with given user name. Try again.");
@@ -137,11 +151,9 @@ public class Main {
 	}
 
 	private void showListOfCourses() {
-		// show all section
-		SectionClient client = new SectionClient();
-		client.getConnection(null);
 		try {
-			SectionResponse sectionResponse = client.getAllSections();
+			sectionClient.getConnection(userContext);
+			SectionResponse sectionResponse = sectionClient.getAllSections();
 			List<SectionResponse> contents = sectionResponse.getContent();
 			for (SectionResponse content : contents) {
 				System.out
@@ -157,6 +169,8 @@ public class Main {
 	}
 
 	private void showAllCoursesMenu() {
+		System.out.println();
+		System.out.println();
 		System.out.println("select - Select a course by Id ");
 		System.out.println("return - Return to main Menu ");
 
@@ -164,7 +178,6 @@ public class Main {
 		switch (input) {
 		case "select":
 			searchForACourse();
-			// handleStudentRegistration();
 			break;
 		case "return":
 			start();
@@ -184,15 +197,13 @@ public class Main {
 	}
 
 	private void searchForACourse() {
-		// show selected section
-		SectionClient client = new SectionClient();
-		client.getConnection(null);
 		System.out.println("Enter the ID of Section to select: ");
 		String input = getUserInput();
 
 		try {
+			sectionClient.getConnection(userContext);
 			int id = Integer.parseInt(input);
-			SectionResponse sectionResponse = client.getSection(id);
+			SectionResponse sectionResponse = sectionClient.getSection(id);
 			System.out.println("__________________________________________");
 			System.out.println(sectionResponse.toString());
 			showACourseMenu();
@@ -205,8 +216,11 @@ public class Main {
 	}
 
 	private void showACourseMenu() {
+		System.out.println();
+		System.out.println();
 		System.out.println("register - Register for the Course ");
 		System.out.println("unregister -  Unregister for the Course ");
+		System.out.println("show course -  Show Course details");
 		System.out.println("edit - Edit the Course ");
 		System.out.println("delete -  Delete the Course ");
 		System.out.println("return - Return to main menu");
@@ -231,6 +245,9 @@ public class Main {
 			// unRegisterToACourse(); //TODO Student can unregister to the
 			// course in
 			// this method
+			break;
+		case "show course":
+			// showCourseDetails(); //TODO Show course details
 			break;
 		case "edit":
 			if (userContext == null) {
@@ -283,6 +300,7 @@ public class Main {
 	}
 
 	private void showAllStudentsMenu() {
+		System.out.println();
 		System.out.println();
 		System.out.println("1. See profile");
 		System.out.println("2. Update profile");
@@ -339,6 +357,7 @@ public class Main {
 	}
 
 	private void showProfessorMenu() {
+		System.out.println();
 		System.out.println();
 		System.out.println("1. See profile");
 		System.out.println("2. Update profile");
