@@ -208,6 +208,7 @@ public class Main {
 	private void showACourseMenu() {
 		System.out.println("register - Register for the Course ");
 		System.out.println("unregister -  Unregister for the Course ");
+		System.out.println("show course -  Show Course details");
 		System.out.println("edit - Edit the Course ");
 		System.out.println("delete -  Delete the Course ");
 		System.out.println("return - Return to main menu");
@@ -232,6 +233,9 @@ public class Main {
 			// unRegisterToACourse(); //TODO Student can unregister to the
 			// course in
 			// this method
+			break;
+		case "show course":
+			// showCourseDetails(); //TODO Show course details
 			break;
 		case "edit":
 			if (userContext == null) {
