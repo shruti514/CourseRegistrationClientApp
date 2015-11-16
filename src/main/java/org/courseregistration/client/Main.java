@@ -3,6 +3,7 @@ package org.courseregistration.client;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
+import org.courseregistration.client.auth.TestAuthResource;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.StudentClient;
 
@@ -28,8 +29,8 @@ public class Main {
 
 		// StudentClient.deleteStudent();
 
-		StudentClient.setStudent();
-		SectionClient.getSection();
+		//StudentClient.setStudent();
+		//SectionClient.getSection();
 
 		// SectionClient.getAllSections();
 	}
