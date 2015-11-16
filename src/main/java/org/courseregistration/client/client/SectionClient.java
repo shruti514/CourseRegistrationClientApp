@@ -3,6 +3,7 @@ package org.courseregistration.client.client;
 import javax.ws.rs.core.Response;
 
 import org.courseregistration.client.HttpClientFactory;
+import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.resources.SectionResource;
 import org.courseregistration.client.responses.SectionResponse;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -12,8 +13,12 @@ public class SectionClient {
 	private SectionResource proxy;
 	private ResteasyWebTarget target;
 
-	public void getConnection(UserClient userClient) {
-		target = HttpClientFactory.getWebTargetForAnonymousUser();
+	public void getConnection(UserContext userContext) throws ServerException {
+		if (userContext != null)
+			target = HttpClientFactory.getWebTarget(userContext.getUsername(),
+					userContext.getPassword());
+		else
+			target = HttpClientFactory.getWebTargetForAnonymousUser();
 		proxy = target.proxy(SectionResource.class);
 	}
 
