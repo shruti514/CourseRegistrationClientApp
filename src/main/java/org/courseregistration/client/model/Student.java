@@ -1,12 +1,14 @@
 package org.courseregistration.client.model;
 
 
+import org.courseregistration.client.auth.User;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Student  extends BaseEntity{
-
+public class Student extends User {
+    private Long id;
     private String firstName;
     private String username;
 
@@ -21,6 +23,14 @@ public class Student  extends BaseEntity{
     private String previousDegree;
 
     private List<Section> sections = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

@@ -3,7 +3,8 @@ package org.courseregistration.client.model;
 import java.util.Date;
 import java.util.List;
 
-public class Section extends BaseEntity {
+public class Section{
+	private Long id;
 	private Professor professor;
 	private Course course;
 	private String semester;
@@ -14,14 +15,23 @@ public class Section extends BaseEntity {
 	private Date endDate;
 	private String roomNumber;
 	private Integer totalCapacity;
+	private Integer numberOfEnrolledStudents;
 	private Integer waitListCapacity;
 	private String modeOfInstruction;
 	private Integer price;
-	private List<Student> students;
+	private List<Student> student;
 	private List<Link> links;
 
 	public Professor getProfessor() {
 		return professor;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setProfessor(Professor professor) {
@@ -117,7 +127,7 @@ public class Section extends BaseEntity {
 	}
 
 	public List<Student> getStudents() {
-		return students;
+		return student;
 	}
 
 	public Integer getPrice() {
@@ -125,7 +135,7 @@ public class Section extends BaseEntity {
 	}
 
 	public void setStudents(List<Student> students) {
-		this.students = students;
+		this.student = students;
 	}
 
 	public void setPrice(Integer price) {
@@ -220,5 +230,13 @@ public class Section extends BaseEntity {
 
 	public void setLinks(List<Link> links) {
 		this.links = links;
+	}
+
+	public Integer getNumberOfEnrolledStudents() {
+		return numberOfEnrolledStudents;
+	}
+
+	public void setNumberOfEnrolledStudents(Integer numberOfEnrolledStudents) {
+		this.numberOfEnrolledStudents = numberOfEnrolledStudents;
 	}
 }
