@@ -2,9 +2,13 @@ package org.courseregistration.client.resources;
 
 /** Created by SHITAL on 11/13/2015.**/
 
+import org.courseregistration.client.model.Course;
+import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.responses.ProfessorResponse;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public interface ProfessorResource {
@@ -16,69 +20,70 @@ public interface ProfessorResource {
 
     //  2. Update logged in professor details
     @PUT
-    @Produces("text/plain")
-    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("professor/{id}")
-    ProfessorResponse updateProfessor(@PathParam("id") int id);
+    @RolesAllowed({"PROFESSOR","ADMIN"})
+    public Response updateProfessor(@PathParam("id") long id, Professor current);
 
     //  3. Delete logged in professor profile
     @DELETE
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("professor/{id}")
-    ProfessorResponse deleteProfessor(@PathParam("id") int id);
+    @RolesAllowed({"PROFESSOR","ADMIN"})
+    public Response deleteProfessor(@PathParam("id") Long professor_id);
 
     //   4. Add new course
     @POST
-    @Produces("application/json")
-    @Consumes("application/json")
-    @Path("{id}/courses/{course_id}")
-    ProfessorResponse addNewCourse(@PathParam("id") int id, @PathParam("course_id") int course_id);
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/courses/")
+    @RolesAllowed({"PROFESSOR","ADMIN"})
+    public Response addCourse(Course course);
 
     //  5. List of all sections
     @GET
     @Produces("application/json")
-    @Consumes("application/json")
     @Path("/sections")
-    ProfessorResponse getAllSections();
+    Response getAllSections();
 
     //  6. Search for a student
     @GET
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/students/{id}")
-    ProfessorResponse getStudentDetails(@PathParam("id") int id);
+    public Response getStudentDetails(@PathParam("id") int id);
 
     //  7. Search for a Course
     @GET
     @Produces("application/json")
     @Path("/courses/{id}")
-    ProfessorResponse getCourseDetails();
+    public Response getCourseDetails();
 
     //  create single professor
     @POST
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/professors/{id}")
-    ProfessorResponse setProfessor(@PathParam("id") int id);
+    public Response setProfessor(@PathParam("id") int id);
 
     //  create multiple professors
     @POST
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/professors")
-    ProfessorResponse setMultipleProfessors();
+    public Response setMultipleProfessors();
 
     //  delete multiple professors
     @DELETE
     @Produces("application/json")
     @Path("professor/{ids}")
-    ProfessorResponse deleteMultipleProfessors();
+    public Response deleteMultipleProfessors();
 
     // Display all professors list
     @GET
     @Produces("application/json")
     @Path("/professors")
-    ProfessorResponse getAllProfessors();
+    public Response getAllProfessors();
 
 
 }
