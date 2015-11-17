@@ -15,6 +15,7 @@ import org.courseregistration.client.model.LoginResponse;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
 import org.courseregistration.client.responses.StudentResponse;
+import org.courseregistration.client.client.CourseClient;
 
 public class Main {
 	Scanner scanner = new Scanner(System.in);
@@ -224,7 +225,7 @@ public class Main {
 			if (userContext != null)
 				showACourseMenu();
 		} catch (ServerException e) {
-			System.out.printf("\nSorry! Could not find course of Id: %s\n",
+            System.out.printf("\nSorry! Could not find course of Id: %s\n",
 					input);
 			System.out.println();
 		}
@@ -425,8 +426,30 @@ public class Main {
 
 	private void searchForAStudent() {
 		// TODO Auto-generated method stub
-		studentClient.getStudent();
+		//studentClient.getStudent();
 	}
+
+   /* //search for course
+    private void viewCourse() {
+
+        System.out.println("1 - Search for a course by Id?: ");
+        System.out.println("2 - search for courses by pages?: ");
+
+        String input = getUserInput();
+        switch (input) {
+            case "1":
+                CourseClient.getCourseById();
+                break;
+            case "2":
+                CourseClient.getCoursesPaged();
+                break;
+            default:
+                System.out.println();
+                System.out.println("Invalid input");
+                System.out.println();
+                start();
+        }
+    }*/
 
 	private void showListOfProfessors() {
 		// TODO Auto-generated method stub
