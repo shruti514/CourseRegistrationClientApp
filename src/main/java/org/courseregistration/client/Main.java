@@ -6,11 +6,9 @@ import java.util.Scanner;
 
 import org.courseregistration.client.auth.User;
 import org.courseregistration.client.auth.UserContext;
-import org.courseregistration.client.client.SectionClient;
-import org.courseregistration.client.client.ServerException;
-import org.courseregistration.client.client.StudentClient;
-import org.courseregistration.client.client.UserClient;
+import org.courseregistration.client.client.*;
 import org.courseregistration.client.model.LoginResponse;
+import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
 import org.courseregistration.client.responses.StudentResponse;
 
@@ -89,8 +87,8 @@ public class Main {
 		System.out.println("Enter Username : ");
 		String username = getUserInput();
 		System.out.println("Enter Password : ");
-		String password = getUserInput();
-		// String password = getPassword();
+	//	String password = getUserInput();
+		String password = getPassword();
 
 		try {
 			LoginResponse loginResponse = UserClient.login(username, password);
@@ -342,8 +340,7 @@ public class Main {
 						.println("Please Login as a Student. Follow the Login Menu");
 				handleLogin();
 			}
-			// deleteAProfile(userContext.getLoggedUser()) ;//TODO Student can
-			// delete his profile
+			// deleteAProfile(userContext.getLoggedUser()) ;//TODO Student can delete his profile
 			break;
 		case "4":
 			searchForACourse();
@@ -375,8 +372,19 @@ public class Main {
 	}
 
 	private void showListOfProfessors() {
-		// TODO
-		start();
+		// TODO Auto-generated method stub
+        try{
+            ProfessorResponse professorResponse = null;
+            List<ProfessorResponse> contents = professorResponse.getContent();
+            for (ProfessorResponse content : contents){
+                System.out.println("__________________________________________");
+                System.out.println(content.toString());
+            }
+        }catch(Exception e) {
+            System.out.println("Sorry! Could not find Professors.");
+            System.out.println();
+            start();
+        }
 	}
 
 	private void showProfessorMenu() {
@@ -402,8 +410,7 @@ public class Main {
 						.println("Please Login as a Professor. Follow the Login Menu");
 				handleLogin();
 			}
-			// updateAProfile(userContext.getLoggedUser()) ;//TODO Professor can
-			// update his profile
+			// updateAProfile(userContext.getLoggedUser()) ;//TODO Professor can update his profile
 			break;
 		case "3":
 

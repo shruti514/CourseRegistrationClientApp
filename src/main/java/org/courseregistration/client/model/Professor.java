@@ -1,6 +1,8 @@
 package org.courseregistration.client.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.courseregistration.client.auth.User;
 
@@ -10,6 +12,7 @@ public class Professor extends User {
 	private String username;
 	private String lastName;
 	private String middleName;
+
 	private String emailId;
 	private String bio;
 	private String phoneNumber;
@@ -19,8 +22,7 @@ public class Professor extends User {
 	private Integer yearsOfExperience;
 	private String officeHoursFromTime;
 	private String officeHoursToTime;
-
-	private Link link;
+    private Link link;
 
 	public Link getLink() {
 		return link;
@@ -85,8 +87,55 @@ public class Professor extends User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getBio() {
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getOfficeHoursFromTime() {
+        return officeHoursFromTime;
+    }
+
+    public void setOfficeHoursFromTime(String officeHoursFromTime) {
+        this.officeHoursFromTime = officeHoursFromTime;
+    }
+
+    public String getOfficeHoursToTime() {
+        return officeHoursToTime;
+    }
+
+    public void setOfficeHoursToTime(String officeHoursToTime) {
+        this.officeHoursToTime = officeHoursToTime;
+    }
+
+    public String getBio() {
 		return bio;
 	}
 
@@ -111,54 +160,6 @@ public class Professor extends User {
 				+ " to " + getOfficeHoursToTime() + "] ");
 
 		return builder.toString();
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
-	public String getOfficeHoursFromTime() {
-		return officeHoursFromTime;
-	}
-
-	public void setOfficeHoursFromTime(String officeHoursFromTime) {
-		this.officeHoursFromTime = officeHoursFromTime;
-	}
-
-	public String getOfficeHoursToTime() {
-		return officeHoursToTime;
-	}
-
-	public void setOfficeHoursToTime(String officeHoursToTime) {
-		this.officeHoursToTime = officeHoursToTime;
 	}
 
 }
