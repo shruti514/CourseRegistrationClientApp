@@ -7,53 +7,47 @@ import javax.ws.rs.core.Response;
 
 public interface StudentResource {
 
-    // get single student
+    // 1. See logged in student profile
     @GET
     @Produces("application/json")
     @Path("/students/{id}")
     Response getStudent(@PathParam("id") int id);
 
-    // get all students
-    @GET
-    @Produces("application/json")
-    @Path("/students")
-    StudentResponse getAllStudents();
-
-    // create single student
-    @POST
-    @Produces("application/json")
-    @Consumes("application/json")
-    @Path("/students/{id}")
-    StudentResponse setStudent(@PathParam("id") int id);
-
-    // create multiple students
-    @POST
-    @Produces("application/json")
-    @Consumes("application/json")
-    @Path("/students")
-    StudentResponse setMultipleStudents();
-
-    // delete student
-    @DELETE
-    @Produces("application/json")
-    @Path("/students/{id}")
-    StudentResponse deleteStudent(@PathParam("id") int id);
-
-    // delete student
-    @DELETE
-    @Produces("application/json")
-    @Path("/students/{id}")
-    StudentResponse deleteMultipleStudents();
-
-    // update student details
+    // 2. Update logged in student details
     @PUT
     @Produces("text/plain")
     @Consumes("application/json")
     @Path("/students/{id}")
     StudentResponse updateStudent(@PathParam("id") int id);
 
+    // 3. Delete logged in student profile
+    @DELETE
+    @Produces("application/json")
+    @Path("/students/{id}")
+    StudentResponse deleteStudent(@PathParam("id") int id);
 
-    // enroll to a section
+    // 4. Search for a course
+    @GET
+    @Produces("application/json")
+    @Path("/courses/{id}")
+    StudentResponse getCourseDetails();
+
+    // 5. Search for a Professor
+    @GET
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("/professors/{id}")
+    StudentResponse getProfessorDetails(@PathParam("id") int id);
+
+    // 6. List all sections
+    @GET
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("/sections")
+    StudentResponse getAllSections();
+
+
+    // 7. Enroll for a section
     @POST
     @Produces("application/json")
     @Consumes("application/json")
@@ -61,8 +55,8 @@ public interface StudentResource {
     StudentResponse enrollSection(@PathParam("id") int id, @PathParam("section_id") int section_id);
 
 
-    // delete a section
-    @POST
+    // 8. Drop a section
+    @DELETE
     @Produces("application/json")
     @Path("{id}/sections/{section_id}")
     StudentResponse deleteSection(@PathParam("id") int id, @PathParam("section_id") int section_id);

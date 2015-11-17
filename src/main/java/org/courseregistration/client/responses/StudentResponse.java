@@ -12,6 +12,7 @@ public class StudentResponse {
 	private List<Link> links;
 	private Page page;
 
+	// See logged in student Profile
 	public Student getStudent() {
 		return student;
 	}
@@ -20,6 +21,7 @@ public class StudentResponse {
 		this.student = student;
 	}
 
+	// returns list of students
 	public List<StudentResponse> getContent() {
 		return content;
 	}
@@ -44,9 +46,43 @@ public class StudentResponse {
 		this.page = page;
 	}
 
-	public void deleteStudent(Student student) {
+
+	// deletes the current logged in student
+	public void deleteStudent() {
 
 	}
+
+
+	// update the current logged in student profile
+	public void updateStudent() {
+
+	}
+
+	//get course details
+	public void getCourseDetails() {
+
+	}
+
+	// get professor details
+	public void getProfessorDetails() {
+
+	}
+
+	//get all sections
+	public void getAllSections() {
+
+	}
+
+	//logged in student enrolls for a section
+	public void enrollSection() {
+
+	}
+
+	//logged in student drops a section
+	public void deleteSection(){
+
+	}
+
 
 	@Override
 	public String toString() {

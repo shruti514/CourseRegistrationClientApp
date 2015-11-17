@@ -350,13 +350,15 @@ public class Main {
 			System.out.println("1. See profile");
 			System.out.println("2. Update profile");
 			System.out.println("3. Delete profile");
-			System.out.println("4. Search for course");
-			System.out.println("5. List of all sections");
-			System.out.println("6. Search for a professor");
-			System.out.println("7. Logout");
+			System.out.println("4. Search for a course");
+			System.out.println("5. Search for a professor");
+			System.out.println("6. List all sections");
+			System.out.println("7. Enroll for a section");
+			System.out.println("8. Drop a section");
+			System.out.println("9. Logout");
 
 			String input = getUserInput();
-			if (input.equalsIgnoreCase("7")) {
+			if (input.equalsIgnoreCase("9")) {
 				userContext = null;
 				return;
 			} else {
@@ -392,23 +394,38 @@ public class Main {
 					searchForACourse();
 					break;
 				case "5":
-					showListOfCourses();
+					showListOfProfessors();
 					break;
 				case "6":
-					showListOfProfessors();
+					if (userContext != null) {
+						userContext.getLoggedInUser();
+						// Make it as student and list all sections
+					}
+					break;
+				case "7":
+					if (userContext != null) {
+						userContext.getLoggedInUser();
+						// Make it as student and enroll for a section.
+					}
+					break;
+				case "8":
+					if (userContext != null) {
+						userContext.getLoggedInUser();
+						// Make it as student and drop the section.
+					}
 					break;
 				default:
 					System.out.println();
 					System.out.println("Invalid input");
 					System.out.println();
 				}
-				// showAllStudentsMenu();
 			}
 		}
 	}
 
 	private void searchForAStudent() {
 		// TODO Auto-generated method stub
+		studentClient.getStudent();
 	}
 
 	private void showListOfProfessors() {
