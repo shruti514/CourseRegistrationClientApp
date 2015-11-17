@@ -87,8 +87,8 @@ public class Main {
 		System.out.println("Enter Username : ");
 		String username = getUserInput();
 		System.out.println("Enter Password : ");
-	    //String password = getUserInput();
-		String password = getPassword();
+		String password = getUserInput();
+	//	String password = getPassword();
 
 		try {
 			LoginResponse loginResponse = UserClient.login(username, password);
@@ -313,10 +313,12 @@ public class Main {
 		System.out.println("1. See profile");
 		System.out.println("2. Update profile");
 		System.out.println("3. Delete profile");
-		System.out.println("4. Search for course");
-		System.out.println("5. List of all sections");
-		System.out.println("6. Search for a professor");
-		System.out.println("7. Logout");
+		System.out.println("4. Search for a course");
+		System.out.println("5. Search for a professor");
+		System.out.println("6. List all sections");
+		System.out.println("7. Enroll for a section");
+		System.out.println("8. Drop a section");
+		System.out.println("9. Logout");
 
 		String input = getUserInput();
 		switch (input) {
@@ -324,17 +326,14 @@ public class Main {
 			searchForAStudent(); // Select a student by ID
 			break;
 		case "2":
-
 			if (userContext == null) {
 				System.out
 						.println("Please Login as a Student. Follow the Login Menu");
 				handleLogin();
 			}
-			// updateAProfile(userContext.getLoggedUser()) ;//TODO Student can
-			// update his profile
+			//updateAProfile(userContext.getLoggedUser()) ;//TODO Student can update his profile
 			break;
 		case "3":
-
 			if (userContext == null) {
 				System.out
 						.println("Please Login as a Student. Follow the Login Menu");
@@ -346,15 +345,27 @@ public class Main {
 			searchForACourse();
 			break;
 		case "5":
+			showListOfProfessors();
+			break;
+		case "6":
 			if (userContext != null) {
 				userContext.getLoggedInUser();
 				// Make it as student and list all sections
 			}
 			break;
-		case "6":
-			showListOfProfessors();
-			break;
 		case "7":
+			if (userContext != null) {
+				userContext.getLoggedInUser();
+				// Make it as student and enroll for a section.
+			}
+			break;
+		case "8":
+			if (userContext != null) {
+				userContext.getLoggedInUser();
+				// Make it as student and drop the section.
+			}
+			break;
+		case "9":
 			userContext = null; // TODO Logout
 			start();
 			break;
@@ -369,6 +380,7 @@ public class Main {
 	private void searchForAStudent() {
 		// TODO Auto-generated method stub
 		start();
+		studentClient.getStudent();
 	}
 
 	private void showListOfProfessors() {
