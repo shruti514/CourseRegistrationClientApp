@@ -1,87 +1,147 @@
 package org.courseregistration.client.client;
 
+import java.util.Scanner;
+
+import javax.ws.rs.core.Response;
+
+import javax.ws.rs.PathParam;
+import org.courseregistration.client.HttpClientFactory;
+import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.resources.ProfessorResource;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.jboss.resteasy.client.ProxyFactory;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
-import javax.ws.rs.core.Response;
 
 /**Created by SHITAL on 11/13/2015.*/
 
 public class ProfessorClient {
 
+    private ProfessorResource proxy = null;
+    private ResteasyWebTarget target = null;
+
+    Scanner reader = new Scanner(System.in);
+
+    public void getConnection(UserContext userContext) throws ServerException {
+        if (userContext != null) {
+            target = HttpClientFactory.getWebTarget(userContext.getUsername(),
+                    userContext.getPassword());
+        } else {
+            target = HttpClientFactory.getWebTargetForAnonymousUser();
+        }
+        proxy = target.proxy(ProfessorResource.class);
+    }
+
+    public void closeConection() {
+        try {
+            if (!target.getResteasyClient().isClosed())
+                target.getResteasyClient().close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     // 1.See professor profile
-    public static  void getProfessor(){
-       //  ResteasyClient resteasyClient = new ResteasyClientBuilder().build();
-        ProfessorResource professorResource = ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration/");
-        Response professor  = professorResource.getProfessor(100016);
-        System.out.println(professor.toString());
+    public ProfessorResponse getProfessor(int id) throws ServerException{
+        Response response = proxy.getProfessor(id);
+        if (response.getStatus() == 200){
+            return response.readEntity(ProfessorResponse.class);
+        }
+
+        throwNewException(response);
+        return null;
+    }
+
+    public ProfessorResponse getAllProfessors() throws ServerException{
+        Response response = proxy.getAllProfessors();
+
+        if(response.getStatus() == 200){
+            return response.readEntity(ProfessorResponse.class);
+        }
+
+        throwNewException(response);
+        return null;
+    }
+
+    public ProfessorResponse deleteProfessor(Long id) throws ServerException{
+        Response response = proxy.deleteProfessor(id);
+        if(response.getStatus() == 200){
+            return response.readEntity(ProfessorResponse.class);
+        }
+        throwNewException(response);
+        return null;
     }
 
     //2. update professor profile
-    public  static void updateProfessor(){
-        ProfessorResource professorResource = ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.updateProfessor(100016);
-        System.out.println(professor.toString());
+    public  Response updateProfessor(@PathParam("professorId") long id, Professor current) throws ServerException{
+        Professor professor = updateForProfessor(current);
+        if(professor != null){
+            Response response = proxy.updateProfessor(id,professor);
+           if(response.getStatus() == 200){
+               System.out.println(response.toString());
+               return response;
+           }
+            throwNewException(response);
+        }
+        return null;
     }
 
-    // 3. Delete professor.
-    public static void deleteProfessor(){
-        ProfessorResource professorResource = ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.deleteProfessor(100026);
-        System.out.println(professor.toString());
+    private void throwNewException(Response response) throws ServerException {
+        String errorResponse = response.readEntity(String.class);
+        target.getResteasyClient().close();
+        System.out.println("Error:" + response.getStatus() + errorResponse);
+        throw new ServerException(errorResponse);
     }
 
-    //  4. Add new course
-    public static void addNewCourse(){
-        ProfessorResource professorResource=  ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.addNewCourse(100016,100004);
-    }
-
-    //  5. List of all sections
-    public static void getAllSections() {
-        ProfessorResource professorResource=  ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.getAllSections();
-    }
-
-    //  6. Search for a student
-    public static void getStudentDetails() {
-        ProfessorResource professorResource=  ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.getStudentDetails(100025);
-        System.out.println(professor.toString());
-    }
-
-    //  7. Search for a Course
-    public static void getCourseDetails() {
-        ProfessorResource professorResource=  ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.getCourseDetails();
-        System.out.println(professor.toString());
-    }
+    private Professor updateForProfessor(Professor professor){
+        try {
+            System.out.println();
+            System.out
+                    .println("___________________________________________________________________");
+            System.out.println("Professor update form");
+            System.out
+                    .println("___________________________________________________________________");
+            System.out.println("Please enter values for fields to update: ");
+            String input = "";
 
 
-    //  Get information about all professors
-    public static void getAllProfessors(){
-        ProfessorResource professorResource=  ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-       ProfessorResponse professor = professorResource.getAllProfessors();
-        System.out.println(professor.toString());
-    }
-
-    //  Add single professor to database
-    public static void setProfessor(){
-        ProfessorResource professorResource = ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.setProfessor(65487);
-        System.out.println("Professor Added");
-    }
-
-    //  Add multiple students
-    public static void setMultipleStudents(){
-        ProfessorResource professorResource = ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.setMultipleProfessors();
-    }
-
-    //  delete multiple professors
-    public  static void deleteMultipleProfessors(){
-        ProfessorResource professorResource = ProxyFactory.create(ProfessorResource.class,"http://localhost:8888/api.courseregistration");
-        ProfessorResponse professor = professorResource.deleteMultipleProfessors();
-    }
+            System.out.println("Do you want to Submit update? [y:n]: ");
+            if (reader.nextLine().equalsIgnoreCase("y")) {
+                System.out.println("You are about to Update above fields.");
+                return professor;
+            } else {
+                System.out.println("Successfully Cancelled.");
+                return null;
+            }
+        }catch (Exception e){
+                e.printStackTrace();
+            }
+            System.out
+                    .println("You are not able to update as some values are either empty or not set properly.");
+            return null;
+        }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

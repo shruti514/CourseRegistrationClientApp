@@ -143,6 +143,7 @@ public class Main {
 
 	private void handleProfessorRegistration() {
 		// TODO Post Method call for Professor registration
+
 	}
 
 	private void handleStudentRegistration() {
@@ -477,7 +478,8 @@ public class Main {
 								.println("Please Login as a Professor. Follow the Login Menu");
 						handleLogin();
 					}
-					// updateAProfile(userContext.getLoggedUser()) ;//TODO
+
+					//updateAProfile(userContext.getLoggedUser()) ;//TODO
 					// Professor
 					// can
 					// update his profile
@@ -489,6 +491,7 @@ public class Main {
 								.println("Please Login as a Professor. Follow the Login Menu");
 						handleLogin();
 					}
+
 					// deleteAProfile(userContext.getLoggedUser()) ;//TODO
 					// Professor
 					// can
@@ -525,6 +528,7 @@ public class Main {
 
 	private void searchForAProfessor() {
 		// TODO Auto-generated method stub
+
 	}
 
 	private String getUserInput() {
