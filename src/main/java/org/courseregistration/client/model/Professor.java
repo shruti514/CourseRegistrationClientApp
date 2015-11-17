@@ -143,6 +143,7 @@ public class Professor extends User {
 		this.bio = bio;
 	}
 
+
 	public String toString() {
 		// TODO Auto-generated method stub
 

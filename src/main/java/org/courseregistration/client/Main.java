@@ -226,7 +226,7 @@ public class Main {
 				showACourseMenu();
 		} catch (ServerException e) {
 			System.out.printf("\nSorry! Could not find course of Id: %s\n",
-					input);
+                    input);
 			System.out.println();
 		}
 	}
@@ -425,9 +425,8 @@ public class Main {
 	}
 
 	private void searchForAStudent() {
-		// TODO Auto-generated method stub
-		studentClient.getStudent();
-	}
+        // TODO Auto-generated method stub
+    }
 
 	private void showListOfProfessors() {
 		// TODO Auto-generated method stub

@@ -64,6 +64,21 @@ public class ProfessorClient {
         return null;
     }
 
+    public ProfessorResponse addProfessor() throws ServerException{
+      //  Professor professor = getProfessor();
+        //
+        // if (professor != null) {
+        // Response response = proxy.addProfessor(professor);
+        // if (response.getStatus() == Response.Status.CREATED.getStatusCode())
+        // {
+        // return response.readEntity(ProfessorResponse.class);
+        // }
+        //
+        // throwNewException(response);
+        // }
+        return null;
+    }
+
     public ProfessorResponse deleteProfessor(Long id) throws ServerException{
         Response response = proxy.deleteProfessor(id);
         if(response.getStatus() == 200){
