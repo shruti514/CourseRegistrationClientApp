@@ -87,7 +87,7 @@ public class Main {
 		System.out.println("Enter Username : ");
 		String username = getUserInput();
 		System.out.println("Enter Password : ");
-	//	String password = getUserInput();
+	    //String password = getUserInput();
 		String password = getPassword();
 
 		try {
