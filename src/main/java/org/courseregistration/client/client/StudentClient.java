@@ -1,85 +1,135 @@
 package org.courseregistration.client.client;
 
+import org.courseregistration.client.HttpClientFactory;
+import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.StudentResponse;
 import org.jboss.resteasy.client.ProxyFactory;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 import javax.ws.rs.core.Response;
+import java.util.Scanner;
 
 public class StudentClient {
 
-    //1. See Profile
-    public static void getStudent() {
-        //ResteasyClient restEasyClient = new ResteasyClientBuilder().getDigestHeader();
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
-        Response student = studentResource.getStudent(100025);
+    private StudentResource studentResource = null;
+    private ResteasyWebTarget target = null;
 
-        System.out.println(student.toString());
+    Scanner reader = new Scanner(System.in);
+
+    public void getConnection(UserContext userContext) throws ServerException{
+        if(userContext != null) {
+            target = HttpClientFactory.getWebTarget(userContext.getUsername(), userContext.getPassword());
+        } else {
+            target = HttpClientFactory.getWebTargetForAnonymousUser();
+        }
+        studentResource = target.proxy(StudentResource.class);
+    }
+
+    public void closeConnection() {
+        try {
+            if(!target.getResteasyClient().isClosed())
+                target.getResteasyClient().close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    //1. See Profile
+    public StudentResponse getStudent(int id) throws ServerException {
+        Response response = studentResource.getStudent(id);
+         if(response.getStatus() == 200) {
+             return response.readEntity(StudentResponse.class);
+         }
+
+        throwNewException(response);
+                return null;
     }
 
     // 2. Update Profile
-    public static void updateStudent() {
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
+    public StudentResponse updateStudent(int id) throws ServerException {
+        Response response = studentResource.updateStudent(id);
+        if(response.getStatus() == 200) {
+            return response.readEntity(StudentResponse.class);
+        }
 
-        StudentResponse student = studentResource.updateStudent(100031);
-
+        throwNewException(response);
+                return null;
     }
 
     //3. Delete Profile
-    public static void deleteStudent() {
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
-        StudentResponse student = studentResource.deleteStudent(100025);
+    public StudentResponse deleteStudent(int id) throws ServerException {
+        Response response = studentResource.deleteStudent(id);
+        if(response.getStatus() == 200) {
+            return response.readEntity(StudentResponse.class);
+        }
 
-        System.out.println(student.toString());
+        throwNewException(response);
+        return null;
+
     }
 
     //4. Search for a course
-    public static void getCourseDetails() {
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
-        StudentResponse student = studentResource.getCourseDetails();
+    public StudentResponse getCourseDetails(int id) throws ServerException {
+        Response response = studentResource.getCourseDetails(id);
+        if(response.getStatus() == 200) {
+            return response.readEntity(StudentResponse.class);
+        }
 
-        System.out.println(student.toString());
+        throwNewException(response);
+        return null;
     }
 
     //5. Search for Professor
-    public static void getProfessorDetails() {
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
-        StudentResponse student = studentResource.getProfessorDetails(100010);
+    public StudentResponse getProfessorDetails(int id) throws ServerException {
+        Response response = studentResource.getProfessorDetails(id);
+        if(response.getStatus() == 200) {
+            return response.readEntity(StudentResponse.class);
+        }
 
-        System.out.println(student.toString());
+        throwNewException(response);
+        return null;
     }
 
 
-    // 6. List all Sections
-    public static void getAllSections() {
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
+    // 6. List all Sections for the logged in student
+    public StudentResponse getAllSections(int id) throws ServerException {
+        Response response = studentResource.getAllSections(id);
+        if(response.getStatus() == 200) {
+            return response.readEntity(StudentResponse.class);
+        }
 
-        StudentResponse student = studentResource.getAllSections();
-
+        throwNewException(response);
+        return null;
     }
 
     // 7. Enroll to a section
-    public static void enrollSection() {
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
+    public StudentResponse enrollSection(int id, int section_id) throws ServerException {
+        Response response = studentResource.enrollSection(id, section_id);
+        if(response.getStatus() == 200) {
+            return response.readEntity(StudentResponse.class);
+        }
 
-        StudentResponse student = studentResource.enrollSection(100031, 100020);
-
+        throwNewException(response);
+        return null;
     }
 
      // 8. Drop a Section
-    public static void deleteSection() {
-        StudentResource studentResource = ProxyFactory.create(StudentResource.class,
-                "http://localhost:8888/api.courseregistration/");
+    public StudentResponse deleteSection(int id, int section_id) throws ServerException {
+        Response response = studentResource.deleteSection(id, section_id);
+        if(response.getStatus() == 200) {
+            return response.readEntity(StudentResponse.class);
+        }
 
-        StudentResponse student = studentResource.deleteSection(100031, 100020);
+        throwNewException(response);
+        return null;
+    }
 
+    private void throwNewException(Response response) throws ServerException {
+        String errorResponse = response.readEntity(String.class);
+        target.getResteasyClient().close();
+        System.out.println("Error:" + response.getStatus() + errorResponse);
+        throw new ServerException(errorResponse);
     }
 
 }
