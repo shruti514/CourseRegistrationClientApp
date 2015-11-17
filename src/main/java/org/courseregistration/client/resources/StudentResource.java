@@ -18,33 +18,33 @@ public interface StudentResource {
     @Produces("text/plain")
     @Consumes("application/json")
     @Path("/students/{id}")
-    StudentResponse updateStudent(@PathParam("id") int id);
+    Response updateStudent(@PathParam("id") int id);
 
     // 3. Delete logged in student profile
     @DELETE
     @Produces("application/json")
     @Path("/students/{id}")
-    StudentResponse deleteStudent(@PathParam("id") int id);
+    Response deleteStudent(@PathParam("id") int id);
 
     // 4. Search for a course
     @GET
     @Produces("application/json")
     @Path("/courses/{id}")
-    StudentResponse getCourseDetails();
+    Response getCourseDetails(@PathParam("id") int id);
 
     // 5. Search for a Professor
     @GET
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/professors/{id}")
-    StudentResponse getProfessorDetails(@PathParam("id") int id);
+    Response getProfessorDetails(@PathParam("id") int id);
 
-    // 6. List all sections
+    // 6. List all sections for the logged in student
     @GET
     @Produces("application/json")
     @Consumes("application/json")
-    @Path("/sections")
-    StudentResponse getAllSections();
+    @Path("/sections/{id}")
+    Response getAllSections(@PathParam("id") int id);
 
 
     // 7. Enroll for a section
@@ -52,13 +52,13 @@ public interface StudentResource {
     @Produces("application/json")
     @Consumes("application/json")
     @Path("{id}/sections/{section_id}")
-    StudentResponse enrollSection(@PathParam("id") int id, @PathParam("section_id") int section_id);
+    Response enrollSection(@PathParam("id") int id, @PathParam("section_id") int section_id);
 
 
     // 8. Drop a section
     @DELETE
     @Produces("application/json")
     @Path("{id}/sections/{section_id}")
-    StudentResponse deleteSection(@PathParam("id") int id, @PathParam("section_id") int section_id);
+    Response deleteSection(@PathParam("id") int id, @PathParam("section_id") int section_id);
 
 }
