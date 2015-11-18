@@ -11,39 +11,37 @@ import org.courseregistration.client.client.StudentClient;
 import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Student;
-import org.courseregistration.client.resources.ProfessorResource;
 import org.courseregistration.client.responses.SectionResponse;
-import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
 
 public class ProfessorMenu {
 
-    private ProfessorResource proxy = null;
-    private ResteasyWebTarget target = null;
-
-    UserContext userContext;
+	UserContext userContext;
 	Scanner reader = new Scanner(System.in);
 	SectionClient sectionClient;
-    StudentClient studentClient;
-    ProfessorClient professorClient;
+	StudentClient studentClient;
+	ProfessorClient professorClient;
 	Professor professor;
 	SectionResponse currentSectionResposne;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param userContext
+	 */
 	public ProfessorMenu(UserContext userContext) {
 		this.userContext = userContext;
-		this.professor = getProfessor();
-		this.sectionClient = new SectionClient();
-	}
-
-	private Professor getProfessor() {
-		if (UserContext.isProfessor()) {
-			return (Professor) this.userContext.getLoggedInUser();
+		try {
+			this.professor = UserContext.getProfessor();
+		} catch (Exception e) {
+			System.out.println("Professor is not looged in.");
 		}
-		return null;
+		this.sectionClient = new SectionClient();
+		this.professorClient = new ProfessorClient();
 	}
 
+	/**
+	 * showProfessorMenu - Show options which you can do.
+	 */
 	public void showProfessorMenu() {
 
 		while (true) {
@@ -105,6 +103,9 @@ public class ProfessorMenu {
 		}
 	}
 
+	/**
+	 * List of Sections as per professor
+	 */
 	private void listOfSections() {
 		CriteriaDTO dto = new CriteriaDTO();
 		dto.setLastname(this.professor.getLastName());
@@ -123,100 +124,56 @@ public class ProfessorMenu {
 		}
 	}
 
-	private boolean deleteProfile() throws Exception{
-        try {
-            professorClient.getConnection(userContext);
-            Long id = userContext.getProfessor().getId();
-            String professorResponse = professorClient.deleteProfessor(id);
-            System.out.println("_____________________________________________");
-            System.out.println(professorResponse.toString());
-            professorClient.closeConection();
-            return true;
-        } catch (ServerException e) {
-            System.out.println("Sorry! Cannot delete user. Try Again.");
-            return false;
-        }
+	/**
+	 * Delete this profile
+	 * 
+	 * @return boolean
+	 */
+	private boolean deleteProfile() {
+		try {
+			professorClient.getConnection(userContext);
+			Long id = UserContext.getProfessor().getId();
+			String professorResponse = professorClient.deleteProfessor(id);
+			System.out.println("_____________________________________________");
+			System.out.println(professorResponse.toString());
+			professorClient.closeConection();
+			return true;
+		} catch (ServerException e) {
+			System.out.println("Sorry! Cannot delete user. Try Again.");
+			return false;
+		} catch (Exception e) {
+			System.out.println("Sorry! Cannot delete user. Try Again.");
+			return false;
+		}
 	}
 
-	private String updateAProfile(Professor current)
-        throws ServerException {
-            Professor professor = updateFormProfessor(current);
+	/**
+	 * update a Profile of Professor
+	 */
+	private void updateAProfile() {
 
-            if (professor != null) {
-                professor.setLinks(null);
-                Response response = proxy.updateProfessor(current);
-                if (response.getStatus() == 200) {
-                    System.out.println(response.toString());
-                    return response.readEntity(String.class);
-                }
-                throwNewException(response);
-            }
-            return null;
-    }
+		try {
+			this.professorClient.getConnection(userContext);
+			String updateMessage = this.professorClient.updateProfessor(
+					professor.getId(), professor);
+			System.out.println("Professor " + updateMessage
+					+ " got updated successfully.");
+			this.professorClient.closeConection();
+		} catch (ServerException e) {
+			System.out.println("Professor Update Failed.");
+		}
+	}
 
-    private Professor updateFormProfessor(Professor professor) {
-
-        try {
-            System.out.println();
-            System.out
-                    .println("___________________________________________________________________");
-            System.out.println("Professor update form");
-            System.out
-                    .println("___________________________________________________________________");
-            System.out.println("Please enter values for fields to update: ");
-            String input = "";
-
-            System.out.println("Email-Id: [ " + professor.getEmailId() + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setEmailId(input);
-
-            System.out.println("Phone Number [ " + professor.getPhoneNumber()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-              professor.setPhoneNumber(input);
-
-            System.out.println("Faculty Type [ " + professor.getFacultyType()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setFacultyType(input);
-
-            System.out.println("Bio [ " + professor.getBio()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setBio(input);
-
-            System.out.println("Years of Experience : [ " + professor.getYearsOfExperience()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setYearsOfExperience(Integer.parseInt(input));
-
-
-            System.out.println("Do you want to Submit update? [y:n]: ");
-            if (reader.nextLine().equalsIgnoreCase("y")) {
-                System.out.println("You are about to Update above fields.");
-                return professor;
-            } else {
-                System.out.println("Successfully Cancelled.");
-                return null;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out
-                .println("You are not able to update as some values are either empty or not set properly.");
-        return null;
-    }
-
+	/**
+	 * Get Professor Details
+	 */
 	private void getProfessorDetails() {
 		System.out.println(professor.toString());
 	}
 
+	/**
+	 * Show List of Students for Section
+	 */
 	private void showListOfStudentsForSection() {
 
 		// TODO - List is not populating check JSONIGNORE in model on Server
@@ -253,6 +210,9 @@ public class ProfessorMenu {
 		}
 	}
 
+	/**
+	 * Delete a Section by id
+	 */
 	private void deleteSection() {
 		try {
 			System.out.println("Enter the ID of Section to Delete: ");
@@ -272,6 +232,9 @@ public class ProfessorMenu {
 		}
 	}
 
+	/**
+	 * Update a section by id
+	 */
 	private void updateSection() {
 		try {
 			searchForACourse();
@@ -292,6 +255,9 @@ public class ProfessorMenu {
 		}
 	}
 
+	/**
+	 * Search for a course by ID
+	 */
 	private void searchForACourse() {
 		System.out.println("Enter the ID of Section to select: ");
 		String input = getUserInput();
@@ -306,11 +272,14 @@ public class ProfessorMenu {
 			sectionClient.closeConection();
 		} catch (ServerException e) {
 			System.out.printf("\nSorry! Could not find course of Id: %s\n",
-                    input);
+					input);
 			System.out.println();
 		}
 	}
 
+	/**
+	 * Add new Section for Logged in professor
+	 */
 	private void addNewCourse() {
 		try {
 			sectionClient.getConnection(userContext);
@@ -338,11 +307,5 @@ public class ProfessorMenu {
 		}
 		return input;
 	}
-    private void throwNewException(Response response) throws ServerException {
-        String errorResponse = response.readEntity(String.class);
-        target.getResteasyClient().close();
-        System.out.println("Error:" + response.getStatus() + errorResponse);
-        throw new ServerException(errorResponse);
-    }
 
 }
