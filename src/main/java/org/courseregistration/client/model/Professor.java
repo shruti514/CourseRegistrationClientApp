@@ -23,7 +23,7 @@ public class Professor extends User {
 	private String officeHoursFromTime;
 	private String officeHoursToTime;
 	@JsonIgnore
-	private List<Link> links;
+	private List<Link> link;
 
 	public Long getId() {
 		return id;
@@ -32,7 +32,6 @@ public class Professor extends User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -142,13 +141,6 @@ public class Professor extends User {
 		this.bio = bio;
 	}
 
-	public List<Link> getLinks(){return links;}
-
-	public void setLinks(List<Link> links) {
-		this.links = links;
-	}
-
-
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("\n\tProfessor:__________________________________");
@@ -165,6 +157,14 @@ public class Professor extends User {
 				+ " to " + getOfficeHoursToTime() + "] ");
 
 		return builder.toString();
+	}
+
+	public List<Link> getLink() {
+		return link;
+	}
+
+	public void setLink(List<Link> link) {
+		this.link = link;
 	}
 
 }
