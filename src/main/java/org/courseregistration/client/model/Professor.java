@@ -1,6 +1,7 @@
 package org.courseregistration.client.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.courseregistration.client.auth.User;
@@ -22,11 +23,7 @@ public class Professor extends User {
 	private String officeHoursFromTime;
 	private String officeHoursToTime;
 	@JsonIgnore
-	private Link link;
-
-	public Link getLink() {
-		return link;
-	}
+	private List<Link> links;
 
 	public Long getId() {
 		return id;
@@ -36,9 +33,6 @@ public class Professor extends User {
 		this.id = id;
 	}
 
-	public void setLink(Link link) {
-		this.link = link;
-	}
 
 	public String getUsername() {
 		return username;
@@ -148,13 +142,19 @@ public class Professor extends User {
 		this.bio = bio;
 	}
 
-	public String toString() {
-		// TODO Auto-generated method stub
+	public List<Link> getLinks(){return links;}
 
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+
+
+	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("\n\tProfessor:__________________________________");
 		builder.append("\n\tName :\t" + getFirstName() + " " + getLastName());
 		builder.append("\n\t[ Email: " + emailId);
+		builder.append("\n\t[ Bio: " + bio);
 		builder.append(", Phone: " + phoneNumber);
 		builder.append(", Date of birth :" + dateOfBirth + "] ");
 		if (address != null)

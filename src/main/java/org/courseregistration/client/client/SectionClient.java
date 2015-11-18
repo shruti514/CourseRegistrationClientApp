@@ -102,7 +102,7 @@ public class SectionClient {
 
 		if (section != null) {
 			section.setLinks(null);
-			section.getProfessor().setLink(null);
+			section.getProfessor().setLinks(null);
 			Response response = proxy.updateSection(id, section);
 			if (response.getStatus() == 200) {
 				System.out.println(response.toString());

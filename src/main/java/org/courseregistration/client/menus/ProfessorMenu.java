@@ -4,18 +4,30 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.client.ProfessorClient;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
+import org.courseregistration.client.client.StudentClient;
 import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Student;
+import org.courseregistration.client.resources.ProfessorResource;
 import org.courseregistration.client.responses.SectionResponse;
+import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
 public class ProfessorMenu {
 
-	UserContext userContext;
-	Scanner scanner = new Scanner(System.in);
+    private ProfessorResource proxy = null;
+    private ResteasyWebTarget target = null;
+
+    UserContext userContext;
+	Scanner reader = new Scanner(System.in);
 	SectionClient sectionClient;
+    StudentClient studentClient;
+    ProfessorClient professorClient;
 	Professor professor;
 	SectionResponse currentSectionResposne;
 
@@ -111,15 +123,95 @@ public class ProfessorMenu {
 		}
 	}
 
-	private void deleteProfile() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+	private boolean deleteProfile() throws Exception{
+        try {
+            professorClient.getConnection(userContext);
+            Long id = userContext.getProfessor().getId();
+            String professorResponse = professorClient.deleteProfessor(id);
+            System.out.println("_____________________________________________");
+            System.out.println(professorResponse.toString());
+            professorClient.closeConection();
+            return true;
+        } catch (ServerException e) {
+            System.out.println("Sorry! Cannot delete user. Try Again.");
+            return false;
+        }
 	}
 
-	private void updateAProfile() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
-	}
+	private String updateAProfile(Professor current)
+        throws ServerException {
+            Professor professor = updateFormProfessor(current);
+
+            if (professor != null) {
+                professor.setLinks(null);
+                Response response = proxy.updateProfessor(current);
+                if (response.getStatus() == 200) {
+                    System.out.println(response.toString());
+                    return response.readEntity(String.class);
+                }
+                throwNewException(response);
+            }
+            return null;
+    }
+
+    private Professor updateFormProfessor(Professor professor) {
+
+        try {
+            System.out.println();
+            System.out
+                    .println("___________________________________________________________________");
+            System.out.println("Professor update form");
+            System.out
+                    .println("___________________________________________________________________");
+            System.out.println("Please enter values for fields to update: ");
+            String input = "";
+
+            System.out.println("Email-Id: [ " + professor.getEmailId() + " ]:");
+            input = (reader.nextLine());
+            if (!input.trim().isEmpty())
+                professor.setEmailId(input);
+
+            System.out.println("Phone Number [ " + professor.getPhoneNumber()
+                    + " ]:");
+            input = (reader.nextLine());
+            if (!input.trim().isEmpty())
+              professor.setPhoneNumber(input);
+
+            System.out.println("Faculty Type [ " + professor.getFacultyType()
+                    + " ]:");
+            input = (reader.nextLine());
+            if (!input.trim().isEmpty())
+                professor.setFacultyType(input);
+
+            System.out.println("Bio [ " + professor.getBio()
+                    + " ]:");
+            input = (reader.nextLine());
+            if (!input.trim().isEmpty())
+                professor.setBio(input);
+
+            System.out.println("Years of Experience : [ " + professor.getYearsOfExperience()
+                    + " ]:");
+            input = (reader.nextLine());
+            if (!input.trim().isEmpty())
+                professor.setYearsOfExperience(Integer.parseInt(input));
+
+
+            System.out.println("Do you want to Submit update? [y:n]: ");
+            if (reader.nextLine().equalsIgnoreCase("y")) {
+                System.out.println("You are about to Update above fields.");
+                return professor;
+            } else {
+                System.out.println("Successfully Cancelled.");
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out
+                .println("You are not able to update as some values are either empty or not set properly.");
+        return null;
+    }
 
 	private void getProfessorDetails() {
 		System.out.println(professor.toString());
@@ -214,7 +306,7 @@ public class ProfessorMenu {
 			sectionClient.closeConection();
 		} catch (ServerException e) {
 			System.out.printf("\nSorry! Could not find course of Id: %s\n",
-					input);
+                    input);
 			System.out.println();
 		}
 	}
@@ -236,7 +328,7 @@ public class ProfessorMenu {
 
 	private String getUserInput() {
 		String input = "INVALID";
-		if ((input = scanner.nextLine()) != null) {
+		if ((input = reader.nextLine()) != null) {
 			return input.trim();
 
 		} else {
@@ -246,4 +338,11 @@ public class ProfessorMenu {
 		}
 		return input;
 	}
+    private void throwNewException(Response response) throws ServerException {
+        String errorResponse = response.readEntity(String.class);
+        target.getResteasyClient().close();
+        System.out.println("Error:" + response.getStatus() + errorResponse);
+        throw new ServerException(errorResponse);
+    }
+
 }

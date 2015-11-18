@@ -31,21 +31,21 @@ public interface ProfessorResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("professor/{id}")
     @RolesAllowed({"PROFESSOR","ADMIN"})
-    public Response updateProfessor(@PathParam("id") long id, Professor current);
+    public Response updateProfessor(Professor current);
 
     // -- 3. Delete logged in professor profile
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     @Path("professor/{id}")
     @RolesAllowed({"PROFESSOR","ADMIN"})
-    public Response deleteProfessor(@PathParam("id") Long professor_id);
+    public Response deleteProfessor(@PathParam("id") Long id);
 
- /**   // --  4. Add new course
+   // --  4. Add new course
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/courses/")
     @RolesAllowed({"PROFESSOR","ADMIN"})
-    public Response addCourse(Course course);    **/
+    public Response addCourse(Course course);
 
   /**  //  5. List of all sections
     @GET

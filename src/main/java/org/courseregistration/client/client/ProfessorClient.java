@@ -79,10 +79,10 @@ public class ProfessorClient {
         return null;
     }
 
-    public ProfessorResponse deleteProfessor(Long id) throws ServerException{
+    public String deleteProfessor(Long id) throws ServerException{
         Response response = proxy.deleteProfessor(id);
         if(response.getStatus() == 200){
-            return response.readEntity(ProfessorResponse.class);
+            return response.readEntity(String.class);
         }
         throwNewException(response);
         return null;
@@ -90,9 +90,9 @@ public class ProfessorClient {
 
     //2. update professor profile
     public  Response updateProfessor(@PathParam("professorId") long id, Professor current) throws ServerException{
-        Professor professor = updateForProfessor(current);
+        Professor professor = updateFormProfessor(current);
         if(professor != null){
-            Response response = proxy.updateProfessor(id,professor);
+            Response response = proxy.updateProfessor(professor);
            if(response.getStatus() == 200){
                System.out.println(response.toString());
                return response;
@@ -109,7 +109,7 @@ public class ProfessorClient {
         throw new ServerException(errorResponse);
     }
 
-    private Professor updateForProfessor(Professor professor){
+    private Professor updateFormProfessor(Professor professor){
         try {
             System.out.println();
             System.out
