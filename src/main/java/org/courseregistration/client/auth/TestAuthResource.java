@@ -63,7 +63,7 @@ public class TestAuthResource {
 
         StudentResource proxy = target.proxy(StudentResource.class);
 
-        Response studentResponse = proxy.getStudent(100025);
+        Response studentResponse = proxy.getStudent((long) 100025);
 
         System.out.println(studentResponse.readEntity(StudentResponse.class));
 

@@ -36,7 +36,7 @@ public class StudentClient {
     }
 
     //1. See Profile
-    public StudentResponse getStudent(int id) throws ServerException {
+    public StudentResponse getStudent(Long id) throws ServerException {
         Response response = studentResource.getStudent(id);
          if(response.getStatus() == 200) {
              return response.readEntity(StudentResponse.class);
@@ -58,10 +58,10 @@ public class StudentClient {
     }
 
     //3. Delete Profile
-    public StudentResponse deleteStudent(int id) throws ServerException {
+    public String deleteStudent(Long id) throws ServerException {
         Response response = studentResource.deleteStudent(id);
         if(response.getStatus() == 200) {
-            return response.readEntity(StudentResponse.class);
+            return response.readEntity(String.class);
         }
 
         throwNewException(response);
@@ -93,7 +93,7 @@ public class StudentClient {
 
 
     // 6. List all Sections for the logged in student
-    public StudentResponse getAllSections(int id) throws ServerException {
+    public StudentResponse getAllSections(Long id) throws ServerException {
         Response response = studentResource.getAllSections(id);
         if(response.getStatus() == 200) {
             return response.readEntity(StudentResponse.class);
