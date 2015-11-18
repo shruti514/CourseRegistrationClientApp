@@ -2,6 +2,7 @@ package org.courseregistration.client.model;
 
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.courseregistration.client.auth.User;
 
 public class Professor extends User {
@@ -20,6 +21,7 @@ public class Professor extends User {
 	private Integer yearsOfExperience;
 	private String officeHoursFromTime;
 	private String officeHoursToTime;
+	@JsonIgnore
 	private Link link;
 
 	public Link getLink() {

@@ -39,4 +39,11 @@ public class UserContext {
     public static UserContext forUser(final String username, final String password, final User user) {
         return new UserContext(username, password, user);
     }
+
+    public Student getStudent(){
+        return (Student) loggedInUser;
+    }
+    public Professor getProfessor(){
+        return (Professor) loggedInUser;
+    }
 }

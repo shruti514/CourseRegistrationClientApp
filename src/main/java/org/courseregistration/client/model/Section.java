@@ -1,5 +1,8 @@
 package org.courseregistration.client.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +11,7 @@ public class Section {
 	private Professor professor;
 	private Course course;
 	private String semester;
+    @JsonProperty()
 	private String classStartTime;
 	private String classEndTime;
 	private String dayOfWeek;
@@ -21,6 +25,7 @@ public class Section {
 	private Integer price;
 	// private List<StudentResponse> student;
 	private List<Student> student;
+    @JsonIgnore
 	private List<Link> links;
 
 	public Professor getProfessor() {
