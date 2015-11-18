@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Response;
 
 import org.courseregistration.client.model.Course;
 import org.courseregistration.client.responses.CourseResponse;
@@ -38,10 +39,10 @@ public interface CourseResource {
     @GET
     @Produces("application/json")
     @Path("/courses/{id}")
-    Course getCourse(@PathParam("id") int id);
+    Response getCourse(@PathParam("id") int id);
 
     @GET
     @Produces("application/json")
     @Path("/courses")
-    CourseResponse getAllCourses();
+    Response getAllCourses();
 }
