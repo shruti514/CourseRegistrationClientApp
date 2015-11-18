@@ -1,5 +1,12 @@
 package org.courseregistration.client.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -60,17 +67,32 @@ public class Section {
 		this.semester = semester;
 	}
 
-	public String getClassStartTime() {
-		return classStartTime;
+	public String getClassStartTime() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Date parsedDate = sdf.parse(classStartTime);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        return sdf2.format(parsedDate);
 	}
+    @JsonIgnore
+    public String getClassStartTimeForView() {
+        return classStartTime;
+    }
 
 	public void setClassStartTime(String classStartTime) {
 		this.classStartTime = classStartTime;
 	}
 
-	public String getClassEndTime() {
-		return classEndTime;
+	public String getClassEndTime() throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        Date parsedDate = sdf.parse(classEndTime);
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        return sdf2.format(parsedDate);
 	}
+
+    @JsonIgnore
+    public String getClassEndTimeForView(){
+        return classEndTime;
+    }
 
 	public void setClassEndTime(String classEndTime) {
 		this.classEndTime = classEndTime;
@@ -131,6 +153,13 @@ public class Section {
 	public void setModeOfInstruction(String modeOfInstruction) {
 		this.modeOfInstruction = modeOfInstruction;
 	}
+
+	// public List<StudentResponse> getStudents() {
+	// return student;
+	// }
+	// public void setStudents(List<StudentResponse> students) {
+	// this.student = students;
+	// }
 
 	public Integer getPrice() {
 		return price;
