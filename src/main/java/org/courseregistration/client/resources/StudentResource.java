@@ -1,5 +1,7 @@
 package org.courseregistration.client.resources;
 
+import org.courseregistration.client.model.Student;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,14 +24,14 @@ public interface StudentResource {
 	@GET
 	@Produces("application/json")
 	@Path("/students")
-	Response getStudents();
+	Response getAllStudents();
 
 	// 2. Update logged in student details
 	@PUT
 	@Produces("text/plain")
 	@Consumes("application/json")
 	@Path("/students/{id}")
-	Response updateStudent(@PathParam("id") int id);
+	Response updateStudent(@PathParam("id") long id, Student student);
 
 	// 3. Delete logged in student profile
 	@DELETE
@@ -41,14 +43,14 @@ public interface StudentResource {
 	@GET
 	@Produces("application/json")
 	@Path("/courses/{id}")
-	Response getCourseDetails(@PathParam("id") int id);
+	Response getCourseDetails(@PathParam("id") long id);
 
 	// 5. Search for a Professor
 	@GET
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/professors/{id}")
-	Response getProfessorDetails(@PathParam("id") int id);
+	Response getProfessorDetails(@PathParam("id") long id);
 
 	// 6. List all sections for the logged in student
 	@GET
@@ -57,12 +59,12 @@ public interface StudentResource {
 	@Path("/sections/{id}")
 	Response getAllSections(@PathParam("id") Long id);
 
-	// 7. Enroll for a section
+	// 7. Enroll Student
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("{id}/sections/{section_id}")
-	Response enrollSection(@PathParam("id") int id,
+	Response enrollStudent(@PathParam("id") long id,
 			@PathParam("section_id") int section_id);
 
 	// 8. Drop a section
