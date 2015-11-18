@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.courseregistration.client.auth.User;
 
 public class Student extends User {
@@ -20,6 +21,7 @@ public class Student extends User {
 	private Address address;
 	private String admissionType;
 	private String previousDegree;
+	@JsonIgnore
 	private Link link;
 
 	private List<Section> sections = new ArrayList<>();

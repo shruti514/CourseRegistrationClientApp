@@ -43,7 +43,7 @@ public interface SectionResource {
 
 	@PUT
 	@Path("/sections/{sectionId}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response updateSection(@PathParam("sectionId") long id,

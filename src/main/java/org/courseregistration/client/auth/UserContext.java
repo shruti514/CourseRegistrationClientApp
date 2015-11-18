@@ -5,38 +5,56 @@ import org.courseregistration.client.model.Student;
 
 public class UserContext {
 
-    private final String username;
-    private final String password;
+	private final String username;
+	private final String password;
 
-    private final User loggedInUser;
+	private static UserContext userContext;
 
-    public boolean isStudent() {
-        return loggedInUser instanceof Student;
-    }
+	private final User loggedInUser;
 
-    public boolean isProfessor() {
-        return loggedInUser instanceof Professor;
-    }
+	public boolean isStudent() {
+		return userContext.loggedInUser instanceof Student;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public boolean isProfessor() {
+		return userContext.loggedInUser instanceof Professor;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getUsername() {
+		return userContext.username;
+	}
 
-    public User getLoggedInUser() {
-        return loggedInUser;
-    }
+	public String getPassword() {
+		return userContext.password;
+	}
 
-    private UserContext(final String username, final String password, final User user) {
-        this.username = username;
-        this.password = password;
-        this.loggedInUser = user;
-    }
+	public User getLoggedInUser() {
+		return userContext.loggedInUser;
+	}
 
-    public static UserContext forUser(final String username, final String password, final User user) {
-        return new UserContext(username, password, user);
-    }
+	private UserContext(final String username, final String password,
+			final User user) {
+		this.username = username;
+		this.password = password;
+		this.loggedInUser = user;
+	}
+
+	public static UserContext forUser(final String username,
+			final String password, final User user) {
+		if (userContext == null)
+			userContext = new UserContext(username, password, user);
+		return userContext;
+	}
+
+	public Student getStudent() throws Exception {
+		if (isStudent())
+			return (Student) userContext.loggedInUser;
+		throw new Exception("Logged In User is not of type Student");
+	}
+
+	public Professor getProfessor() throws Exception {
+		if (isProfessor())
+			return (Professor) userContext.loggedInUser;
+		throw new Exception("Logged In User is not of type Professor");
+	}
 }

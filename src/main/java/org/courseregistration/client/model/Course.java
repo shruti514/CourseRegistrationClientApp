@@ -1,6 +1,8 @@
 package org.courseregistration.client.model;
 
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 public class Course {
 
     private Long id;
@@ -11,7 +13,7 @@ public class Course {
     private String prerequisiteCourse;
     private String department;
     private String program;
-
+    @JsonIgnore
     private Link link;
 
     public Link getLink() {

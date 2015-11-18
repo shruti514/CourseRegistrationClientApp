@@ -3,11 +3,15 @@ package org.courseregistration.client.model;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 public class Section {
 	private Long id;
 	private Professor professor;
 	private Course course;
 	private String semester;
+	@JsonProperty()
 	private String classStartTime;
 	private String classEndTime;
 	private String dayOfWeek;
@@ -21,6 +25,7 @@ public class Section {
 	private Integer price;
 	// private List<StudentResponse> student;
 	private List<Student> student;
+	@JsonIgnore
 	private List<Link> links;
 
 	public Professor getProfessor() {
@@ -127,13 +132,6 @@ public class Section {
 		this.modeOfInstruction = modeOfInstruction;
 	}
 
-	// public List<StudentResponse> getStudents() {
-	// return student;
-	// }
-	// public void setStudents(List<StudentResponse> students) {
-	// this.student = students;
-	// }
-
 	public Integer getPrice() {
 		return price;
 	}
@@ -224,6 +222,7 @@ public class Section {
 		return builder.toString();
 	}
 
+	@JsonIgnore
 	public List<Link> getLinks() {
 		return links;
 	}
@@ -232,6 +231,7 @@ public class Section {
 		this.links = links;
 	}
 
+	@JsonIgnore
 	public Integer getNumberOfEnrolledStudents() {
 		return numberOfEnrolledStudents;
 	}
@@ -240,6 +240,7 @@ public class Section {
 		this.numberOfEnrolledStudents = numberOfEnrolledStudents;
 	}
 
+	@JsonIgnore
 	public List<Student> getStudent() {
 		return student;
 	}

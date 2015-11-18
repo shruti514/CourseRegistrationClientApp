@@ -1,9 +1,8 @@
 package org.courseregistration.client.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.courseregistration.client.auth.User;
 
 public class Professor extends User {
@@ -22,7 +21,8 @@ public class Professor extends User {
 	private Integer yearsOfExperience;
 	private String officeHoursFromTime;
 	private String officeHoursToTime;
-    private Link link;
+	@JsonIgnore
+	private Link link;
 
 	public Link getLink() {
 		return link;
@@ -87,55 +87,60 @@ public class Professor extends User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-    public String getLastName() {
-        return lastName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getMiddleName() {
-        return middleName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
+	public String getMiddleName() {
+		return middleName;
+	}
 
-    public String getEmailId() {
-        return emailId;
-    }
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
+	public String getEmailId() {
+		return emailId;
+	}
 
-    public String getOfficeHoursFromTime() {
-        return officeHoursFromTime;
-    }
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
 
-    public void setOfficeHoursFromTime(String officeHoursFromTime) {
-        this.officeHoursFromTime = officeHoursFromTime;
-    }
+	public String getOfficeHoursFromTime() {
+		return officeHoursFromTime;
+	}
 
-    public String getOfficeHoursToTime() {
-        return officeHoursToTime;
-    }
+	public void setOfficeHoursFromTime(String officeHoursFromTime) {
+		if (!officeHoursFromTime.contains("-"))
+			officeHoursFromTime = "2011-01-01T" + officeHoursFromTime;
+		this.officeHoursFromTime = officeHoursFromTime;
+	}
 
-    public void setOfficeHoursToTime(String officeHoursToTime) {
-        this.officeHoursToTime = officeHoursToTime;
-    }
+	public String getOfficeHoursToTime() {
+		return officeHoursToTime;
+	}
 
-    public String getBio() {
+	public void setOfficeHoursToTime(String officeHoursToTime) {
+		if (!officeHoursToTime.contains("-"))
+			officeHoursToTime = "2011-01-01T" + officeHoursToTime;
+		this.officeHoursToTime = officeHoursToTime;
+	}
+
+	public String getBio() {
 		return bio;
 	}
 
