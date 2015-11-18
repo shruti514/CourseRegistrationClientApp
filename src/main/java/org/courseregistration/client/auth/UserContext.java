@@ -5,18 +5,18 @@ import org.courseregistration.client.model.Student;
 
 public class UserContext {
 
-	private final String username;
-	private final String password;
+	private String username;
+	private String password;
 
-	private static UserContext userContext;
+	private static UserContext userContext = null;
 
-	private final User loggedInUser;
+	private User loggedInUser;
 
-	public boolean isStudent() {
+	public static boolean isStudent() {
 		return userContext.loggedInUser instanceof Student;
 	}
 
-	public boolean isProfessor() {
+	public static boolean isProfessor() {
 		return userContext.loggedInUser instanceof Professor;
 	}
 
@@ -46,15 +46,23 @@ public class UserContext {
 		return userContext;
 	}
 
-	public Student getStudent() throws Exception {
+	public static Student getStudent() throws Exception {
 		if (isStudent())
 			return (Student) userContext.loggedInUser;
 		throw new Exception("Logged In User is not of type Student");
 	}
 
-	public Professor getProfessor() throws Exception {
+	public static Professor getProfessor() throws Exception {
 		if (isProfessor())
 			return (Professor) userContext.loggedInUser;
 		throw new Exception("Logged In User is not of type Professor");
+	}
+
+	public static void setUserContext(String username, String password,
+			User user) {
+		userContext.username = username;
+		userContext.password = password;
+		userContext.loggedInUser = user;
+
 	}
 }

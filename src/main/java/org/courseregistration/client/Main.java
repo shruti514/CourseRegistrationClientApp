@@ -91,8 +91,8 @@ public class Main {
 		System.out.println("Enter Username : ");
 		String username = getUserInput();
 		System.out.println("Enter Password : ");
-		 String password = getUserInput();
-		//String password = getPassword();
+		String password = getUserInput();
+		// String password = getPassword();
 
 		try {
 			LoginResponse loginResponse = UserClient.login(username, password);
@@ -102,7 +102,7 @@ public class Main {
 			userContext = UserContext.forUser(username, password, user);
 
 			System.out.println("Welcome " + userContext.getUsername());
-			if (userContext.isStudent()) {
+			if (UserContext.isStudent()) {
 				StudentMenu studMenu = new StudentMenu(userContext);
 				studMenu.showAllStudentsMenu();
 			} else {

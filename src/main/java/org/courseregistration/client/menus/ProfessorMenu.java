@@ -175,7 +175,6 @@ public class ProfessorMenu {
 			SectionResponse sectionResponse = sectionClient
 					.addSection(professor);
 			System.out.println("__________________________________________");
-			System.out.println(sectionResponse.toString());
 			sectionClient.closeConection();
 		} catch (ServerException e) {
 			System.out

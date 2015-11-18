@@ -1,7 +1,7 @@
 package org.courseregistration.client.client;
 
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.ws.rs.PathParam;
@@ -9,10 +9,11 @@ import javax.ws.rs.core.Response;
 
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.model.Course;
 import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Section;
-import org.courseregistration.client.model.Student;
 import org.courseregistration.client.resources.SectionResource;
+import org.courseregistration.client.responses.CourseResponse;
 import org.courseregistration.client.responses.SectionResponse;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
@@ -22,8 +23,10 @@ public class SectionClient {
 	private ResteasyWebTarget target = null;
 
 	Scanner reader = new Scanner(System.in);
+	private UserContext userContext;
 
 	public void getConnection(UserContext userContext) throws ServerException {
+		this.userContext = userContext;
 		if (userContext != null) {
 			target = HttpClientFactory.getWebTarget(userContext.getUsername(),
 					userContext.getPassword());
@@ -68,11 +71,15 @@ public class SectionClient {
 		Section section = registrationForm(p);
 
 		if (section != null) {
+			System.out
+					.println("*******************************************************");
+			System.out.println(section.toString());
+			System.out
+					.println("*******************************************************");
 			Response response = proxy.addSection(section);
 			if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
 				return response.readEntity(SectionResponse.class);
 			}
-
 			throwNewException(response);
 		}
 		return null;
@@ -187,10 +194,9 @@ public class SectionClient {
 
 			section.setProfessor(p);
 
-			System.out.println("Course[CourseIDs]: ");
-			// private Course course;
+			section.setCourse(getCourse());
 
-			section.setStudent(new ArrayList<Student>());
+			section.setStudent(null);
 
 			System.out.println("Semester: ");
 			section.setSemester(reader.nextLine());
@@ -240,6 +246,37 @@ public class SectionClient {
 
 		System.out
 				.println("You are not registered as some values are either empty or not set properly.");
+		return null;
+	}
+
+	private Course getCourse() {
+		try {
+
+			CourseClient client = new CourseClient();
+			client.getConnection(userContext);
+			CourseResponse response = client.getAllCourses();
+			List<CourseResponse> courses = response.getContent();
+			StringBuilder sb = new StringBuilder();
+			sb.append("Select a Course ID [ ");
+			for (CourseResponse content : courses) {
+				sb.append(content.getCourse().getId() + ",");
+			}
+			sb.replace(sb.lastIndexOf(","), sb.length(), "]: ");
+
+			System.out.println(sb.toString());
+			String input = reader.nextLine();
+
+			for (CourseResponse content : courses) {
+				if (content.getCourse().getId() == Long.parseLong(input)) {
+					System.out.println(content.getCourse().toString());
+					return content.getCourse();
+				}
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Course is not created properly");
+		}
 		return null;
 	}
 
