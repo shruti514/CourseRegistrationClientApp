@@ -64,7 +64,7 @@ public class ProfessorClient {
 		return null;
 	}
 
-	public ProfessorResponse addProfessor() throws ServerException {
+	public String addProfessor() throws ServerException {
 		Professor professor = registrationForm();
 
 		if (professor != null) {
@@ -75,7 +75,7 @@ public class ProfessorClient {
 					.println("*******************************************************");
 			Response response = proxy.addProfessor(professor);
 			if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
-				return response.readEntity(ProfessorResponse.class);
+				return response.readEntity(String.class);
 			}
 			throwNewException(response);
 		}
@@ -101,6 +101,12 @@ public class ProfessorClient {
 
 			System.out.println("Last name: ");
 			professor.setLastName(reader.nextLine());
+
+            System.out.println("emailId: ");
+			professor.setEmailId(reader.nextLine());
+
+            System.out.println("Phone Number: ");
+            professor.setPhoneNumber(reader.nextLine());
 
 			System.out.println("Faculty type: ");
 			professor.setFacultyType(reader.nextLine());
@@ -168,11 +174,11 @@ public class ProfessorClient {
 	}
 
 	// 2. update professor profile
-	public String updateProfessor(@PathParam("professorId") long id,
+	public String updateProfessor(long id,
 			Professor current) throws ServerException {
 		Professor professor = updateFormProfessor(current);
 		if (professor != null) {
-			Response response = proxy.updateProfessor(professor);
+			Response response = proxy.updateProfessor(id,professor);
 			if (response.getStatus() == 200) {
 				return response.readEntity(String.class);
 			}

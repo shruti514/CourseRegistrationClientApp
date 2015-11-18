@@ -35,14 +35,14 @@ public interface ProfessorResource {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("professor/{id}")
+	@Path("professors/{id}")
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
-	public Response updateProfessor(Professor current);
+	public Response updateProfessor(@PathParam("id") Long id,Professor current);
 
 	// -- 3. Delete logged in professor profile
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("professor/{id}")
+	@Path("professors/{id}")
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response deleteProfessor(@PathParam("id") Long id);
 
@@ -82,6 +82,7 @@ public interface ProfessorResource {
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
+    @Path("professors")
 	public Response addProfessor(Professor professor);
 
 	// create multiple professors

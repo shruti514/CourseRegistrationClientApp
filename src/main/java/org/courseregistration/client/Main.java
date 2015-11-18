@@ -141,11 +141,11 @@ public class Main {
 	private void handleProfessorRegistration() {
 		try {
 			this.professorClient.getConnection(null);
-			ProfessorResponse professorResponse = this.professorClient
+			String professorResponse = this.professorClient
 					.addProfessor();
 			System.out
 					.println("______________________________________________________");
-			System.out.println(professorResponse.toString());
+			System.out.println(professorResponse);
 			this.professorClient.closeConnection();
 		} catch (Exception e) {
 			System.out.println("Sorry! Could not create professor.");
