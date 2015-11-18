@@ -203,12 +203,12 @@ public class SectionClient {
 				section.setSemester(input);
 
 			System.out.println("Class Start Time: [ "
-					+ section.getClassStartTime() + " ]:");
+					+ section.getClassStartTimeForView() + " ]:");
 			input = (reader.nextLine());
 			if (!input.trim().isEmpty())
 				section.setClassStartTime(input);
 
-			System.out.println("Class End Time: [ " + section.getClassEndTime()
+			System.out.println("Class End Time: [ " + section.getClassEndTimeForView()
 					+ " ]:");
 			input = (reader.nextLine());
 			if (!input.trim().isEmpty())
