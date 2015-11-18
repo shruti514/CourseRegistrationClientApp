@@ -64,7 +64,7 @@ public class StudentResponse {
 	}
 
 	// get professor details
-	public void getProfessorDetails() {
+	public void getAllProfessorDetails() {
 
 	}
 

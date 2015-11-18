@@ -6,28 +6,31 @@ import java.util.Scanner;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
+import org.courseregistration.client.client.StudentClient;
 import org.courseregistration.client.model.Section;
 import org.courseregistration.client.model.Student;
+import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.SectionResponse;
+import org.courseregistration.client.responses.StudentResponse;
 
 public class StudentMenu {
 	UserContext userContext;
 	Scanner scanner = new Scanner(System.in);
 	SectionClient sectionClient;
-	Student student;
+	StudentClient studentClient;
 
 	public StudentMenu(UserContext userContext) {
 		this.userContext = userContext;
-		this.student = getStudent();
 		this.sectionClient = new SectionClient();
+		this.studentClient = new StudentClient();
 	}
 
-	private Student getStudent() {
+/*	private Student getStudent() {
 		if (this.userContext.isStudent()) {
 			return (Student) this.userContext.getLoggedInUser();
 		}
 		return null;
-	}
+	}*/
 
 	public void showAllStudentsMenu() {
 		while (true) {
@@ -59,8 +62,10 @@ public class StudentMenu {
 					updateProfile();
 					break;
 				case "3":
-					deleteProfile();
-					break;
+					if(deleteProfile()==true)
+						return;
+					else
+						break;
 				case "4":
 					searchForACourse();
 					break;
@@ -98,21 +103,43 @@ public class StudentMenu {
 	}
 
 	private void listAllSections() {
-		// TODO : Ideally request to resteasy
-		List<Section> sections = student.getSections();
-		for (Section section : sections) {
-			System.out.println(section.toString());
+		try {
+			studentClient.getConnection(userContext);
+			Long id = userContext.getStudent().getId();
+			List<Section> sections = (List<Section>) studentClient.getAllSections(id);
+			for (Section section : sections) {
+				System.out.println(section.toString());
+			}
+		} catch(ServerException e) {
+			System.out.println("Sorry! Cannot get enrolled sections! Try Again.");
 		}
+
 	}
 
 	private void showListOfProfessors() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+		try{
+			studentClient.getConnection(userContext);
+			Long id = userContext.getStudent().getId();
+			System.out.println("_____________________________________________");
+
+		} catch(ServerException e){
+
+		}
 	}
 
-	private void deleteProfile() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+	private boolean deleteProfile() {
+		try {
+			studentClient.getConnection(userContext);
+			Long id = userContext.getStudent().getId();
+			String studentResponse= studentClient.deleteStudent(id);
+			System.out.println("_____________________________________________");
+			System.out.println(studentResponse.toString());
+			studentClient.closeConnection();
+			return true;
+		} catch (ServerException e) {
+			System.out.println("Sorry! Cannot delete user. Try Again.");
+			return false;
+		}
 	}
 
 	private void updateProfile() {
@@ -121,8 +148,16 @@ public class StudentMenu {
 	}
 
 	private void getStudentDetails() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+		try {
+			studentClient.getConnection(userContext);
+			Long id = userContext.getStudent().getId();
+			StudentResponse studentResponse = studentClient.getStudent(id);
+			System.out.println("____________________________________________");
+			System.out.println(studentResponse.toString());
+			studentClient.closeConnection();
+		} catch(ServerException e) {
+			System.out.println("Sorry! Couldn't fetch student details. Try Again");
+		}
 	}
 
 	private void searchForACourse() {

@@ -11,7 +11,7 @@ public interface StudentResource {
     @GET
     @Produces("application/json")
     @Path("/students/{id}")
-    Response getStudent(@PathParam("id") int id);
+    Response getStudent(@PathParam("id") Long id);
 
     // 2. Update logged in student details
     @PUT
@@ -22,9 +22,9 @@ public interface StudentResource {
 
     // 3. Delete logged in student profile
     @DELETE
-    @Produces("application/json")
+    @Produces("text/plain")
     @Path("/students/{id}")
-    Response deleteStudent(@PathParam("id") int id);
+    Response deleteStudent(@PathParam("id") Long id);
 
     // 4. Search for a course
     @GET
@@ -44,7 +44,7 @@ public interface StudentResource {
     @Produces("application/json")
     @Consumes("application/json")
     @Path("/sections/{id}")
-    Response getAllSections(@PathParam("id") int id);
+    Response getAllSections(@PathParam("id") Long id);
 
 
     // 7. Enroll for a section
