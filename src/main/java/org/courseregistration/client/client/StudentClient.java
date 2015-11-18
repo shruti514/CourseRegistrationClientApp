@@ -217,10 +217,10 @@ public class StudentClient {
         return null;
     }
 
-	// 7. Enroll to a student
-	public StudentResponse enrollStudent(int id, int student_id)
+	// 7. Enroll to a Section
+	public StudentResponse enrollStudent(long id, long section_id)
 			throws ServerException {
-		Response response = studentResource.enrollStudent(id, student_id);
+		Response response = studentResource.enrollStudent(id, section_id);
 		if (response.getStatus() == 200) {
 			return response.readEntity(StudentResponse.class);
 		}
@@ -229,10 +229,10 @@ public class StudentClient {
 		return null;
 	}
 
-	// 8. Drop a student
-	public StudentResponse deleteStudent(long id)
+	// 8. Drop Section
+	public StudentResponse deleteSection(long id, long section_id)
 			throws ServerException {
-		Response response = studentResource.deleteStudent(id);
+		Response response = studentResource.deleteSection(id, section_id);
 		if (response.getStatus() == 200) {
 			return response.readEntity(StudentResponse.class);
 		}

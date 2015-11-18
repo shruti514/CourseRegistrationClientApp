@@ -71,13 +71,13 @@ public interface StudentResource {
 	@Consumes("application/json")
 	@Path("{id}/sections/{section_id}")
 	Response enrollStudent(@PathParam("id") long id,
-			@PathParam("section_id") int section_id);
+			@PathParam("section_id") long section_id);
 
 	// 8. Drop a section
 	@DELETE
 	@Produces("application/json")
 	@Path("{id}/sections/{section_id}")
-	Response deleteSection(@PathParam("id") int id,
-			@PathParam("section_id") int section_id);
+	Response deleteSection(@PathParam("id") long id,
+			@PathParam("section_id") long section_id);
 
 }
