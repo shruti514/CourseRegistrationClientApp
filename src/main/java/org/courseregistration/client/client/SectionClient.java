@@ -76,25 +76,25 @@ public class SectionClient {
 		return null;
 	}
 
-	public SectionResponse deleteSection(Long id) throws ServerException {
+	public String deleteSection(Long id) throws ServerException {
 		Response response = proxy.deleteSection(id);
 		if (response.getStatus() == 200) {
-			return response.readEntity(SectionResponse.class);
+			return response.readEntity(String.class);
 		}
 
 		throwNewException(response);
 		return null;
 	}
 
-	public Response updateSection(@PathParam("sectionId") long id,
-			Section current) throws ServerException {
+	public String updateSection(@PathParam("sectionId") long id, Section current)
+			throws ServerException {
 		Section section = updateForSection(current);
 
 		if (section != null) {
 			Response response = proxy.updateSection(id, section);
 			if (response.getStatus() == 200) {
 				System.out.println(response.toString());
-				return response;
+				return response.readEntity(String.class);
 			}
 			throwNewException(response);
 		}
