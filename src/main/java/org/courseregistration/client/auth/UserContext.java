@@ -41,9 +41,11 @@ public class UserContext {
 
 	public static UserContext forUser(final String username,
 			final String password, final User user) {
-		if (userContext == null)
-			userContext = new UserContext(username, password, user);
-		return userContext;
+		if (userContext != null && userContext.username.equals(username)){
+			return userContext;
+		}
+		userContext = new UserContext(username,password,user);
+		return  userContext;
 	}
 
 	public static Student getStudent() throws Exception {

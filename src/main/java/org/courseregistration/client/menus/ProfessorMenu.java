@@ -243,8 +243,7 @@ public class ProfessorMenu {
 				String updateMessage = this.sectionClient.updateSection(
 						this.currentSectionResposne.getSection().getId(),
 						this.currentSectionResposne.getSection());
-				System.out.println("Section " + updateMessage
-						+ " got updated successfully.");
+				System.out.println(updateMessage);
 				this.sectionClient.closeConection();
 			}
 		} catch (ServerException e) {

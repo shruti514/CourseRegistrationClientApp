@@ -9,6 +9,7 @@ import javax.ws.rs.core.Response;
 
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.filter.SectionEtagFilter;
 import org.courseregistration.client.model.Course;
 import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Professor;
@@ -25,6 +26,7 @@ public class SectionClient {
 
 	Scanner reader = new Scanner(System.in);
 	private UserContext userContext;
+    private SectionWithHeaders currentSection;
 
 	/**
 	 * Gets connection according to user context
@@ -63,12 +65,15 @@ public class SectionClient {
 	 * @throws ServerException
 	 */
 	public SectionResponse getSection(int id) throws ServerException {
-		Response response = proxy.getSection(id);
-		if (response.getStatus() == 200) {
-			return response.readEntity(SectionResponse.class);
-		}
-
-		throwNewException(response);
+        target.register(new SectionEtagFilter(currentSection));
+        Response response = proxy.getSection(id);
+        if (response.getStatus() == 200) {
+            this.currentSection = SectionWithHeaders.getSectionWithHeaders(response);
+            return currentSection.getCurrent();
+        }if(response.getStatus() == 304){
+            return currentSection.getCurrent();
+        }
+        throwNewException(response);
 		return null;
 	}
 
@@ -147,11 +152,16 @@ public class SectionClient {
 		if (section != null) {
 			section.setLinks(null);
 			section.getProfessor().setLink(null);
+            target.register(new SectionEtagFilter(currentSection));
 			Response response = proxy.updateSection(id, section);
 			if (response.getStatus() == 200) {
 				System.out.println(response.toString());
-				return response.readEntity(String.class);
+				return "Section " + response.readEntity(String.class)
+                        + " got updated successfully.";
 			}
+            if(response.getStatus() == 412){
+                return "Other user has changed the section simultaneously. Please try updating again!";
+            }
 			throwNewException(response);
 		}
 		return null;
