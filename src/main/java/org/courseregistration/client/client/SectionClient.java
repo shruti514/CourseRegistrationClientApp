@@ -26,6 +26,12 @@ public class SectionClient {
 	Scanner reader = new Scanner(System.in);
 	private UserContext userContext;
 
+	/**
+	 * Gets connection according to user context
+	 * 
+	 * @param userContext
+	 * @throws ServerException
+	 */
 	public void getConnection(UserContext userContext) throws ServerException {
 		this.userContext = userContext;
 		if (userContext != null) {
@@ -37,6 +43,9 @@ public class SectionClient {
 		proxy = target.proxy(SectionResource.class);
 	}
 
+	/**
+	 * Close Connection
+	 */
 	public void closeConection() {
 		try {
 			if (!target.getResteasyClient().isClosed())
@@ -46,6 +55,13 @@ public class SectionClient {
 		}
 	}
 
+	/**
+	 * Get Section by ID - no need of user context
+	 * 
+	 * @param id
+	 * @return SectionResponse
+	 * @throws ServerException
+	 */
 	public SectionResponse getSection(int id) throws ServerException {
 		Response response = proxy.getSection(id);
 		if (response.getStatus() == 200) {
@@ -56,6 +72,12 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Get all sections - no need of user context
+	 * 
+	 * @return SectionResponse
+	 * @throws ServerException
+	 */
 	public SectionResponse getAllSections() throws ServerException {
 		Response response = proxy.getAllSections();
 
@@ -67,6 +89,13 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Professor or Admin can add a section(Course) into the system
+	 * 
+	 * @param p
+	 * @return String
+	 * @throws ServerException
+	 */
 	public String addSection(Professor p) throws ServerException {
 
 		Section section = registrationForm(p);
@@ -86,6 +115,13 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Delete Section by ID - Professor role required
+	 * 
+	 * @param id
+	 * @return String
+	 * @throws ServerException
+	 */
 	public String deleteSection(Long id) throws ServerException {
 		Response response = proxy.deleteSection(id);
 		if (response.getStatus() == 200) {
@@ -96,6 +132,14 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Update given Section by ID
+	 * 
+	 * @param id
+	 * @param current
+	 * @return String
+	 * @throws ServerException
+	 */
 	public String updateSection(@PathParam("sectionId") long id, Section current)
 			throws ServerException {
 		Section section = updateFormSection(current);
@@ -113,6 +157,12 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Update form for Section object
+	 * 
+	 * @param section
+	 * @return Section
+	 */
 	private Section updateFormSection(Section section) {
 
 		try {
@@ -207,6 +257,13 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Get Section by search criteria
+	 * 
+	 * @param dto
+	 * @return SectionResponse
+	 * @throws ServerException
+	 */
 	public SectionResponse getSectionBySearch(CriteriaDTO dto)
 			throws ServerException {
 		Response response = proxy.findSectionsQueryParams(dto);
@@ -218,6 +275,12 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Registration form for adding section(course)
+	 * 
+	 * @param p
+	 * @return Section
+	 */
 	private Section registrationForm(Professor p) {
 
 		try {
@@ -288,6 +351,11 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Get course
+	 * 
+	 * @return Select course from list of courses
+	 */
 	private Course getCourse() {
 		try {
 
@@ -319,6 +387,11 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Create a search criteria
+	 * 
+	 * @return CriteriaDTO
+	 */
 	public CriteriaDTO createDTOForm() {
 		CriteriaDTO dto = new CriteriaDTO();
 		try {
