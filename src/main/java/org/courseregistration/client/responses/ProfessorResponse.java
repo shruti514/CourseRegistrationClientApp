@@ -12,6 +12,7 @@ public class ProfessorResponse {
     private List<Link> links;
     private Page page;
 
+    // See logged in professor Profile
     public Professor getProfessor() {
         return professor;
     }
@@ -20,6 +21,7 @@ public class ProfessorResponse {
         this.professor = professor;
     }
 
+    // returns list of professors
     public List<ProfessorResponse> getContent(){return content;}
 
     public void setContent(List<ProfessorResponse> content){this.content = content;}
@@ -34,9 +36,28 @@ public class ProfessorResponse {
 
     public Page getPage(){return page;}
     public void setPage(Page page){this.page = page;}
+
+    //  Update the current logged in professor profile
+    public void updateProfessor(){
+
+    }
+
+    // deletes the current logged in professor
     public void deleteProfessor(Professor professor) {
 
     }
+
+    //   Add new Course
+    public void addCourse(){}
+
+    //  List of all sections
+    public void getAllSections(){}
+
+    //  Search for a student
+    public void getStudentDetails(){}
+
+
+
 
     @Override
     public String toString(){
