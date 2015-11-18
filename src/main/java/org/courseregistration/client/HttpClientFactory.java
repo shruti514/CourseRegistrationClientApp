@@ -80,7 +80,6 @@ public class HttpClientFactory {
         }
     }
 
-
     public static ResteasyWebTarget getWebTargetForAnonymousUser() {
 
         final HttpConfig httpConfig = new HttpConfig.Builder().build();
@@ -97,7 +96,6 @@ public class HttpClientFactory {
         final ResteasyClient resteasyClient = new ResteasyClientBuilder().httpEngine(engine).build();
         return resteasyClient.target(httpConfig.getBaseUrl());
     }
-
 
 }
 
