@@ -8,6 +8,7 @@ import org.courseregistration.client.client.ProfessorClient;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
 import org.courseregistration.client.client.StudentClient;
+import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Section;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
@@ -41,10 +42,11 @@ public class StudentMenu {
 			System.out.println("6. List all sections");
 			System.out.println("7. Enroll for a section");
 			System.out.println("8. Drop a section");
-			System.out.println("9. Logout");
+			System.out.println("9. Custom Search a Section");
+			System.out.println("10. Logout");
 
 			String input = getUserInput();
-			if (input.equalsIgnoreCase("9")) {
+			if (input.equalsIgnoreCase("10")) {
 				userContext = null;
 				return;
 			} else {
@@ -77,12 +79,37 @@ public class StudentMenu {
 					dropFromSection();
 					// Make it as student and drop the section.
 					break;
+				case "9":
+					customSearchSection();
+					break;
 				default:
 					System.out.println();
 					System.out.println("Invalid input");
 					System.out.println();
 				}
 			}
+		}
+	}
+
+	private void customSearchSection() {
+		try {
+			CriteriaDTO dto = sectionClient.createDTOForm();
+			if (dto != null) {
+				sectionClient.getConnection(userContext);
+				SectionResponse sectionResponse = sectionClient
+						.getSectionBySearch(dto);
+				System.out
+						.println("__________________________________________");
+				System.out.println(sectionResponse.toString());
+				sectionClient.closeConection();
+			} else {
+				System.out.println();
+				System.out
+						.println("Sorry! Search is canclled or wrong values inserted in search.");
+			}
+		} catch (ServerException e) {
+			System.out.println();
+			System.out.println("Sorry! Could not find courses for this Search");
 		}
 	}
 
@@ -99,7 +126,7 @@ public class StudentMenu {
 	private void listAllSections() throws Exception {
 		try {
 			studentClient.getConnection(userContext);
-			Long id = userContext.getStudent().getId();
+			Long id = UserContext.getStudent().getId();
 			List<Section> sections = (List<Section>) studentClient
 					.getAllSections(id);
 			for (Section section : sections) {
