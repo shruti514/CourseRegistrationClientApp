@@ -66,7 +66,7 @@ public class SectionClient {
 		return null;
 	}
 
-	public SectionResponse addSection(Professor p) throws ServerException {
+	public String addSection(Professor p) throws ServerException {
 
 		Section section = registrationForm(p);
 
@@ -78,7 +78,7 @@ public class SectionClient {
 					.println("*******************************************************");
 			Response response = proxy.addSection(section);
 			if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
-				return response.readEntity(SectionResponse.class);
+				return response.readEntity(String.class);
 			}
 			throwNewException(response);
 		}
@@ -201,10 +201,10 @@ public class SectionClient {
 			System.out.println("Semester: ");
 			section.setSemester(reader.nextLine());
 
-			System.out.println("Class Start Time [yyyy-mm-ddThh:MM:ss]: ");
+			System.out.println("Class Start Time [hh:MM:ss]: ");
 			section.setClassStartTime(reader.nextLine());
 
-			System.out.println("Class End Time [yyyy-mm-ddThh:MM:ss]: ");
+			System.out.println("Class End Time [hh:MM:ss]: ");
 			section.setClassEndTime(reader.nextLine());
 
 			System.out.println("Day of week: ");

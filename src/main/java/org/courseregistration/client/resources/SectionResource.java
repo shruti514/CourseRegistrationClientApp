@@ -31,6 +31,7 @@ public interface SectionResource {
 
 	@POST
 	@Path("/sections/")
+	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response addSection(Section section);

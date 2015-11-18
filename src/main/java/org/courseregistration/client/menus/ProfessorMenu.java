@@ -199,7 +199,7 @@ public class ProfessorMenu {
 		try {
 			sectionClient.getConnection(userContext);
 			System.out.println(professor.toString());
-			SectionResponse sectionResponse = sectionClient
+			String sectionResponse = sectionClient
 					.addSection(professor);
 			System.out.println("__________________________________________");
 			sectionClient.closeConection();
