@@ -171,7 +171,9 @@ public class ProfessorMenu {
 	private void addNewCourse() {
 		try {
 			sectionClient.getConnection(userContext);
-			SectionResponse sectionResponse = sectionClient.addSection();
+			System.out.println(professor.toString());
+			SectionResponse sectionResponse = sectionClient
+					.addSection(professor);
 			System.out.println("__________________________________________");
 			System.out.println(sectionResponse.toString());
 			sectionClient.closeConection();
@@ -186,7 +188,6 @@ public class ProfessorMenu {
 	private String getUserInput() {
 		String input = "INVALID";
 		if ((input = scanner.nextLine()) != null) {
-			// && !exitCode.equalsIgnoreCase(input)) {
 			return input.trim();
 
 		} else {

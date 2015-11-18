@@ -1,5 +1,7 @@
 package org.courseregistration.client.client;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.ws.rs.PathParam;
@@ -7,7 +9,9 @@ import javax.ws.rs.core.Response;
 
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Section;
+import org.courseregistration.client.model.Student;
 import org.courseregistration.client.resources.SectionResource;
 import org.courseregistration.client.responses.SectionResponse;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -59,20 +63,18 @@ public class SectionClient {
 		return null;
 	}
 
-	public SectionResponse addSection() throws ServerException {
+	public SectionResponse addSection(Professor p) throws ServerException {
 
-		// Section section = getNewSection();
-		//
-		// if (section != null) {
-		// // section.setCourse(course);
-		// Response response = proxy.addSection(section);
-		// if (response.getStatus() == Response.Status.CREATED.getStatusCode())
-		// {
-		// return response.readEntity(SectionResponse.class);
-		// }
-		//
-		// throwNewException(response);
-		// }
+		Section section = registrationForm(p);
+
+		if (section != null) {
+			Response response = proxy.addSection(section);
+			if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
+				return response.readEntity(SectionResponse.class);
+			}
+
+			throwNewException(response);
+		}
 		return null;
 	}
 
@@ -88,7 +90,7 @@ public class SectionClient {
 
 	public String updateSection(@PathParam("sectionId") long id, Section current)
 			throws ServerException {
-		Section section = updateForSection(current);
+		Section section = updateFormSection(current);
 
 		if (section != null) {
 			Response response = proxy.updateSection(id, section);
@@ -101,7 +103,7 @@ public class SectionClient {
 		return null;
 	}
 
-	private Section updateForSection(Section section) {
+	private Section updateFormSection(Section section) {
 
 		try {
 
@@ -165,6 +167,77 @@ public class SectionClient {
 		// }
 		//
 		// throwNewException(response);
+		return null;
+	}
+
+	private Section registrationForm(Professor p) {
+
+		try {
+
+			Section section = new Section();
+			System.out.println();
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Section registration form");
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Please enter details: ");
+
+			section.setProfessor(p);
+
+			System.out.println("Course[CourseIDs]: ");
+			// private Course course;
+
+			section.setStudent(new ArrayList<Student>());
+
+			System.out.println("Semester: ");
+			section.setSemester(reader.nextLine());
+
+			System.out.println("Class Start Time [yyyy-mm-ddThh:MM:ss]: ");
+			section.setClassStartTime(reader.nextLine());
+
+			System.out.println("Class End Time [yyyy-mm-ddThh:MM:ss]: ");
+			section.setClassEndTime(reader.nextLine());
+
+			System.out.println("Day of week: ");
+			section.setDayOfWeek(reader.nextLine());
+
+			System.out.println("Class Start Date [yyyy-mm-dd]: ");
+			section.setStartDate(Date.valueOf(reader.nextLine()));
+
+			System.out.println("Class End Date [yyyy-mm-dd]: ");
+			section.setEndDate(Date.valueOf(reader.nextLine()));
+
+			section.setNumberOfEnrolledStudents(0);
+
+			System.out.println("Room Number: ");
+			section.setRoomNumber(reader.nextLine());
+
+			System.out.println("Total Capacity: ");
+			section.setTotalCapacity(Integer.parseInt(reader.nextLine()));
+
+			System.out.println("Wait List Capacity: ");
+			section.setWaitListCapacity(Integer.parseInt(reader.nextLine()));
+
+			System.out.println("Mode of Instruction: ");
+			section.setModeOfInstruction(reader.nextLine());
+
+			System.out.println("Price: ");
+			section.setPrice(Integer.parseInt(reader.nextLine()));
+
+			System.out.println("Do you want to Submit registration? [y:n]: ");
+			if (reader.nextLine().equalsIgnoreCase("y")) {
+				return section;
+			} else {
+				System.out.println("Successfully Cancelled.");
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out
+				.println("You are not registered as some values are either empty or not set properly.");
 		return null;
 	}
 
