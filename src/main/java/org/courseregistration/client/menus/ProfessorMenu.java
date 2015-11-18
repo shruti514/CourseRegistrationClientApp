@@ -46,7 +46,7 @@ public class ProfessorMenu {
 			System.out.println("5. Update Course");
 			System.out.println("6. Delete Course");
 			System.out.println("7. List of all sections");
-			System.out.println("8. Search for a student");
+			System.out.println("8. Search for a Student");
 			System.out.println("9. Search for a Course");
 			System.out.println("10. Logout");
 
@@ -75,11 +75,10 @@ public class ProfessorMenu {
 					deleteSection();
 					break;
 				case "7":
-					showListOfStudentsForSection();
+					listOfSections();
 					break;
 				case "8":
-					// TODO
-					searchForAStudent();
+					showListOfStudentsForSection();
 					break;
 				case "9":
 					searchForACourse();
@@ -93,7 +92,7 @@ public class ProfessorMenu {
 		}
 	}
 
-	private void searchForAStudent() {
+	private void listOfSections() {
 		// TODO Auto-generated method stub
 		System.out.println("Yet to implement");
 	}
@@ -118,6 +117,12 @@ public class ProfessorMenu {
 			List<Student> students = this.currentSectionResposne.getSection()
 					.getStudent();
 			if (students != null && students.size() > 0) {
+				System.out.println();
+				System.out.println("List of Students for course "
+						+ this.currentSectionResposne.getSection().getCourse()
+								.getName());
+				System.out
+						.println("______________________________________________________");
 				int counter = 1;
 				for (Student student : students) {
 					System.out.println("\t" + counter + ": "
@@ -125,6 +130,8 @@ public class ProfessorMenu {
 							+ student.getLastName());
 				}
 			} else {
+				System.out
+						.println("______________________________________________________");
 				System.out.println("Course with section "
 						+ this.currentSectionResposne.getSection().getId()
 						+ " does not have any students enrolled.");
@@ -199,9 +206,8 @@ public class ProfessorMenu {
 		try {
 			sectionClient.getConnection(userContext);
 			System.out.println(professor.toString());
-			String sectionResponse = sectionClient
-					.addSection(professor);
-			System.out.println("__________________________________________");
+			String sectionResponse = sectionClient.addSection(professor);
+			System.out.println("CREATE Section: " + sectionResponse);
 			sectionClient.closeConection();
 		} catch (ServerException e) {
 			System.out
