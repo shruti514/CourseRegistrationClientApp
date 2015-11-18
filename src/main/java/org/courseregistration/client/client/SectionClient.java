@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.model.Course;
+import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Section;
 import org.courseregistration.client.resources.SectionResource;
@@ -167,15 +168,14 @@ public class SectionClient {
 		return null;
 	}
 
-	public SectionResponse getSectionBySearch(int id) throws ServerException {
-		// Response response = proxy.findSectionsQueryParams(coursename,
-		// lastname, price, gteprice, lteprice, dayofweek, semester, coursecode,
-		// uriInfo)
-		// if (response.getStatus() == 200) {
-		// return response.readEntity(SectionResponse.class);
-		// }
-		//
-		// throwNewException(response);
+	public SectionResponse getSectionBySearch(CriteriaDTO dto)
+			throws ServerException {
+		Response response = proxy.findSectionsQueryParams(dto);
+		if (response.getStatus() == 200) {
+			return response.readEntity(SectionResponse.class);
+		}
+
+		throwNewException(response);
 		return null;
 	}
 

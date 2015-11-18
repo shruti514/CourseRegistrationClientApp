@@ -9,13 +9,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
+import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Section;
+import org.jboss.resteasy.annotations.Form;
 
 public interface SectionResource {
 
@@ -53,14 +52,5 @@ public interface SectionResource {
 	@GET
 	@Path("/sections/search")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findSectionsQueryParams(
-			@QueryParam("coursename") String coursename,
-			@QueryParam("lastname") String lastname,
-			@QueryParam("price") int price,
-			@QueryParam("gteprice") int gteprice,
-			@QueryParam("lteprice") int lteprice,
-			@QueryParam("dayofweek") String dayofweek,
-			@QueryParam("semester") String semester,
-			@QueryParam("coursecode") String coursecode,
-			@Context UriInfo uriInfo);
+	public Response findSectionsQueryParams(@Form CriteriaDTO dto);
 }

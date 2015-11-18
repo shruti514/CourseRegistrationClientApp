@@ -6,6 +6,7 @@ import java.util.Scanner;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
+import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Student;
 import org.courseregistration.client.responses.SectionResponse;
@@ -25,7 +26,7 @@ public class ProfessorMenu {
 	}
 
 	private Professor getProfessor() {
-		if (this.userContext.isProfessor()) {
+		if (UserContext.isProfessor()) {
 			return (Professor) this.userContext.getLoggedInUser();
 		}
 		return null;
@@ -93,8 +94,21 @@ public class ProfessorMenu {
 	}
 
 	private void listOfSections() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+		CriteriaDTO dto = new CriteriaDTO();
+		dto.setLastname(this.professor.getLastName());
+		try {
+			sectionClient.getConnection(userContext);
+			SectionResponse sectionResponse = sectionClient
+					.getSectionBySearch(dto);
+			System.out.println("__________________________________________");
+			System.out.println(sectionResponse.toString());
+			sectionClient.closeConection();
+		} catch (ServerException e) {
+			System.out.printf(
+					"\nSorry! Could not find courses for Professor %s\n",
+					this.professor.getLastName());
+			System.out.println();
+		}
 	}
 
 	private void deleteProfile() {
@@ -112,6 +126,9 @@ public class ProfessorMenu {
 	}
 
 	private void showListOfStudentsForSection() {
+
+		// TODO - List is not populating check JSONIGNORE in model on Server
+		// side
 		try {
 			searchForACourse();
 			List<Student> students = this.currentSectionResposne.getSection()

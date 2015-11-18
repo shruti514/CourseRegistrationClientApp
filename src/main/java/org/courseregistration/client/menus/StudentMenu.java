@@ -9,8 +9,6 @@ import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
 import org.courseregistration.client.client.StudentClient;
 import org.courseregistration.client.model.Section;
-import org.courseregistration.client.model.Student;
-import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
 import org.courseregistration.client.responses.StudentResponse;
@@ -27,13 +25,6 @@ public class StudentMenu {
 		this.sectionClient = new SectionClient();
 		this.studentClient = new StudentClient();
 	}
-
-/*	private Student getStudent() {
-		if (this.userContext.isStudent()) {
-			return (Student) this.userContext.getLoggedInUser();
-		}
-		return null;
-	}*/
 
 	public void showAllStudentsMenu() throws Exception {
 		while (true) {
@@ -65,7 +56,7 @@ public class StudentMenu {
 					updateProfile();
 					break;
 				case "3":
-					if(deleteProfile()==true)
+					if (deleteProfile() == true)
 						return;
 					else
 						break;
@@ -109,25 +100,29 @@ public class StudentMenu {
 		try {
 			studentClient.getConnection(userContext);
 			Long id = userContext.getStudent().getId();
-			List<Section> sections = (List<Section>) studentClient.getAllSections(id);
+			List<Section> sections = (List<Section>) studentClient
+					.getAllSections(id);
 			for (Section section : sections) {
 				System.out.println(section.toString());
 			}
-		} catch(ServerException e) {
-			System.out.println("Sorry! Cannot get enrolled sections! Try Again.");
+		} catch (ServerException e) {
+			System.out
+					.println("Sorry! Cannot get enrolled sections! Try Again.");
 		}
 
 	}
 
 	private void showListOfProfessors() throws Exception {
-		try{
-			//studentClient.getConnection(userContext);
-			ProfessorResponse professorResponse = professorClient.getAllProfessors();
+		try {
+			// studentClient.getConnection(userContext);
+			ProfessorResponse professorResponse = professorClient
+					.getAllProfessors();
 			System.out.println("_____________________________________________");
 			System.out.println();
 
-		} catch(ServerException e){
-			System.out.println("Sorry! Cannot get list of professor! Try Again.");
+		} catch (ServerException e) {
+			System.out
+					.println("Sorry! Cannot get list of professor! Try Again.");
 		}
 	}
 
@@ -135,7 +130,7 @@ public class StudentMenu {
 		try {
 			studentClient.getConnection(userContext);
 			Long id = userContext.getStudent().getId();
-			String studentResponse= studentClient.deleteStudent(id);
+			String studentResponse = studentClient.deleteStudent(id);
 			System.out.println("_____________________________________________");
 			System.out.println(studentResponse.toString());
 			studentClient.closeConnection();
@@ -159,8 +154,9 @@ public class StudentMenu {
 			System.out.println("____________________________________________");
 			System.out.println(studentResponse.toString());
 			studentClient.closeConnection();
-		} catch(ServerException e) {
-			System.out.println("Sorry! Couldn't fetch student details. Try Again");
+		} catch (ServerException e) {
+			System.out
+					.println("Sorry! Couldn't fetch student details. Try Again");
 		}
 	}
 

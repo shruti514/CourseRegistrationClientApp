@@ -25,7 +25,6 @@ public class Section {
 	private Integer waitListCapacity;
 	private String modeOfInstruction;
 	private Integer price;
-	// private List<StudentResponse> student;
 	private List<Student> student;
 	@JsonIgnore
 	private List<Link> links;
@@ -151,13 +150,6 @@ public class Section {
 	public void setModeOfInstruction(String modeOfInstruction) {
 		this.modeOfInstruction = modeOfInstruction;
 	}
-
-	// public List<StudentResponse> getStudents() {
-	// return student;
-	// }
-	// public void setStudents(List<StudentResponse> students) {
-	// this.student = students;
-	// }
 
 	public Integer getPrice() {
 		return price;
