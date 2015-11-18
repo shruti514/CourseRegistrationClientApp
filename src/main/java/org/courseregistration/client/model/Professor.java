@@ -124,10 +124,6 @@ public class Professor extends User {
 		return officeHoursFromTime;
 	}
 
-	public String getOfficeHoursFromDateTime() {
-		return "2011-01-01T" + officeHoursFromTime;
-	}
-
 	public void setOfficeHoursFromTime(String officeHoursFromTime) {
 		if (!officeHoursFromTime.contains("-"))
 			officeHoursFromTime = "2011-01-01T" + officeHoursFromTime;
