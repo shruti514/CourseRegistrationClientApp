@@ -137,19 +137,58 @@ public class SectionClient {
 			if (!input.trim().isEmpty())
 				section.setDayOfWeek(input);
 
-			// System.out.println("Membership Plan [basic/premium]: [ "
-			// + section.getPlan() + " ]:");
-			// input = (reader.readLine());
-			// if (!input.trim().isEmpty())
-			//
-			// section.setPlan(input);
+			System.out.println("Semester: [ " + section.getSemester() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setSemester(input);
 
-			// System.out.println("Date of expiration[MM/yyyy]: [ "
-			// + section.getExpirationDate() + " ]:");
-			// input = (reader.readLine());
-			// if (!input.trim().isEmpty())
-			//
-			// section.setExpirationDate(input);
+			System.out.println("Class Start Time: [ "
+					+ section.getClassStartTime() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setClassStartTime(input);
+
+			System.out.println("Class End Time: [ " + section.getClassEndTime()
+					+ " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setClassEndTime(input);
+
+			System.out.println("Class Start Date: [ " + section.getStartDate()
+					+ " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setStartDate(Date.valueOf(input));
+
+			System.out.println("Class End Date: [ " + section.getEndDate()
+					+ " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setEndDate(Date.valueOf(input));
+
+			System.out.println("Mode of Instruction: [ "
+					+ section.getModeOfInstruction() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setModeOfInstruction(input);
+
+			System.out.println("Room Number: [ " + section.getRoomNumber()
+					+ " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setRoomNumber((input));
+
+			System.out.println("Total Capacity: [ "
+					+ section.getTotalCapacity() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setTotalCapacity(Integer.parseInt(input));
+
+			System.out.println("Wait List Capacity: [ "
+					+ section.getWaitListCapacity() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				section.setWaitListCapacity(Integer.parseInt(input));
 
 			System.out.println("Do you want to Submit update? [y:n]: ");
 			if (reader.nextLine().equalsIgnoreCase("y")) {
@@ -276,6 +315,72 @@ public class SectionClient {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Course is not created properly");
+		}
+		return null;
+	}
+
+	public CriteriaDTO createDTOForm() {
+		CriteriaDTO dto = new CriteriaDTO();
+		try {
+
+			System.out.println();
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Search Criteria form");
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Just enter to skip the criteria");
+			String input = "";
+
+			System.out.println("Course Name: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setCoursename(input);
+
+			System.out.println("Professor Last Name: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setLastname(input);
+
+			System.out.println("Price: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setPrice(Integer.parseInt(input));
+
+			System.out.println("Greater than Price: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setGteprice(Integer.parseInt(input));
+
+			System.out.println("Less than Price: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setLteprice(Integer.parseInt(input));
+
+			System.out.println("Day of Week: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setDayofweek(input);
+
+			System.out.println("Semester: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setSemester(input);
+
+			System.out.println("Course code: ");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				dto.setCoursecode(input);
+
+			System.out.println("Do you want to Submit Search? [y:n]: ");
+			if (reader.nextLine().equalsIgnoreCase("y")) {
+				return dto;
+			} else {
+				System.out.println("Successfully Cancelled.");
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -189,18 +189,34 @@ public class Main {
 
 	private void showListOfStudents() {
 		try {
-			StudentResponse studentResponse = null;
-			// studentResponse = StudentClient.getAllStudents();
-			List<Student> contents = (List<Student>) studentResponse
-					.getStudent();
-			for (Student content : contents) {
+			this.studentClient.getConnection(null);
+			StudentResponse studentResponse = this.studentClient
+					.getAllStudents();
+			List<StudentResponse> contents = studentResponse.getContent();
+			if (contents.size() > 0) {
+				System.out.println();
+				System.out.println("List of All Students");
 				System.out
-						.println("__________________________________________");
-				System.out.println(content.toString());
+						.println("______________________________________________________");
+				int counter = 1;
+
+				for (StudentResponse content : contents) {
+					Student student = content.getStudent();
+					System.out.println("\t" + counter + ": "
+							+ student.getFirstName() + " "
+							+ student.getLastName());
+					counter++;
+				}
+			} else {
+				System.out
+						.println("______________________________________________________");
+				System.out.println("Oops!! No Students in the system.");
 			}
+			this.studentClient.closeConnection();
 
 		} catch (Exception e) {
 			System.out.println("Sorry! Could not find students.");
+			e.printStackTrace();
 			System.out.println();
 
 		}
