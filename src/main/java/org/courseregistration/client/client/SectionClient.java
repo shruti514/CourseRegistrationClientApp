@@ -91,6 +91,8 @@ public class SectionClient {
 		Section section = updateForSection(current);
 
 		if (section != null) {
+			section.setLinks(null);
+			section.getProfessor().setLink(null);
 			Response response = proxy.updateSection(id, section);
 			if (response.getStatus() == 200) {
 				System.out.println(response.toString());
