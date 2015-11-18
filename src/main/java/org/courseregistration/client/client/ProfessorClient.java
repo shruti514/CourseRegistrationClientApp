@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.PathParam;
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.model.Address;
 import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Section;
 import org.courseregistration.client.resources.ProfessorResource;
@@ -89,6 +90,7 @@ public class ProfessorClient {
         try {
 
             Professor professor = new Professor();
+            Address address = new Address();
             System.out.println();
             System.out
                     .println("___________________________________________________________________");
@@ -125,8 +127,27 @@ public class ProfessorClient {
             System.out.println("User Name: ");
             professor.setUsername(reader.nextLine());
 
-            /* System.out.println("Address: ");
-            professor.setAddress(address(reader.nextLine()));*/
+            System.out.println("Address fields: ");
+
+            System.out.println("Street Name: ");
+            address.setStreetName(reader.nextLine());
+
+            System.out.println("Apartment number: ");
+            address.setAptNo(Integer.parseInt(reader.nextLine()));
+
+            System.out.println("City: ");
+            address.setCity(reader.nextLine());
+
+            System.out.println("Street Name: ");
+            address.setState(reader.nextLine());
+
+            System.out.println("Zip code : ");
+            address.setZipcode(Integer.parseInt(reader.nextLine()));
+
+            System.out.println("Street Name: ");
+            address.setState(reader.nextLine());
+
+            professor.setAddress(address);
 
             System.out.println("Do you want to Submit registration? [y:n]: ");
             if (reader.nextLine().equalsIgnoreCase("y")) {
