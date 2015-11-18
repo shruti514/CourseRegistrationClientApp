@@ -45,8 +45,8 @@ public class ProfessorMenu {
 			System.out.println("4. Add new Course");
 			System.out.println("5. Update Course");
 			System.out.println("6. Delete Course");
-			System.out.println("7. List of all sections");
-			System.out.println("8. Search for a Student");
+			System.out.println("7. List of all Sections");
+			System.out.println("8. List of all Student for a Section");
 			System.out.println("9. Search for a Course");
 			System.out.println("10. Logout");
 
