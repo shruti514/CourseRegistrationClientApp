@@ -40,7 +40,7 @@ public interface ProfessorResource {
     @RolesAllowed({"PROFESSOR","ADMIN"})
     public Response deleteProfessor(@PathParam("id") Long id);
 
-   // --  4. Add new course
+   //--  4. Add new course
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/courses/")
