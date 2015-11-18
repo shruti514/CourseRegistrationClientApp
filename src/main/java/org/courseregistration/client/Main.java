@@ -15,7 +15,6 @@ import org.courseregistration.client.menus.ProfessorMenu;
 import org.courseregistration.client.menus.StudentMenu;
 import org.courseregistration.client.model.LoginResponse;
 import org.courseregistration.client.model.Student;
-import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
 import org.courseregistration.client.responses.StudentResponse;
@@ -91,9 +90,9 @@ public class Main {
 
 	private void handleLogin() throws Exception {
 		System.out.println("Enter Username : ");
-		String username = "userProf1234";// getUserInput();
+		String username = getUserInput();
 		System.out.println("Enter Password : ");
-		String password = "pass";// getUserInput();
+		String password = getUserInput();
 		// String password = getPassword();
 
 		try {
@@ -192,17 +191,17 @@ public class Main {
 		try {
 			StudentResponse studentResponse = null;
 			// studentResponse = StudentClient.getAllStudents();
-			List<Student> contents = (List<Student>) studentResponse.getStudent();
+			List<Student> contents = (List<Student>) studentResponse
+					.getStudent();
 			for (Student content : contents) {
-				System.out.println("__________________________________________");
+				System.out
+						.println("__________________________________________");
 				System.out.println(content.toString());
 			}
 
 		} catch (Exception e) {
 			System.out.println("Sorry! Could not find students.");
 			System.out.println();
-
-
 
 		}
 	}
