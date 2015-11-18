@@ -155,8 +155,17 @@ public class Main {
 	}
 
 	private void handleStudentRegistration() {
-		// TODO Post Method call for Student registration
-		System.out.println("Yet to implement");
+		try {
+			this.studentClient.getConnection(null);
+			StudentResponse studentResponse = this.studentClient.addStudent();
+			System.out.println("_______________________________________________________");
+			System.out.println(studentResponse.toString());
+			this.studentClient.closeConnection();
+		} catch (Exception e) {
+			System.out.println("Sorry! Could not create student. Try Again");
+			e.printStackTrace();
+			System.out.println();
+		}
 	}
 
 	private void showListOfCourses() {

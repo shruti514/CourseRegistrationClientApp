@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
-import org.courseregistration.client.filter.StudentEtagFilter;
+import org.courseregistration.client.model.Address;
 import org.courseregistration.client.model.Student;
 import org.courseregistration.client.resources.ProfessorResource;
 import org.courseregistration.client.resources.StudentResource;
@@ -17,11 +17,9 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 public class StudentClient {
 
-    private StudentResource studentResource = null;
-    private ProfessorResource professorResource = null;
-    private ResteasyWebTarget target = null;
-    //keeping this just for etags
-    private StudentWithHeaders currentStudent;
+	private StudentResource studentResource = null;
+	private ProfessorResource professorResource = null;
+	private ResteasyWebTarget target = null;
 
 	Scanner reader = new Scanner(System.in);
 
@@ -44,35 +42,120 @@ public class StudentClient {
 		}
 	}
 
-    //1. See Profile
-    public StudentResponse getStudent(Long id) throws ServerException {
-        target.register(new StudentEtagFilter(currentStudent));
-        Response response = studentResource.getStudent(id);
-         if(response.getStatus() == 200) {
-             this.currentStudent = StudentWithHeaders.getStudentWithHeaders(response);
-             return currentStudent.getCurrent();
-         }if(response.getStatus() == 304){
-            return currentStudent.getCurrent();
-        }
+	public StudentResponse addStudent() throws ServerException {
+		Student student = registrationForm();
+
+		if (student != null) {
+			System.out
+					.println("*******************************************************");
+			System.out.println(student.toString());
+			System.out
+					.println("*******************************************************");
+			Response response = studentResource.addStudent(student);
+			if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
+				return response.readEntity(StudentResponse.class);
+			}
+			throwNewException(response);
+		}
+		return null;
+	}
+
+	private Student registrationForm() {
+
+		try {
+
+			Student student = new Student();
+			Address address = new Address();
+			System.out.println();
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Student registration form");
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Please enter details: ");
+
+			System.out.println("First name: ");
+			student.setFirstName(reader.nextLine());
+
+			System.out.println("Last name: ");
+			student.setLastName(reader.nextLine());
+
+			System.out.println("Admission Type: ");
+			student.setAdmissionType(reader.nextLine());
+
+			System.out.println("Date of birth [yyyy-mm-dd]:: ");
+			student.setDateOfBirth(Date.valueOf(reader.nextLine()));
+
+			System.out.println("Previous Degree: ");
+			student.setPreviousDegree(reader.nextLine());
+
+			System.out.println("User Name: ");
+			student.setUsername(reader.nextLine());
+
+			System.out.println("Email Id: ");
+			student.setEmailId(reader.nextLine());
+
+			System.out.println("Phone Number: ");
+			student.setPhoneNumber(reader.nextLine());
+
+			System.out.println("Address fields: ");
+
+			System.out.println("Street Name: ");
+			address.setStreetName(reader.nextLine());
+
+			System.out.println("Apartment number: ");
+			address.setAptNo(Integer.parseInt(reader.nextLine()));
+
+			System.out.println("City: ");
+			address.setCity(reader.nextLine());
+
+			System.out.println("State: ");
+			address.setState(reader.nextLine());
+
+			System.out.println("Zip code : ");
+			address.setZipcode(Integer.parseInt(reader.nextLine()));
+
+			student.setAddress(address);
+
+			System.out.println("Do you want to Submit registration? [y:n]: ");
+			if (reader.nextLine().equalsIgnoreCase("y")) {
+				return student;
+			} else {
+				System.out.println("Successfully Cancelled.");
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out
+				.println("You are not registered as some values are either empty or not set properly.");
+		return null;
+	}
+
+
+	// 1. See Profile
+	public StudentResponse getStudent(Long id) throws ServerException {
+		Response response = studentResource.getStudent(id);
+		if (response.getStatus() == 200) {
+			return response.readEntity(StudentResponse.class);
+		}
 
 		throwNewException(response);
 		return null;
 	}
 
 	// 2. Update Profile
-	public String updateStudent(@PathParam("id")long id, Student current) throws ServerException {
+	public StudentResponse updateStudent(@PathParam("id")long id, Student current) throws ServerException {
 		Student student = updateFormStudent(current);
 
         if(student!=null) {
             student.setLink(null);
-			target.register(new StudentEtagFilter(currentStudent));
             Response response = studentResource.updateStudent(id, student);
             if (response.getStatus() == 200) {
                 System.out.println(response.toString());
-                return response.readEntity(String.class);
-            }if(response.getStatus() == 412){
-				return "Other user has changed this student details simultaneously. Please try updating again!";
-			}
+                return response.readEntity(StudentResponse.class);
+            }
             throwNewException(response);
         }
 		return null;
