@@ -1,11 +1,13 @@
 package org.courseregistration.client.menus;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.client.SectionClient;
 import org.courseregistration.client.client.ServerException;
 import org.courseregistration.client.model.Professor;
+import org.courseregistration.client.model.Student;
 import org.courseregistration.client.responses.SectionResponse;
 
 public class ProfessorMenu {
@@ -73,10 +75,11 @@ public class ProfessorMenu {
 					deleteSection();
 					break;
 				case "7":
-					// Make it as Professor and list all sections
+					showListOfStudentsForSection();
 					break;
 				case "8":
-					showListOfStudentsForSection();
+					// TODO
+					searchForAStudent();
 					break;
 				case "9":
 					searchForACourse();
@@ -90,6 +93,11 @@ public class ProfessorMenu {
 		}
 	}
 
+	private void searchForAStudent() {
+		// TODO Auto-generated method stub
+		System.out.println("Yet to implement");
+	}
+
 	private void deleteProfile() {
 		// TODO Auto-generated method stub
 		System.out.println("Yet to implement");
@@ -101,13 +109,32 @@ public class ProfessorMenu {
 	}
 
 	private void getProfessorDetails() {
-		// TODO
-		System.out.println("Yet to implement");
+		System.out.println(professor.toString());
 	}
 
 	private void showListOfStudentsForSection() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+		try {
+			searchForACourse();
+			List<Student> students = this.currentSectionResposne.getSection()
+					.getStudent();
+			if (students != null && students.size() > 0) {
+				int counter = 1;
+				for (Student student : students) {
+					System.out.println("\t" + counter + ": "
+							+ student.getFirstName() + " "
+							+ student.getLastName());
+				}
+			} else {
+				System.out.println("Course with section "
+						+ this.currentSectionResposne.getSection().getId()
+						+ " does not have any students enrolled.");
+			}
+		} catch (Exception e) {
+			System.out.println("Course with section "
+					+ this.currentSectionResposne.getSection().getId()
+					+ " does not exist or have any students enrolled.");
+			e.printStackTrace();
+		}
 	}
 
 	private void deleteSection() {

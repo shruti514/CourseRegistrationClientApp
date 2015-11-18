@@ -1,10 +1,5 @@
 package org.courseregistration.client.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,31 +63,34 @@ public class Section {
 	}
 
 	public String getClassStartTime() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        Date parsedDate = sdf.parse(classStartTime);
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        return sdf2.format(parsedDate);
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		Date parsedDate = sdf.parse(classStartTime);
+		SimpleDateFormat sdf2 = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+		return sdf2.format(parsedDate);
 	}
-    @JsonIgnore
-    public String getClassStartTimeForView() {
-        return classStartTime;
-    }
+
+	@JsonIgnore
+	public String getClassStartTimeForView() {
+		return classStartTime;
+	}
 
 	public void setClassStartTime(String classStartTime) {
 		this.classStartTime = classStartTime;
 	}
 
 	public String getClassEndTime() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        Date parsedDate = sdf.parse(classEndTime);
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        return sdf2.format(parsedDate);
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		Date parsedDate = sdf.parse(classEndTime);
+		SimpleDateFormat sdf2 = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+		return sdf2.format(parsedDate);
 	}
 
-    @JsonIgnore
-    public String getClassEndTimeForView(){
-        return classEndTime;
-    }
+	@JsonIgnore
+	public String getClassEndTimeForView() {
+		return classEndTime;
+	}
 
 	public void setClassEndTime(String classEndTime) {
 		this.classEndTime = classEndTime;

@@ -89,9 +89,9 @@ public class Main {
 
 	private void handleLogin() {
 		System.out.println("Enter Username : ");
-		String username = getUserInput();
+		String username = "userProf1234";// getUserInput();
 		System.out.println("Enter Password : ");
-		String password = getUserInput();
+		String password = "pass";// getUserInput();
 		// String password = getPassword();
 
 		try {
