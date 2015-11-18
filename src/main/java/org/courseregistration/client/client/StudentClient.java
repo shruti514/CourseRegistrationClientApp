@@ -60,32 +60,23 @@ public class StudentClient {
 	}
 
 	// 2. Update Profile
-	public StudentResponse updateStudent(@PathParam("id")long id, Student current) throws ServerException {
+	public String updateStudent(@PathParam("id")long id, Student current) throws ServerException {
 		Student student = updateFormStudent(current);
 
         if(student!=null) {
             student.setLink(null);
+			target.register(new StudentEtagFilter(currentStudent));
             Response response = studentResource.updateStudent(id, student);
             if (response.getStatus() == 200) {
                 System.out.println(response.toString());
-                return response.readEntity(StudentResponse.class);
-            }
+                return response.readEntity(String.class);
+            }if(response.getStatus() == 412){
+				return "Other user has changed this student details simultaneously. Please try updating again!";
+			}
             throwNewException(response);
         }
 		return null;
 	}
-    // 2. Update Profile
-    public String updateStudent(int id) throws ServerException {
-        target.register(new StudentEtagFilter(currentStudent));
-        Response response = studentResource.updateStudent(id);
-        if(response.getStatus() == 200) {
-            return response.readEntity(String.class);
-        }if(response.getStatus() == 412){
-            return "Other user has changed this student details simultaneously. Please try updating again!";
-        }
-        throwNewException(response);
-                return null;
-    }
 
 	// 3. Delete Profile
 	public String deleteStudent(Long id) throws ServerException {
