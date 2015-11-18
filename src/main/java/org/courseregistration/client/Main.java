@@ -14,6 +14,8 @@ import org.courseregistration.client.client.UserClient;
 import org.courseregistration.client.menus.ProfessorMenu;
 import org.courseregistration.client.menus.StudentMenu;
 import org.courseregistration.client.model.LoginResponse;
+import org.courseregistration.client.model.Student;
+import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
 import org.courseregistration.client.responses.StudentResponse;
@@ -31,7 +33,7 @@ public class Main {
 
 	SectionResponse currentSectionResposne;
 
-	public static void main(String arg[]) {
+	public static void main(String arg[]) throws Exception {
 		Main main = new Main();
 
 		main.sectionClient = new SectionClient();
@@ -43,7 +45,7 @@ public class Main {
 		main.start();
 	}
 
-	private void start() {
+	private void start() throws Exception {
 		while (true) {
 			System.out.println("\n\nWelcome login to Course Registration");
 			System.out.println("1. Login");
@@ -87,7 +89,7 @@ public class Main {
 		}
 	}
 
-	private void handleLogin() {
+	private void handleLogin() throws Exception {
 		System.out.println("Enter Username : ");
 		String username = "userProf1234";// getUserInput();
 		System.out.println("Enter Password : ");
@@ -187,21 +189,21 @@ public class Main {
 	}
 
 	private void showListOfStudents() {
-		// TODO Auto-generated method stub
-
 		try {
 			StudentResponse studentResponse = null;
 			// studentResponse = StudentClient.getAllStudents();
-			List<StudentResponse> contents = studentResponse.getContent();
-			for (StudentResponse content : contents) {
-				System.out
-						.println("__________________________________________");
+			List<Student> contents = (List<Student>) studentResponse.getStudent();
+			for (Student content : contents) {
+				System.out.println("__________________________________________");
 				System.out.println(content.toString());
 			}
 
 		} catch (Exception e) {
 			System.out.println("Sorry! Could not find students.");
 			System.out.println();
+
+
+
 		}
 	}
 

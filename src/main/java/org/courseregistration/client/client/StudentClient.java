@@ -2,6 +2,7 @@ package org.courseregistration.client.client;
 
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.resources.ProfessorResource;
 import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.StudentResponse;
 import org.jboss.resteasy.client.ProxyFactory;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class StudentClient {
 
     private StudentResource studentResource = null;
+    private ProfessorResource professorResource = null;
     private ResteasyWebTarget target = null;
 
     Scanner reader = new Scanner(System.in);
@@ -81,8 +83,8 @@ public class StudentClient {
     }
 
     //5. Search for Professor
-    public StudentResponse getProfessorDetails(int id) throws ServerException {
-        Response response = studentResource.getProfessorDetails(id);
+    public StudentResponse getAllProfessorDetails() throws ServerException {
+        Response response = professorResource.getAllProfessors();
         if(response.getStatus() == 200) {
             return response.readEntity(StudentResponse.class);
         }
