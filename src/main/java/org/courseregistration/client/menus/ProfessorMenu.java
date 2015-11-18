@@ -136,7 +136,7 @@ public class ProfessorMenu {
 			String professorResponse = professorClient.deleteProfessor(id);
 			System.out.println("_____________________________________________");
 			System.out.println(professorResponse.toString());
-			professorClient.closeConection();
+			professorClient.closeConnection();
 			return true;
 		} catch (ServerException e) {
 			System.out.println("Sorry! Cannot delete user. Try Again.");
@@ -158,7 +158,7 @@ public class ProfessorMenu {
 					professor.getId(), professor);
 			System.out.println("Professor " + updateMessage
 					+ " got updated successfully.");
-			this.professorClient.closeConection();
+			this.professorClient.closeConnection();
 		} catch (ServerException e) {
 			System.out.println("Professor Update Failed.");
 		}

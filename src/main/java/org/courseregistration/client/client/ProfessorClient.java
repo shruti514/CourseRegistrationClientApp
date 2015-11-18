@@ -33,7 +33,7 @@ public class ProfessorClient {
 		proxy = target.proxy(ProfessorResource.class);
 	}
 
-	public void closeConection() {
+	public void closeConnection() {
 		try {
 			if (!target.getResteasyClient().isClosed())
 				target.getResteasyClient().close();
@@ -73,7 +73,7 @@ public class ProfessorClient {
 			System.out.println(professor.toString());
 			System.out
 					.println("*******************************************************");
-			Response response = proxy.setProfessor(professor);
+			Response response = proxy.addProfessor(professor);
 			if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
 				return response.readEntity(ProfessorResponse.class);
 			}
@@ -82,85 +82,81 @@ public class ProfessorClient {
 		return null;
 	}
 
-    private Professor registrationForm() {
+	private Professor registrationForm() {
 
-        try {
+		try {
 
-            Professor professor = new Professor();
-            Address address = new Address();
-            System.out.println();
-            System.out
-                    .println("___________________________________________________________________");
-            System.out.println("Professor registration form");
-            System.out
-                    .println("___________________________________________________________________");
-            System.out.println("Please enter details: ");
+			Professor professor = new Professor();
+			Address address = new Address();
+			System.out.println();
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Professor registration form");
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Please enter details: ");
 
+			System.out.println("First name: ");
+			professor.setFirstName(reader.nextLine());
 
-            System.out.println("First name: ");
-            professor.setFirstName(reader.nextLine());
+			System.out.println("Last name: ");
+			professor.setLastName(reader.nextLine());
 
-            System.out.println("Last name: ");
-            professor.setLastName(reader.nextLine());
+			System.out.println("Faculty type: ");
+			professor.setFacultyType(reader.nextLine());
 
-            System.out.println("Faculty type: ");
-            professor.setFacultyType(reader.nextLine());
+			System.out.println("Bio: ");
+			professor.setBio(reader.nextLine());
 
-            System.out.println("Bio: ");
-            professor.setBio(reader.nextLine());
+			System.out.println("Years of experience: ");
+			professor.setYearsOfExperience(Integer.parseInt(reader.nextLine()));
 
-            System.out.println("Years of experience: ");
-            professor.setYearsOfExperience(Integer.parseInt(reader.nextLine()));
+			System.out.println("Date of birth [yyyy-mm-dd]:: ");
+			professor.setDateOfBirth(Date.valueOf(reader.nextLine()));
 
-            System.out.println("Date of birth [yyyy-mm-dd]:: ");
-            professor.setDateOfBirth(Date.valueOf(reader.nextLine()));
+			System.out.println("Office hours from: [hh:MM:ss]: ");
+			professor.setOfficeHoursFromTime(reader.nextLine());
 
-            System.out.println("Office hours from: [hh:MM:ss]: ");
-            professor.setOfficeHoursFromTime(reader.nextLine());
+			System.out.println("Office hours to: [hh:MM:ss]: ");
+			professor.setOfficeHoursToTime(reader.nextLine());
 
-            System.out.println("Office hours to: [hh:MM:ss]: ");
-            professor.setOfficeHoursToTime(reader.nextLine());
+			System.out.println("User Name: ");
+			professor.setUsername(reader.nextLine());
 
-            System.out.println("User Name: ");
-            professor.setUsername(reader.nextLine());
+			System.out.println("Address fields: ");
 
-            System.out.println("Address fields: ");
+			System.out.println("Street Name: ");
+			address.setStreetName(reader.nextLine());
 
-            System.out.println("Street Name: ");
-            address.setStreetName(reader.nextLine());
+			System.out.println("Apartment number: ");
+			address.setAptNo(Integer.parseInt(reader.nextLine()));
 
-            System.out.println("Apartment number: ");
-            address.setAptNo(Integer.parseInt(reader.nextLine()));
+			System.out.println("City: ");
+			address.setCity(reader.nextLine());
 
-            System.out.println("City: ");
-            address.setCity(reader.nextLine());
+			System.out.println("State: ");
+			address.setState(reader.nextLine());
 
-            System.out.println("Street Name: ");
-            address.setState(reader.nextLine());
+			System.out.println("Zip code : ");
+			address.setZipcode(Integer.parseInt(reader.nextLine()));
 
-            System.out.println("Zip code : ");
-            address.setZipcode(Integer.parseInt(reader.nextLine()));
+			professor.setAddress(address);
 
-            System.out.println("Street Name: ");
-            address.setState(reader.nextLine());
+			System.out.println("Do you want to Submit registration? [y:n]: ");
+			if (reader.nextLine().equalsIgnoreCase("y")) {
+				return professor;
+			} else {
+				System.out.println("Successfully Cancelled.");
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-            professor.setAddress(address);
-
-            System.out.println("Do you want to Submit registration? [y:n]: ");
-            if (reader.nextLine().equalsIgnoreCase("y")) {
-                return professor;
-            } else {
-                System.out.println("Successfully Cancelled.");
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        System.out
-                .println("You are not registered as some values are either empty or not set properly.");
-        return null;
-    }
+		System.out
+				.println("You are not registered as some values are either empty or not set properly.");
+		return null;
+	}
 
 	public String deleteProfessor(Long id) throws ServerException {
 		Response response = proxy.deleteProfessor(id);
@@ -192,63 +188,60 @@ public class ProfessorClient {
 		throw new ServerException(errorResponse);
 	}
 
+	private Professor updateFormProfessor(Professor professor) {
 
-    private Professor updateFormProfessor(Professor professor) {
+		try {
+			System.out.println();
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Professor update form");
+			System.out
+					.println("___________________________________________________________________");
+			System.out.println("Please enter values for fields to update: ");
+			String input = "";
 
-        try {
-            System.out.println();
-            System.out
-                    .println("___________________________________________________________________");
-            System.out.println("Professor update form");
-            System.out
-                    .println("___________________________________________________________________");
-            System.out.println("Please enter values for fields to update: ");
-            String input = "";
+			System.out.println("Email-Id: [ " + professor.getEmailId() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				professor.setEmailId(input);
 
-            System.out.println("Email-Id: [ " + professor.getEmailId() + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setEmailId(input);
+			System.out.println("Phone Number [ " + professor.getPhoneNumber()
+					+ " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				professor.setPhoneNumber(input);
 
-            System.out.println("Phone Number [ " + professor.getPhoneNumber()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setPhoneNumber(input);
+			System.out.println("Faculty Type [ " + professor.getFacultyType()
+					+ " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				professor.setFacultyType(input);
 
-            System.out.println("Faculty Type [ " + professor.getFacultyType()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setFacultyType(input);
+			System.out.println("Bio [ " + professor.getBio() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				professor.setBio(input);
 
-            System.out.println("Bio [ " + professor.getBio()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setBio(input);
+			System.out.println("Years of Experience : [ "
+					+ professor.getYearsOfExperience() + " ]:");
+			input = (reader.nextLine());
+			if (!input.trim().isEmpty())
+				professor.setYearsOfExperience(Integer.parseInt(input));
 
-            System.out.println("Years of Experience : [ " + professor.getYearsOfExperience()
-                    + " ]:");
-            input = (reader.nextLine());
-            if (!input.trim().isEmpty())
-                professor.setYearsOfExperience(Integer.parseInt(input));
+			System.out.println("Do you want to Submit update? [y:n]: ");
+			if (reader.nextLine().equalsIgnoreCase("y")) {
+				System.out.println("You are about to Update above fields.");
+				return professor;
+			} else {
+				System.out.println("Successfully Cancelled.");
+				return null;
+			}
 
-
-            System.out.println("Do you want to Submit update? [y:n]: ");
-            if (reader.nextLine().equalsIgnoreCase("y")) {
-                System.out.println("You are about to Update above fields.");
-                return professor;
-            } else {
-                System.out.println("Successfully Cancelled.");
-                return null;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out
-                .println("You are not able to update as some values are either empty or not set properly.");
-        return null;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out
+				.println("You are not able to update as some values are either empty or not set properly.");
+		return null;
+	}
 }

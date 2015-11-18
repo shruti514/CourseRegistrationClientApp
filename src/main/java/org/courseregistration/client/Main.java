@@ -14,6 +14,7 @@ import org.courseregistration.client.client.UserClient;
 import org.courseregistration.client.menus.ProfessorMenu;
 import org.courseregistration.client.menus.StudentMenu;
 import org.courseregistration.client.model.LoginResponse;
+import org.courseregistration.client.model.Professor;
 import org.courseregistration.client.model.Student;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
@@ -140,8 +141,19 @@ public class Main {
 	}
 
 	private void handleProfessorRegistration() {
-		// TODO Post Method call for Professor registration
-		System.out.println("Yet to implement");
+		try {
+			this.professorClient.getConnection(null);
+			ProfessorResponse professorResponse = this.professorClient
+					.addProfessor();
+			System.out
+					.println("______________________________________________________");
+			System.out.println(professorResponse.toString());
+			this.professorClient.closeConnection();
+		} catch (Exception e) {
+			System.out.println("Sorry! Could not create professor.");
+			e.printStackTrace();
+			System.out.println();
+		}
 	}
 
 	private void handleStudentRegistration() {
@@ -159,7 +171,6 @@ public class Main {
 						.println("__________________________________________");
 				System.out.println(content.toString());
 			}
-			// showAllCoursesMenu();
 			sectionClient.closeConection();
 
 		} catch (ServerException e) {
@@ -223,17 +234,35 @@ public class Main {
 	}
 
 	private void showListOfProfessors() {
-		// TODO Auto-generated method stub
 		try {
-			ProfessorResponse professorResponse = null;
+			this.professorClient.getConnection(null);
+			ProfessorResponse professorResponse = this.professorClient
+					.getAllProfessors();
 			List<ProfessorResponse> contents = professorResponse.getContent();
-			for (ProfessorResponse content : contents) {
+			if (contents.size() > 0) {
+				System.out.println();
+				System.out.println("List of All Professors");
 				System.out
-						.println("__________________________________________");
-				System.out.println(content.toString());
+						.println("______________________________________________________");
+				int counter = 1;
+
+				for (ProfessorResponse content : contents) {
+					Professor professor = content.getProfessor();
+					System.out.println("\t" + counter + ": "
+							+ professor.getFirstName() + " "
+							+ professor.getLastName());
+					counter++;
+				}
+			} else {
+				System.out
+						.println("______________________________________________________");
+				System.out.println("Oops!! No Professors in the system.");
 			}
+			this.professorClient.closeConnection();
+
 		} catch (Exception e) {
-			System.out.println("Sorry! Could not find Professors.");
+			System.out.println("Sorry! Could not find students.");
+			e.printStackTrace();
 			System.out.println();
 		}
 	}
@@ -241,7 +270,6 @@ public class Main {
 	private String getUserInput() {
 		String input = "INVALID";
 		if ((input = scanner.nextLine()) != null) {
-			// && !exitCode.equalsIgnoreCase(input)) {
 			return input.trim();
 
 		} else {
