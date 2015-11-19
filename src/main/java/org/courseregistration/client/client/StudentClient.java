@@ -279,9 +279,9 @@ public class StudentClient {
 	 * @param section_id
 	 */
 
-	public String deleteSection(long section_id)
+	public String deleteSection(long id, long section_id)
 			throws ServerException {
-		Response response = studentResource.deleteSection(section_id);
+		Response response = studentResource.deleteSection(id, section_id);
 		if (response.getStatus() == 200) {
 			return response.readEntity(String.class);
 		}

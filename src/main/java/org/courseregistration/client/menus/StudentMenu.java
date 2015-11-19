@@ -133,6 +133,7 @@ public class StudentMenu {
 			String input = getUserInput();
 
 			this.studentClient.getConnection(userContext);
+
 			String deleteMessage = this.studentClient.deleteSection(Long.valueOf(input));
 
 		} catch(Exception e) {
