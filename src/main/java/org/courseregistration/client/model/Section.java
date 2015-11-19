@@ -230,8 +230,8 @@ public class Section {
 		builder.append(" Room: " + roomNumber);
 		builder.append("\n\t[ Capacity: total-" + totalCapacity);
 		builder.append(", Wait list-" + waitListCapacity + "]");
-
-		builder.append("\n\tMode of Instruction :\t" + modeOfInstruction);
+		if(modeOfInstruction!=null)
+			builder.append("\n\tMode of Instruction :\t" + modeOfInstruction);
 
 		builder.append("\n\tSection price in USD: \t" + price);
 

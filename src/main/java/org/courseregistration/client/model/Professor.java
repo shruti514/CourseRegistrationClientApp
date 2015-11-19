@@ -146,15 +146,20 @@ public class Professor extends User {
 		builder.append("\n\tProfessor:__________________________________");
 		builder.append("\n\tName :\t" + getFirstName() + " " + getLastName());
 		builder.append("\n\t[ Email: " + emailId);
-		builder.append("\n\t[ Bio: " + bio);
+		if(bio!=null)
+			builder.append("\n\t[ Bio: " + bio);
 		builder.append(", Phone: " + phoneNumber);
-		builder.append(", Date of birth :" + dateOfBirth + "] ");
+		if(dateOfBirth!=null)
+			builder.append(", Date of birth :" + dateOfBirth + "] ");
 		if (address != null)
 			builder.append(address.toString());
-		builder.append("\n\t[ Faculty type: " + facultyType);
-		builder.append(", Years of Experience: " + yearsOfExperience);
-		builder.append(", Office hours: from " + getOfficeHoursFromTime()
-				+ " to " + getOfficeHoursToTime() + "] ");
+		if (facultyType != null)
+			builder.append("\n\t[ Faculty type: " + facultyType);
+		if(yearsOfExperience!=null)
+			builder.append(", Years of Experience: " + yearsOfExperience);
+		if(officeHoursFromTime!=null && officeHoursToTime !=null)
+			builder.append(", Office hours: from " + officeHoursFromTime
+				+ " to " + officeHoursToTime + "] ");
 
 		return builder.toString();
 	}

@@ -214,13 +214,20 @@ public class Course {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("\n\tCourse Details:__________________________________");
-        builder.append("\n\tCode: " + code);
-        builder.append(", Name: " + name);
-        builder.append(" [ Credits: " + numOfCredits + "]");
-        builder.append("\n\t[ Course Description: " + description + "]");
-        builder.append("\n\t[ Prerequisites: " + prerequisiteCourse + "]");
-        builder.append("\n\t[ Department: " + department);
-        builder.append(", Program: " + program + "]");
+        if(code!=null)
+            builder.append("\n\tCode: " + code);
+        if(name!=null)
+            builder.append("\n\tName: " + name);
+        if(numOfCredits !=null)
+            builder.append(" [ Credits: " + numOfCredits + "]");
+        if(description!=null)
+            builder.append("\n\t[ Course Description: " + description + "]");
+        if(prerequisiteCourse!=null)
+            builder.append("\n\t[ Prerequisites: " + prerequisiteCourse + "]");
+        if(department!=null)
+            builder.append("\n\t[ Department: " + department);
+        if(program!=null)
+            builder.append(", Program: " + program + "]");
         return builder.toString();
     }
 }

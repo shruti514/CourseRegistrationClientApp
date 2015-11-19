@@ -31,15 +31,15 @@ import javax.net.ssl.SSLContext;
 
 public class HttpClientFactory {
     /**
-     * get web target
-     * @param username
-     * @param password
-     * @return ResteasyWebTarget
+     * A factory to get webtarget with http client configured with user details,uri details and SSL
+     * @param username username of the user requesting a resource
+     * @param password password of a user requesting a resource
+     * @return ResteasyWebTarget RestEasy Target
      * @throws ServerException
      */
     public static ResteasyWebTarget getWebTarget(final String username, final String password) throws ServerException {
         try {
-            final HttpConfig httpConfig = new HttpConfig.Builder().build();
+            final HttpConfig httpConfig = new HttpConfig.Builder().buildHttpsConfig();
 
             final HttpHost targetHost = new HttpHost(httpConfig.getHost(), httpConfig.getPort(), httpConfig.getProtocol());
 

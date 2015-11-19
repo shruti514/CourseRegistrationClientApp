@@ -20,7 +20,7 @@ public class SectionEtagFilter implements ClientRequestFilter {
 
 
     /**
-     * retrive headers for client request
+     * add Last-modified and etag headers for client request
      */
     @Override
     public void filter(ClientRequestContext requestContext) throws IOException {
