@@ -82,7 +82,7 @@ public class Main {
 					showListOfProfessors();
 					break;
 				case "6":
-					showListOfStudents();
+					showListOfStudents(1,2);
 					break;
 				default:
 					System.out.println("Invalid input");
@@ -174,9 +174,9 @@ public class Main {
 	private void handleStudentRegistration() {
 		try {
 			this.studentClient.getConnection(null);
-			StudentResponse studentResponse = this.studentClient.addStudent();
+			String studentResponse = this.studentClient.addStudent();
 			System.out.println("_______________________________________________________");
-			System.out.println(studentResponse.toString());
+			System.out.println(studentResponse);
 			this.studentClient.closeConnection();
 		} catch (Exception e) {
 			System.out.println("Sorry! Could not create student. Try Again");
@@ -231,11 +231,12 @@ public class Main {
     /**
      * show list of students
      */
-	private void showListOfStudents() {
+	private void showListOfStudents(int page,int size) {
 		try {
+
 			this.studentClient.getConnection(null);
 			StudentResponse studentResponse = this.studentClient
-					.getAllStudents();
+					.getAllStudents(page,size);
 			List<StudentResponse> contents = studentResponse.getContent();
 			if (contents.size() > 0) {
 				System.out.println();
@@ -251,6 +252,24 @@ public class Main {
 							+ student.getLastName());
 					counter++;
 				}
+				int totalPages = studentResponse.getPage().getTotalPages();
+				if(totalPages>page){
+					System.out.println("Press \"n\" to go to next page");
+				}
+				if(page>1){
+					System.out.println("Press \"p\" to go to previous page");
+				}
+				System.out.println("Press \"b\" to go to go back to Main menu");
+				String input = getUserInput();
+				if("p".equalsIgnoreCase(input)){
+					showListOfStudents(page-1, size);
+				}
+				if("n".equalsIgnoreCase(input)){
+					showListOfStudents(page+1,size);
+				}if("b".equalsIgnoreCase(input)){
+					start();
+				}
+
 			} else {
 				System.out
 						.println("______________________________________________________");

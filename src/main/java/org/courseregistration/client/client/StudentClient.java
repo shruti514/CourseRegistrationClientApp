@@ -57,7 +57,7 @@ public class StudentClient {
 	 * @return StudentResponse
 	 * @throws ServerException
 	 */
-	public StudentResponse addStudent() throws ServerException {
+	public String addStudent() throws ServerException {
 		Student student = registrationForm();
 		try {
 			if (student != null) {
@@ -68,7 +68,7 @@ public class StudentClient {
 						.println("*******************************************************");
 				Response response = studentResource.addStudent(student);
 				if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
-					return response.readEntity(StudentResponse.class);
+					return response.readEntity(String.class);
 				}
 				throwNewException(response);
 			}
@@ -238,8 +238,9 @@ public class StudentClient {
 	 *Get all students
 	 */
 
-	public StudentResponse getAllStudents() throws ServerException {
-		Response response = studentResource.getAllStudents();
+	public StudentResponse getAllStudents(int page,int size) throws ServerException {
+
+		Response response = studentResource.getAllStudents(page,size);
 		if (response.getStatus() == 200) {
 			return response.readEntity(StudentResponse.class);
 		}
