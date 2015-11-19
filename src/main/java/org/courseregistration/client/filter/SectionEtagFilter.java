@@ -10,6 +10,10 @@ import java.io.IOException;
 public class SectionEtagFilter implements ClientRequestFilter {
     private SectionWithHeaders current;
 
+    /**
+     * section etag filters
+     * @param current
+     */
     public SectionEtagFilter(SectionWithHeaders current) {
        this.current = current;
     }

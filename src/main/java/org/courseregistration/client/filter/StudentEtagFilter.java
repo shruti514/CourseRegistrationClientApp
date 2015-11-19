@@ -11,6 +11,10 @@ public class StudentEtagFilter implements ClientRequestFilter {
 
     private final StudentWithHeaders current;
 
+    /**
+     * student etag filters
+     * @param current
+     */
     public StudentEtagFilter(StudentWithHeaders current){
         this.current = current;
     }
