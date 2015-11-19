@@ -23,6 +23,7 @@ public interface StudentResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
+	@Path("students")
     public Response addStudent(Student student);
 
 	/**

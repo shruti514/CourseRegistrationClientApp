@@ -14,9 +14,11 @@ import org.courseregistration.client.resources.ProfessorResource;
 import org.courseregistration.client.resources.StudentResource;
 import org.courseregistration.client.responses.StudentResponse;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StudentClient {
-
+	private static final Logger logger = LoggerFactory.getLogger(StudentClient.class);
 	private StudentResource studentResource = null;
 	private ProfessorResource professorResource = null;
 	private ResteasyWebTarget target = null;
@@ -57,18 +59,22 @@ public class StudentClient {
 	 */
 	public StudentResponse addStudent() throws ServerException {
 		Student student = registrationForm();
-
-		if (student != null) {
-			System.out
-					.println("*******************************************************");
-			System.out.println(student.toString());
-			System.out
-					.println("*******************************************************");
-			Response response = studentResource.addStudent(student);
-			if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
-				return response.readEntity(StudentResponse.class);
+		try {
+			if (student != null) {
+				System.out
+						.println("*******************************************************");
+				System.out.println(student.toString());
+				System.out
+						.println("*******************************************************");
+				Response response = studentResource.addStudent(student);
+				if (response.getStatus() == Response.Status.CREATED.getStatusCode()) {
+					return response.readEntity(StudentResponse.class);
+				}
+				throwNewException(response);
 			}
-			throwNewException(response);
+
+		}catch(Exception ex){
+			logger.error("Error during student registration"+ex.getMessage());
 		}
 		return null;
 	}

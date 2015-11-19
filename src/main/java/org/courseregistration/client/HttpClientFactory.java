@@ -39,7 +39,7 @@ public class HttpClientFactory {
      */
     public static ResteasyWebTarget getWebTarget(final String username, final String password) throws ServerException {
         try {
-            final HttpConfig httpConfig = new HttpConfig.Builder().buildHttpsConfig();
+            final HttpConfig httpConfig = new HttpConfig.Builder().build();
 
             final HttpHost targetHost = new HttpHost(httpConfig.getHost(), httpConfig.getPort(), httpConfig.getProtocol());
 
