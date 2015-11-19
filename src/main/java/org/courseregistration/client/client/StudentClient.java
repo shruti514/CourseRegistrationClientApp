@@ -250,7 +250,7 @@ public class StudentClient {
 	 */
 
     public StudentResponse getAllSections(Long id) throws ServerException {
-        Response response = studentResource.getAllSections(id);
+        Response response = studentResource.getStudent(id);
         if (response.getStatus() == 200) {
             return response.readEntity(StudentResponse.class);
         }
@@ -263,11 +263,11 @@ public class StudentClient {
 	 * Enroll to a Section
 	 */
 
-	public StudentResponse enrollStudent(long id, long section_id)
+	public String enrollStudent(long id, long section_id)
 			throws ServerException {
 		Response response = studentResource.enrollStudent(id, section_id);
 		if (response.getStatus() == 200) {
-			return response.readEntity(StudentResponse.class);
+			return response.readEntity(String.class);
 		}
 
 		throwNewException(response);

@@ -144,11 +144,13 @@ public class StudentMenu {
                 System.out.println("Sorry! currently you are not enrolled for any course.");
                 return;
             }
+            System.out.println("Your courses : ");
             Map<Integer,Section> indexToSection = Maps.newHashMap();
 			for(int i=0;i<sections.size();i++){
 				Section section = sections.get(i);
 				System.out.println("Press "+(i+1)+" to drop course - " + section.getCourse().getName()+" by "+
 						section.getProfessor().getFirstName() + " "+section.getProfessor().getLastName());
+                System.out.println();
 				indexToSection.put((i+1),section);
 			}
 
@@ -157,9 +159,9 @@ public class StudentMenu {
 			Section section = indexToSection.get(Integer.valueOf(input));
 
 			this.studentClient.getConnection(userContext);
-
-            this.studentClient.deleteSection(UserContext.getStudent().getId(),section.getId());
-
+            String response = this.studentClient.deleteSection(UserContext.getStudent().getId(), section.getId());
+            System.out.println();
+            System.out.println(response);
         } catch(Exception e) {
             logger.error("Error:"+ e.getMessage());
 			System.out.println("Sorry! Could not drop section");
@@ -171,9 +173,40 @@ public class StudentMenu {
 	 * enroll to section
 	 */
 	private void enrollToSection() {
-		try {
+		try{
+            sectionClient.getConnection(userContext);
+            SectionResponse allSections = sectionClient.getAllSections();
 
-		} catch(Exception e) {
+            Map<Integer,Section> indexToSection = Maps.newHashMap();
+            List<SectionResponse> content = allSections.getContent();
+            int i = 1;
+            for(SectionResponse sectionResponse : content) {
+                Section section = sectionResponse.getSection();
+                System.out.println("Press "+i+" to enroll for \""+section.getCourse().getName()+"\" by "+ section.getProfessor().getFirstName()+" "+section.getProfessor().getLastName());
+                System.out.println("\t [ Total Capacity: "+section.getTotalCapacity()+"]");
+                System.out.println("\t [ Wait List Capacity: "+section.getWaitListCapacity()+"]");
+                System.out.println("\t [ Total Number Of Enrolled Students: "+section.getNumberOfEnrolledStudents()+"]");
+                System.out.println("\t [ Time: "+section.getClassStartTimeForView()+" - "+section.getClassEndTimeForView()+"]");
+                System.out.println("\t [ Day Of the Week: "+section.getDayOfWeek()+"]");
+                System.out.println("\t [ Price: $"+section.getPrice()+"]");
+                indexToSection.put(i++, section);
+                System.out.println();
+            }
+
+            String input = getUserInput();
+
+            if(indexToSection.containsKey(Integer.valueOf(input))){
+                Section section = indexToSection.get(Integer.valueOf(input));
+                studentClient.getConnection(userContext);
+                String response = studentClient.enrollStudent(UserContext.getStudent().getId(), section.getId());
+                System.out.println();
+                System.out.println(response);
+            }else{
+                System.out.println("Invalid Input");
+                return;
+            }
+
+        } catch(Exception e) {
             logger.error("Error:"+ e.getMessage());
 			System.out.println("Sorry! Could not enroll to section");
 		}
@@ -187,9 +220,11 @@ public class StudentMenu {
 		try {
 			studentClient.getConnection(userContext);
 			Long id = UserContext.getStudent().getId();
-			List<Section> sections = (List<Section>) studentClient
-					.getAllSections(id);
-			for (Section section : sections) {
+			StudentResponse studentResponse = studentClient.getAllSections(id);
+            if(studentResponse.getStudent().getSections().size()<1){
+                System.out.println("Currently you are not registered for any course.");
+            }
+			for (Section section : studentResponse.getStudent().getSections()) {
 				System.out.println(section.toString());
 			}
 		} catch (ServerException e) {

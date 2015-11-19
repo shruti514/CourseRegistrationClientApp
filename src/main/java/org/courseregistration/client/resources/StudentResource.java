@@ -105,9 +105,8 @@ public interface StudentResource {
 	 * @return Response
 	 */
 	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
-	@Path("{id}/sections/{section_id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("students/{id}/sections/{section_id}")
 	Response enrollStudent(@PathParam("id") long id,
 			@PathParam("section_id") long section_id);
 

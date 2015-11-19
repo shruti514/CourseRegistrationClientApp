@@ -252,7 +252,7 @@ public class Section {
 
 	@JsonIgnore
 	public Integer getNumberOfEnrolledStudents() {
-		return numberOfEnrolledStudents;
+		return student.size();
 	}
 
 	public void setNumberOfEnrolledStudents(Integer numberOfEnrolledStudents) {
