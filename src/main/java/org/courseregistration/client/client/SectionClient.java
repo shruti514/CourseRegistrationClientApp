@@ -67,6 +67,7 @@ public class SectionClient {
 	public SectionResponse getSection(int id) throws ServerException {
         target.register(new SectionEtagFilter(currentSection));
         Response response = proxy.getSection(id);
+       // System.out.println(response.readEntity(String.class));
         if (response.getStatus() == 200) {
             this.currentSection = SectionWithHeaders.getSectionWithHeaders(response);
             return currentSection.getCurrent();

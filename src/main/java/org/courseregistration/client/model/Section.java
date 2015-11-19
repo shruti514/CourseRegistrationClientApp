@@ -13,7 +13,6 @@ public class Section {
 	private Professor professor;
 	private Course course;
 	private String semester;
-	@JsonProperty()
 	private String classStartTime;
 	private String classEndTime;
 	private String dayOfWeek;
@@ -25,6 +24,7 @@ public class Section {
 	private Integer waitListCapacity;
 	private String modeOfInstruction;
 	private Integer price;
+    @JsonProperty("students")
 	private List<Student> student;
 	@JsonIgnore
 	private List<Link> links;
@@ -259,7 +259,7 @@ public class Section {
 		this.numberOfEnrolledStudents = numberOfEnrolledStudents;
 	}
 
-	@JsonIgnore
+	//@JsonIgnore
 	public List<Student> getStudent() {
 		return student;
 	}
