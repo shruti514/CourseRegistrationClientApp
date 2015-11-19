@@ -21,12 +21,20 @@ public class StudentMenu {
 	StudentClient studentClient;
 	ProfessorClient professorClient;
 
+	/**
+	 * Constructor
+	 * @param userContext
+	 */
 	public StudentMenu(UserContext userContext) {
 		this.userContext = userContext;
 		this.sectionClient = new SectionClient();
 		this.studentClient = new StudentClient();
 	}
 
+	/**
+	 * view all students menu
+	 * @throws Exception
+	 */
 	public void showAllStudentsMenu() throws Exception {
 		while (true) {
 			System.out.println();
@@ -91,6 +99,9 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * Custom search for section
+	 */
 	private void customSearchSection() {
 		try {
 			CriteriaDTO dto = sectionClient.createDTOForm();
@@ -113,16 +124,26 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * drop from section
+	 */
 	private void dropFromSection() {
 		// TODO Auto-generated method stub
 		System.out.println("Yet to implement");
 	}
 
+	/**
+	 * enroll to section
+	 */
 	private void enrollToSection() {
 		// TODO Auto-generated method stub
 		System.out.println("Yet to implement");
 	}
 
+	/**
+	 * list all sections
+	 * @throws Exception
+	 */
 	private void listAllSections() throws Exception {
 		try {
 			studentClient.getConnection(userContext);
@@ -139,6 +160,10 @@ public class StudentMenu {
 
 	}
 
+	/**
+	 * view all professors
+	 * @throws Exception
+	 */
 	private void showListOfProfessors() throws Exception {
 		try {
 			// studentClient.getConnection(userContext);
@@ -153,6 +178,11 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * delete student profile
+	 * @return
+	 * @throws Exception
+	 */
 	private boolean deleteProfile() throws Exception {
 		try {
 			studentClient.getConnection(userContext);
@@ -168,11 +198,18 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * update student profile
+	 */
 	private void updateProfile() {
 		// TODO Auto-generated method stub
 		System.out.println("Yet to implement");
 	}
 
+	/**
+	 * retrieve student details
+	 * @throws Exception
+	 */
 	private void getStudentDetails() throws Exception {
 		try {
 			studentClient.getConnection(userContext);
@@ -187,6 +224,9 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * search for course
+	 */
 	private void searchForACourse() {
 		System.out.println("Enter the ID of Section to select: ");
 		String input = getUserInput();
@@ -205,6 +245,10 @@ public class StudentMenu {
 		}
 	}
 
+	/**
+	 * get input from user
+	 * @return
+	 */
 	private String getUserInput() {
 		String input = "INVALID";
 		if ((input = scanner.nextLine()) != null) {

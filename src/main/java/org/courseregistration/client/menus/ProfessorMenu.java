@@ -294,6 +294,10 @@ public class ProfessorMenu {
 		}
 	}
 
+	/**
+	 * obtain the user inout
+	 * @return string
+	 */
 	private String getUserInput() {
 		String input = "INVALID";
 		if ((input = reader.nextLine()) != null) {
