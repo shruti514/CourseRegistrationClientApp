@@ -18,16 +18,31 @@ import org.jboss.resteasy.annotations.Form;
 
 public interface SectionResource {
 
+	/**
+	 * get a section
+	 * @param id
+	 * @return Response
+	 */
 	@GET
 	@Produces("application/json")
 	@Path("/sections/{id}")
 	Response getSection(@PathParam("id") int id);
 
+	/**
+	 * get all section
+	 *
+	 * @return Response
+	 */
 	@GET
 	@Produces("application/json")
 	@Path("/sections")
 	Response getAllSections();
 
+	/**
+	 * add section
+	 * @param section
+	 * @return Response
+	 */
 	@POST
 	@Path("/sections/")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -35,12 +50,23 @@ public interface SectionResource {
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response addSection(Section section);
 
+	/**
+	 * delete a section
+	 * @param section_id
+	 * @return Response
+	 */
 	@DELETE
 	@Path("/sections/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response deleteSection(@PathParam("id") Long section_id);
 
+	/**
+	 * update section
+	 * @param id
+	 * @param current
+	 * @return Response
+	 */
 	@PUT
 	@Path("/sections/{sectionId}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -49,6 +75,11 @@ public interface SectionResource {
 	public Response updateSection(@PathParam("sectionId") long id,
 			Section current);
 
+	/**
+	 * find a section
+	 * @param dto
+	 * @return Response
+	 */
 	@GET
 	@Path("/sections/search")
 	@Produces(MediaType.APPLICATION_JSON)

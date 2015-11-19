@@ -11,6 +11,11 @@ import javax.ws.rs.core.Response;
 
 public interface UserResource {
 
+    /**
+     * Login
+     * @param loginRequest
+     * @return Response
+     */
     @POST
     @Produces("application/json")
     @Consumes("application/json")

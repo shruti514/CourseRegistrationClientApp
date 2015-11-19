@@ -19,19 +19,30 @@ import org.courseregistration.client.model.Professor;
 
 public interface ProfessorResource {
 
-	// -- 1. See logged in professor profile
+	/**
+	 * See logged in professor profile
+	 */
+
 	@GET
 	@Produces("application/json")
 	@Path("/professors/{id}")
 	Response getProfessor(@PathParam("id") int id);
 
-	// -- Display all professors list
+	/**
+	 * Display all professors list
+	 * @return
+	 */
 	@GET
 	@Produces("application/json")
 	@Path("/professors")
 	Response getAllProfessors();
 
-	// -- 2. Update logged in professor details
+	/**
+	 * Update logged in professor details
+	 * @param id
+	 * @param current
+	 * @return
+	 */
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -39,14 +50,22 @@ public interface ProfessorResource {
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response updateProfessor(@PathParam("id") Long id,Professor current);
 
-	// -- 3. Delete logged in professor profile
+	/**
+	 *  Delete logged in professor profile
+	 * @param id
+	 * @return
+	 */
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("professors/{id}")
 	@RolesAllowed({ "PROFESSOR", "ADMIN" })
 	public Response deleteProfessor(@PathParam("id") Long id);
 
-	// -- 4. Add new course
+	/**
+	 * Add new course
+	 * @param course
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/courses/")
@@ -54,45 +73,56 @@ public interface ProfessorResource {
 	public Response addCourse(Course course);
 
 	/**
-	 * // 5. List of all sections
-	 * 
-	 * @GET
-	 * @Produces("application/json")
-	 * @Path("/sections") Response getAllSections();
-	 **/
+	 * List of all sections
+	 *
+	 * */
+	 @GET
+	 @Produces("application/json")
+	 @Path("/sections") Response getAllSections();
+
 
 	/**
 	 * // 6. Search for a student
-	 * 
-	 * @GET
-	 * @Produces("application/json")
-	 * @Consumes("application/json")
-	 * @Path("/students/{id ") public Response
-	 *                      getStudentDetails(@PathParam("id") int id);
-	 **/
+	 * */
+	 @GET
+	 @Produces("application/json")
+	 @Consumes("application/json")
+	 @Path("/students/{id ") public Response
+	   getStudentDetails(@PathParam("id") int id);
+
 
 	/**
 	 * // 7. Search for a Course
-	 * 
-	 * @GET
-	 * @Produces("application/json")
-	 * @Path("/courses/{id ") public Response getCourseDetails();
 	 **/
+	 @GET
+	 @Produces("application/json")
+	 @Path("/courses/{id ") public Response getCourseDetails();
 
+	/**
+	 * adds professor
+	 * @param professor
+	 * @return Response
+	 */
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
 	@Consumes(MediaType.APPLICATION_JSON)
     @Path("professors")
 	public Response addProfessor(Professor professor);
 
-	// create multiple professors
+	/**
+	 * create multiple professors
+	 * @return Response
+	 */
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/professors")
 	public Response setMultipleProfessors();
 
-	// delete multiple professors
+	/**
+	 * delete multiple professor
+	 * @return
+	 */
 	@DELETE
 	@Produces("application/json")
 	@Path("professor/{ids}")

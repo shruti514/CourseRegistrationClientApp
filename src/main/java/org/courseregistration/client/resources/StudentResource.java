@@ -15,57 +15,95 @@ import javax.ws.rs.core.Response;
 
 public interface StudentResource {
 
+	/**
+	 * add a student
+	 * @param student
+	 * @return Response
+	 */
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addStudent(Student student);
 
-	// 1. See logged in student profile
+	/**
+	 * See logged in student profile
+	 * @param id
+	 * @return Response
+	 */
 	@GET
 	@Produces("application/json")
 	@Path("/students/{id}")
 	Response getStudent(@PathParam("id") Long id);
 
-	// 6 from Main. See all students
+	/**
+	 *  See all students
+	 * @return Response
+	 */
 	@GET
 	@Produces("application/json")
 	@Path("/students")
 	Response getAllStudents();
 
-	// 2. Update logged in student details
+	/**
+	 * update student
+	 * @param id
+	 * @param student
+	 * @return Response
+	 */
 	@PUT
 	@Produces("text/plain")
 	@Consumes("application/json")
 	@Path("/students/{id}")
 	Response updateStudent(@PathParam("id") long id, Student student);
 
-	// 3. Delete logged in student profile
+	/**
+	 * Delete logged in student profile
+	 * @param id
+	 * @return Response
+	 */
 	@DELETE
 	@Produces("text/plain")
 	@Path("/students/{id}")
 	Response deleteStudent(@PathParam("id") Long id);
 
-	// 4. Search for a course
+	/**
+	 * Search for a course
+	 * @param id
+	 * @return Response
+	 */
 	@GET
 	@Produces("application/json")
 	@Path("/courses/{id}")
 	Response getCourseDetails(@PathParam("id") long id);
 
-	// 5. Search for a Professor
+	/**
+	 * Search for a Professor
+	 * @param id
+	 * @return Response
+	 */
 	@GET
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/professors/{id}")
 	Response getProfessorDetails(@PathParam("id") long id);
 
-	// 6. List all sections for the logged in student
+	/**
+	 * // List all sections for the logged in student
+	 * @param id
+	 * @return Response
+	 */
 	@GET
 	@Produces("application/json")
 	@Consumes("application/json")
 	@Path("/sections/{id}")
 	Response getAllSections(@PathParam("id") Long id);
 
-	// 7. Enroll Student
+	/**
+	 * Enroll Student
+	 * @param id
+	 * @param section_id
+	 * @return Response
+	 */
 	@POST
 	@Produces("application/json")
 	@Consumes("application/json")
@@ -73,7 +111,12 @@ public interface StudentResource {
 	Response enrollStudent(@PathParam("id") long id,
 			@PathParam("section_id") long section_id);
 
-	// 8. Drop a section
+	/**
+	 * Drop a section
+	 * @param id
+	 * @param section_id
+	 * @return Response
+	 */
 	@DELETE
 	@Produces("application/json")
 	@Path("{id}/sections/{section_id}")
