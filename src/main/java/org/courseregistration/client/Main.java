@@ -45,6 +45,10 @@ public class Main {
 		main.start();
 	}
 
+    /**
+     * start
+     * @throws Exception
+     */
 	private void start() throws Exception {
 		while (true) {
 			System.out.println("\n\nWelcome login to Course Registration");
@@ -89,6 +93,10 @@ public class Main {
 		}
 	}
 
+    /**
+     * handle login
+     * @throws Exception
+     */
 	private void handleLogin() throws Exception {
 		System.out.println("Enter Username : ");
 		String username = getUserInput();
@@ -119,6 +127,9 @@ public class Main {
 
 	}
 
+    /**
+     * handle registration
+     */
 	private void handleRegistration() {
 		System.out.println("1 - Want to register as Student? ");
 		System.out.println("2 - Want to register as Professor? ");
@@ -138,6 +149,9 @@ public class Main {
 		}
 	}
 
+    /**
+     * handle professor registration
+     */
 	private void handleProfessorRegistration() {
 		try {
 			this.professorClient.getConnection(null);
@@ -154,6 +168,9 @@ public class Main {
 		}
 	}
 
+    /**
+     * handle student registration
+     */
 	private void handleStudentRegistration() {
 		try {
 			this.studentClient.getConnection(null);
@@ -168,6 +185,9 @@ public class Main {
 		}
 	}
 
+    /**
+     * show list of courses
+     */
 	private void showListOfCourses() {
 		try {
 			sectionClient.getConnection(userContext);
@@ -186,6 +206,9 @@ public class Main {
 		}
 	}
 
+    /**
+     * search for a course
+     */
 	private void searchForACourse() {
 		System.out.println("Enter the ID of Section to select: ");
 		String input = getUserInput();
@@ -205,6 +228,9 @@ public class Main {
 		}
 	}
 
+    /**
+     * show list of students
+     */
 	private void showListOfStudents() {
 		try {
 			this.studentClient.getConnection(null);
@@ -240,6 +266,9 @@ public class Main {
 		}
 	}
 
+    /**
+     * show list of professors
+     */
 	private void showListOfProfessors() {
 		try {
 			this.professorClient.getConnection(null);
@@ -274,6 +303,10 @@ public class Main {
 		}
 	}
 
+    /**
+     * get user input
+     * @return String
+     */
 	private String getUserInput() {
 		String input = "INVALID";
 		if ((input = scanner.nextLine()) != null) {
@@ -287,6 +320,10 @@ public class Main {
 		return input;
 	}
 
+    /**
+     * get password
+     * @return
+     */
 	private String getPassword() {
 		String password = "";
 		Console console = System.console();

@@ -30,7 +30,13 @@ import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine;
 import javax.net.ssl.SSLContext;
 
 public class HttpClientFactory {
-
+    /**
+     * get web target
+     * @param username
+     * @param password
+     * @return ResteasyWebTarget
+     * @throws ServerException
+     */
     public static ResteasyWebTarget getWebTarget(final String username, final String password) throws ServerException {
         try {
             final HttpConfig httpConfig = new HttpConfig.Builder().build();
@@ -80,6 +86,10 @@ public class HttpClientFactory {
         }
     }
 
+    /**
+     * get WebTarget For Anonymous User
+     * @return ResteasyWebTarget
+     */
     public static ResteasyWebTarget getWebTargetForAnonymousUser() {
 
         final HttpConfig httpConfig = new HttpConfig.Builder().build();
