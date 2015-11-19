@@ -16,80 +16,155 @@ public class Course {
     @JsonIgnore
     private Link link;
 
+    /**
+     * get Link
+     * @return Link
+     */
     public Link getLink() {
         return link;
     }
 
+    /**
+     * set link
+     * @param link
+     */
     public void setLink(Link link) {
         this.link = link;
     }
 
-
+    /**
+     * get ID
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * set Id
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * get code
+     * @return String
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * set code
+     * @param code
+     */
     public void setCode(String code) {
         this.code = code;
     }
 
+    /**
+     * get name
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * set name
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * get description
+     * @return String
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * set description
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * gets number of credits
+     * @return Integer
+     */
     public Integer getNumOfCredits() {
         return numOfCredits;
     }
 
+    /**
+     * sets number of credits
+     * @param numOfCredits
+     */
     public void setNumOfCredits(Integer numOfCredits) {
         this.numOfCredits = numOfCredits;
     }
 
+    /**
+     * get prerequisite course
+     * @return String
+     */
     public String getPrerequisiteCourse() {
         return prerequisiteCourse;
     }
 
+    /**
+     * set prerequisite course
+     * @param prerequisiteCourse
+     */
     public void setPrerequisiteCourse(String prerequisiteCourse) {
         this.prerequisiteCourse = prerequisiteCourse;
     }
 
+    /**
+     * get department
+     * @return String
+     */
     public String getDepartment() {
         return department;
     }
 
+    /**
+     * set department
+     * @param department
+     */
     public void setDepartment(String department) {
         this.department = department;
     }
 
+    /**
+     * get program
+     * @return String
+     */
     public String getProgram() {
         return program;
     }
 
+    /**
+     * set program
+     * @param program
+     */
     public void setProgram(String program) {
         this.program = program;
     }
 
-
+    /**
+     * equals
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -115,6 +190,10 @@ public class Course {
 
     }
 
+    /**
+     * hashcode
+     * @return
+     */
     @Override
     public int hashCode() {
         int result = getId().hashCode();
@@ -127,6 +206,10 @@ public class Course {
         return result;
     }
 
+    /**
+     * to string
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
