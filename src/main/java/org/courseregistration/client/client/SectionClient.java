@@ -469,6 +469,11 @@ public class SectionClient {
 		return null;
 	}
 
+	/**
+	 * Prints error and corresponding response code
+	 * @param response
+	 * @throws ServerException
+	 */
 	private void throwNewException(Response response) throws ServerException {
 		String errorResponse = response.readEntity(String.class);
 		target.getResteasyClient().close();

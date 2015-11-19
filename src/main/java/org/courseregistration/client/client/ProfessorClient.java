@@ -22,7 +22,12 @@ public class ProfessorClient {
 	private ResteasyWebTarget target = null;
 
 	Scanner reader = new Scanner(System.in);
-
+	/**
+	 * Gets connection according to user context
+	 *
+	 * @param userContext
+	 * @throws ServerException
+	 */
 	public void getConnection(UserContext userContext) throws ServerException {
 		if (userContext != null) {
 			target = HttpClientFactory.getWebTarget(userContext.getUsername(),
@@ -33,6 +38,9 @@ public class ProfessorClient {
 		proxy = target.proxy(ProfessorResource.class);
 	}
 
+	/**
+	 * close connection
+	 */
 	public void closeConnection() {
 		try {
 			if (!target.getResteasyClient().isClosed())
@@ -42,7 +50,7 @@ public class ProfessorClient {
 		}
 	}
 
-	// 1.See professor profile
+	// view professor profile
 	public ProfessorResponse getProfessor(int id) throws ServerException {
 		Response response = proxy.getProfessor(id);
 		if (response.getStatus() == 200) {
@@ -53,6 +61,11 @@ public class ProfessorClient {
 		return null;
 	}
 
+	/**
+	 * Retrive all professors
+	 * @return ProfessorResponse
+	 * @throws ServerException
+	 */
 	public ProfessorResponse getAllProfessors() throws ServerException {
 		Response response = proxy.getAllProfessors();
 
@@ -64,6 +77,11 @@ public class ProfessorClient {
 		return null;
 	}
 
+	/**
+	 * adds professor by filling in the details
+	 * @return
+	 * @throws ServerException
+	 */
 	public String addProfessor() throws ServerException {
 		Professor professor = registrationForm();
 
@@ -82,6 +100,10 @@ public class ProfessorClient {
 		return null;
 	}
 
+	/**
+	 * Professor registration form
+	 * @return Professor
+	 */
 	private Professor registrationForm() {
 
 		try {
@@ -164,6 +186,12 @@ public class ProfessorClient {
 		return null;
 	}
 
+	/**
+	 * delete a professor by professorId
+	 * @param id
+	 * @return confirmation of the professor object deletion
+	 * @throws ServerException
+	 */
 	public String deleteProfessor(Long id) throws ServerException {
 		Response response = proxy.deleteProfessor(id);
 		if (response.getStatus() == 200) {
@@ -173,8 +201,10 @@ public class ProfessorClient {
 		return null;
 	}
 
-	// 2. update professor profile
-	public String updateProfessor(long id,
+    /**
+     * update professor profile
+      */
+    	public String updateProfessor(long id,
 			Professor current) throws ServerException {
 		Professor professor = updateFormProfessor(current);
 		if (professor != null) {
@@ -187,6 +217,11 @@ public class ProfessorClient {
 		return null;
 	}
 
+    /**
+     * Prints error and corresponding response code
+     * @param response
+     * @throws ServerException
+     */
 	private void throwNewException(Response response) throws ServerException {
 		String errorResponse = response.readEntity(String.class);
 		target.getResteasyClient().close();
@@ -194,6 +229,11 @@ public class ProfessorClient {
 		throw new ServerException(errorResponse);
 	}
 
+    /**
+     * update Professor details
+     * @param professor
+     * @return
+     */
 	private Professor updateFormProfessor(Professor professor) {
 
 		try {

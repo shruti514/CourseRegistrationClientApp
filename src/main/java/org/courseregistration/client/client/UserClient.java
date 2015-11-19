@@ -13,6 +13,13 @@ import javax.ws.rs.core.Response;
 public class UserClient {
     private static final Logger logger = LoggerFactory.getLogger(UserClient.class);
 
+    /**
+     * Login based on roles
+     * @param username
+     * @param password
+     * @return LoginResponse
+     * @throws ServerException
+     */
     public static LoginResponse login(final String username, final String password) throws ServerException {
 
         ResteasyWebTarget target = HttpClientFactory.getWebTarget(username, password);

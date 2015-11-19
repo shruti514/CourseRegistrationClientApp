@@ -15,6 +15,11 @@ public class StudentEtagFilter implements ClientRequestFilter {
         this.current = current;
     }
 
+    /**
+     * retrieve headers for client request context
+     * @param requestContext
+     * @throws IOException
+     */
     @Override
     public void filter(ClientRequestContext requestContext) throws IOException {
         if (current != null) {

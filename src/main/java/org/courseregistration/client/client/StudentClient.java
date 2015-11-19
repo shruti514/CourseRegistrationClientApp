@@ -23,6 +23,11 @@ public class StudentClient {
 
 	Scanner reader = new Scanner(System.in);
 
+	/**
+	 * establish a connection
+	 * @param userContext
+	 * @throws ServerException
+	 */
 	public void getConnection(UserContext userContext) throws ServerException {
 		if (userContext != null) {
 			target = HttpClientFactory.getWebTarget(userContext.getUsername(),
@@ -33,6 +38,9 @@ public class StudentClient {
 		studentResource = target.proxy(StudentResource.class);
 	}
 
+	/**
+	 * ends the connection
+	 */
 	public void closeConnection() {
 		try {
 			if (!target.getResteasyClient().isClosed())
@@ -42,6 +50,11 @@ public class StudentClient {
 		}
 	}
 
+	/**
+	 * method to add a student to the system
+	 * @return StudentResponse
+	 * @throws ServerException
+	 */
 	public StudentResponse addStudent() throws ServerException {
 		Student student = registrationForm();
 
@@ -60,6 +73,10 @@ public class StudentClient {
 		return null;
 	}
 
+	/**
+	 * Registration form for students
+	 * @return Student object
+	 */
 	private Student registrationForm() {
 
 		try {
@@ -134,8 +151,10 @@ public class StudentClient {
 	}
 
 
-	// 1. See Profile
-	public StudentResponse getStudent(Long id) throws ServerException {
+	/**
+	 * view student by Id
+	 */
+		public StudentResponse getStudent(Long id) throws ServerException {
 		Response response = studentResource.getStudent(id);
 		if (response.getStatus() == 200) {
 			return response.readEntity(StudentResponse.class);
@@ -145,7 +164,10 @@ public class StudentClient {
 		return null;
 	}
 
-	// 2. Update Profile
+	/**
+	 * update student Profile
+	 */
+
 	public StudentResponse updateStudent(@PathParam("id")long id, Student current) throws ServerException {
 		Student student = updateFormStudent(current);
 
@@ -161,7 +183,10 @@ public class StudentClient {
 		return null;
 	}
 
-	// 3. Delete Profile
+	/**
+	 * Delete student Profile by Id
+	 */
+
 	public String deleteStudent(Long id) throws ServerException {
 		Response response = studentResource.deleteStudent(id);
 		if (response.getStatus() == 200) {
@@ -173,7 +198,10 @@ public class StudentClient {
 
 	}
 
-	// 4. Search for a course
+	/**
+	 * Search for a course
+ 	 */
+
 	public StudentResponse getCourseDetails(int id) throws ServerException {
 		Response response = studentResource.getCourseDetails(id);
 		if (response.getStatus() == 200) {
@@ -184,7 +212,12 @@ public class StudentClient {
 		return null;
 	}
 
-	// 5. Search for Professor
+	/**
+	 * Search for Professor
+	 * @return StudentResponse
+	 * @throws ServerException
+	 */
+
 	public StudentResponse getAllProfessorDetails() throws ServerException {
 		Response response = professorResource.getAllProfessors();
 		if (response.getStatus() == 200) {
@@ -195,7 +228,10 @@ public class StudentClient {
 		return null;
 	}
 
-    // Main Menu: 6. Get all students
+	/**
+	 *Get all students
+	 */
+
 	public StudentResponse getAllStudents() throws ServerException {
 		Response response = studentResource.getAllStudents();
 		if (response.getStatus() == 200) {
@@ -206,7 +242,13 @@ public class StudentClient {
 		return null;
 	}
 
-    // 6. List all sections for the logged in student
+	/**
+	 * List all sections for the logged in student
+	 * @param id
+	 * @return StudentResponse
+	 * @throws ServerException
+	 */
+
     public StudentResponse getAllSections(Long id) throws ServerException {
         Response response = studentResource.getAllSections(id);
         if (response.getStatus() == 200) {
@@ -217,7 +259,10 @@ public class StudentClient {
         return null;
     }
 
-	// 7. Enroll to a Section
+	/**
+	 * Enroll to a Section
+	 */
+
 	public StudentResponse enrollStudent(long id, long section_id)
 			throws ServerException {
 		Response response = studentResource.enrollStudent(id, section_id);
@@ -229,7 +274,10 @@ public class StudentClient {
 		return null;
 	}
 
-	// 8. Drop Section
+	/**
+	 * Drop Section
+ 	 */
+
 	public StudentResponse deleteSection(long id, long section_id)
 			throws ServerException {
 		Response response = studentResource.deleteSection(id, section_id);
@@ -241,6 +289,11 @@ public class StudentClient {
 		return null;
 	}
 
+	/**
+	 * update form for student
+	 * @param student
+	 * @return Student object
+	 */
     private Student updateFormStudent(Student student) {
 
         try {
@@ -324,7 +377,11 @@ public class StudentClient {
         return null;
     }
 
-
+	/**
+	 * tells error message and response code
+	 * @param response
+	 * @throws ServerException
+	 */
 	private void throwNewException(Response response) throws ServerException {
 		String errorResponse = response.readEntity(String.class);
 		target.getResteasyClient().close();

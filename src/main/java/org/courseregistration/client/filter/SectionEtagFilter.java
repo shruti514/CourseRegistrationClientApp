@@ -14,6 +14,10 @@ public class SectionEtagFilter implements ClientRequestFilter {
        this.current = current;
     }
 
+
+    /**
+     * retrive headers for client request
+     */
     @Override
     public void filter(ClientRequestContext requestContext) throws IOException {
         if (current != null) {

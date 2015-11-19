@@ -17,6 +17,12 @@ public class CourseClient {
 
 	Scanner reader = new Scanner(System.in);
 
+    /**
+     * Gets connection according to user context
+     *
+     * @param userContext
+     * @throws ServerException
+     */
 	public void getConnection(UserContext userContext) throws ServerException {
 		if (userContext != null) {
 			target = HttpClientFactory.getWebTarget(userContext.getUsername(),
@@ -27,6 +33,9 @@ public class CourseClient {
 		proxy = target.proxy(CourseResource.class);
 	}
 
+    /**
+     * close connection
+     */
 	public void closeConection() {
 		try {
 			if (!target.getResteasyClient().isClosed())
@@ -36,6 +45,12 @@ public class CourseClient {
 		}
 	}
 
+    /**
+     * retrieves a course by course-id
+     * @param id
+     * @return CourseResponse
+     * @throws ServerException
+     */
 	public CourseResponse getCourse(int id) throws ServerException {
 		Response response = proxy.getCourse(id);
 		if (response.getStatus() == 200) {
@@ -46,7 +61,12 @@ public class CourseClient {
 		return null;
 	}
 
-	public CourseResponse getAllCourses() throws ServerException {
+    /**
+     * Retrives all courses
+     * @return CourseResponse
+     * @throws ServerException
+     */
+    public CourseResponse getAllCourses() throws ServerException {
 		Response response = proxy.getAllCourses();
 
 		if (response.getStatus() == 200) {
@@ -57,6 +77,11 @@ public class CourseClient {
 		return null;
 	}
 
+    /**
+     * Prints error and corresponding response code
+     * @param response
+     * @throws ServerException
+     */
 	private void throwNewException(Response response) throws ServerException {
 		String errorResponse = response.readEntity(String.class);
 		target.getResteasyClient().close();
