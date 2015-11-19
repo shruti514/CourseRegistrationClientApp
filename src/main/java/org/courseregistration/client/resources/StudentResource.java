@@ -114,13 +114,11 @@ public interface StudentResource {
 	/**
 	 * Drop a section
 	 * @param id
-	 * @param section_id
 	 * @return Response
 	 */
 	@DELETE
 	@Produces("application/json")
 	@Path("{id}/sections/{section_id}")
-	Response deleteSection(@PathParam("id") long id,
-			@PathParam("section_id") long section_id);
+	Response deleteSection(@PathParam("id") long id);
 
 }
