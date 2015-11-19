@@ -117,8 +117,8 @@ public interface StudentResource {
 	 * @return Response
 	 */
 	@DELETE
-	@Produces("application/json")
-	@Path("{id}/sections/{section_id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("students/{id}/sections/{section_id}")
 	Response deleteSection(@PathParam("id") long id, @PathParam ("section_id") long section_id);
 
 }

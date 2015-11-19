@@ -1,8 +1,11 @@
 package org.courseregistration.client.menus;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.client.ProfessorClient;
 import org.courseregistration.client.client.SectionClient;
@@ -10,11 +13,15 @@ import org.courseregistration.client.client.ServerException;
 import org.courseregistration.client.client.StudentClient;
 import org.courseregistration.client.model.CriteriaDTO;
 import org.courseregistration.client.model.Section;
+import org.courseregistration.client.model.Student;
 import org.courseregistration.client.responses.ProfessorResponse;
 import org.courseregistration.client.responses.SectionResponse;
 import org.courseregistration.client.responses.StudentResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StudentMenu {
+    private static final Logger logger = LoggerFactory.getLogger(StudentMenu.class);
 	UserContext userContext;
 	Scanner scanner = new Scanner(System.in);
 	SectionClient sectionClient;
@@ -119,6 +126,7 @@ public class StudentMenu {
 						.println("Sorry! Search is canclled or wrong values inserted in search.");
 			}
 		} catch (ServerException e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out.println();
 			System.out.println("Sorry! Could not find courses for this Search");
 		}
@@ -129,17 +137,35 @@ public class StudentMenu {
 	 */
 	private void dropFromSection() {
 		try {
-			System.out.println("Enter the ID of Section to Delete: ");
+            studentClient.getConnection(userContext);
+            StudentResponse studentResponse = studentClient.getStudent(UserContext.getStudent().getId());
+            List<Section> sections = studentResponse.getStudent().getSections();
+            if(sections.size() < 1) {
+                System.out.println("Sorry! currently you are not enrolled for any course.");
+                return;
+            }
+            Map<Integer,Section> indexToSection = Maps.newHashMap();
+			for(int i=0;i<sections.size();i++){
+				Section section = sections.get(i);
+				System.out.println("Press "+(i+1)+" to drop course - " + section.getCourse().getName()+" by "+
+						section.getProfessor().getFirstName() + " "+section.getProfessor().getLastName());
+				indexToSection.put((i+1),section);
+			}
+
 			String input = getUserInput();
+
+			Section section = indexToSection.get(Integer.valueOf(input));
 
 			this.studentClient.getConnection(userContext);
 
-			String deleteMessage = this.studentClient.deleteSection(Long.valueOf(input));
+            this.studentClient.deleteSection(UserContext.getStudent().getId(),section.getId());
 
-		} catch(Exception e) {
+        } catch(Exception e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out.println("Sorry! Could not drop section");
 		}
 	}
+
 
 	/**
 	 * enroll to section
@@ -148,6 +174,7 @@ public class StudentMenu {
 		try {
 
 		} catch(Exception e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out.println("Sorry! Could not enroll to section");
 		}
 	}
@@ -166,6 +193,7 @@ public class StudentMenu {
 				System.out.println(section.toString());
 			}
 		} catch (ServerException e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out
 					.println("Sorry! Cannot get enrolled sections! Try Again.");
 		}
@@ -185,6 +213,7 @@ public class StudentMenu {
 			System.out.println();
 
 		} catch (ServerException e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out
 					.println("Sorry! Cannot get list of professor! Try Again.");
 		}
@@ -205,6 +234,7 @@ public class StudentMenu {
 			studentClient.closeConnection();
 			return true;
 		} catch (ServerException e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out.println("Sorry! Cannot delete user. Try Again.");
 			return false;
 		}
@@ -231,6 +261,7 @@ public class StudentMenu {
 			System.out.println(studentResponse.toString());
 			studentClient.closeConnection();
 		} catch (ServerException e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out
 					.println("Sorry! Couldn't fetch student details. Try Again");
 		}
@@ -251,6 +282,7 @@ public class StudentMenu {
 			System.out.println(sectionResponse.toString());
 			sectionClient.closeConection();
 		} catch (ServerException e) {
+            logger.error("Error:"+ e.getMessage());
 			System.out.printf("\nSorry! Could not find course of Id: %s\n",
 					input);
 			System.out.println();
