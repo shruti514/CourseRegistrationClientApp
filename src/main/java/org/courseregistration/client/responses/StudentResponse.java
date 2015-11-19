@@ -12,78 +12,126 @@ public class StudentResponse {
 	private List<Link> links;
 	private Page page;
 
-	// See logged in student Profile
+	/**
+	 * get student
+	 * @return
+	 */
 	public Student getStudent() {
 		return student;
 	}
 
+	/**
+	 * set student
+	 * @param student
+	 */
 	public void setStudent(Student student) {
 		this.student = student;
 	}
 
+	/**
+	 * get content
+	 * @return List<StudentResponse>
+	 */
 	// returns list of students
 	public List<StudentResponse> getContent() {
 		return content;
 	}
 
+	/**
+	 * set content
+	 * @param content
+	 */
 	public void setContent(List<StudentResponse> content) {
 		this.content = content;
 	}
 
+	/**
+	 * get links
+	 * @return List<Link>
+	 */
 	public List<Link> getLinks() {
 		return links;
 	}
 
+	/**
+	 * set links
+	 * @param links
+	 */
 	public void setLinks(List<Link> links) {
 		this.links = links;
 	}
 
+	/**
+	 * get page
+	 * @return Page
+	 */
 	public Page getPage() {
 		return page;
 	}
 
+	/**
+	 * set page
+	 * @param page
+	 */
 	public void setPage(Page page) {
 		this.page = page;
 	}
 
 
-	// deletes the current logged in student
+	/**
+	 * delete students
+	 */
 	public void deleteStudent() {
 
 	}
 
 
-	// update the current logged in student profile
+	/**
+	 * update student
+	 */
 	public void updateStudent() {
 
 	}
 
-	//get course details
+	/**
+	 * get course details
+	 */
 	public void getCourseDetails() {
 
 	}
 
-	// get professor details
+	/**
+	 * get all professors details
+	 */
 	public void getAllProfessorDetails() {
 
 	}
 
-	//get all sections
+	/**
+	 * get all sections
+	 */
 	public void getAllSections() {
 
 	}
 
-	//logged in student enrolls for a section
+	/**
+	 * enroll section
+	 */
 	public void enrollSection() {
 
 	}
 
-	//logged in student drops a section
+	/**
+	 * delete section
+	 */
 	public void deleteSection(){
 
 	}
 
-
+	/**
+	 * convert to string datatype
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		StringBuilder toReturn = new StringBuilder("StudentResponse{");

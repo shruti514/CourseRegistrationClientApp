@@ -12,53 +12,97 @@ public class ProfessorResponse {
     private List<Link> links;
     private Page page;
 
-    // See logged in professor Profile
+    /**
+     * get professor
+     * @return
+     */
     public Professor getProfessor() {
         return professor;
     }
 
+    /**
+     * set professor
+     * @param professor
+     */
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
 
-    // returns list of professors
+    /**
+     * get content
+     * @return List<ProfessorResponse>
+     */
     public List<ProfessorResponse> getContent(){return content;}
 
+    /**
+     * set content
+     * @param content
+     */
     public void setContent(List<ProfessorResponse> content){this.content = content;}
 
+    /**
+     * get links
+     * @return
+     */
     public List<Link> getLinks() {
         return links;
     }
 
+    /**
+     * get links
+     * @param links
+     */
     public void setLinks(List<Link> links) {
         this.links = links;
     }
 
+    /**
+     * get page
+     * @return Page
+     */
     public Page getPage(){return page;}
+
+    /**
+     * set page
+     * @param page
+     */
     public void setPage(Page page){this.page = page;}
 
-    //  Update the current logged in professor profile
+    /**
+     * Update the current logged in professor profile
+     */
     public void updateProfessor(){
 
     }
 
-    // deletes the current logged in professor
+    /**
+     * deletes the current logged in professor
+     * @param professor
+     */
     public void deleteProfessor(Professor professor) {
 
     }
 
-    //   Add new Course
+    /**
+     *  Add new Course
+     */
     public void addCourse(){}
 
-    //  List of all sections
+    /**
+     *  get all sections
+     */
     public void getAllSections(){}
 
-    //  Search for a student
+    /**
+     * Search for a student
+     */
     public void getStudentDetails(){}
 
 
-
-
+    /**
+     * Convert to string datatype
+     * @return
+     */
     @Override
     public String toString(){
         StringBuilder toReturn = new StringBuilder("ProfessorResponse{");

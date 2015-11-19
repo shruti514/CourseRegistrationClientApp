@@ -12,38 +12,74 @@ public class SectionResponse {
 	private List<SectionResponse> content;
 	private Page page;
 
+	/**
+	 * get section
+	 * @return section
+	 */
 	public Section getSection() {
 		return section;
 	}
 
+	/**
+	 * set section
+	 * @param section
+	 */
 	public void setSection(Section section) {
 		this.section = section;
 	}
 
+	/**
+	 * get links
+	 * @return List<Link>
+	 */
 	public List<Link> getLinks() {
 		return links;
 	}
 
+	/**
+	 * set links
+	 * @param links
+	 */
 	public void setLinks(List<Link> links) {
 		this.links = links;
 	}
 
+	/**
+	 * get page
+	 * @return Page
+	 */
 	public Page getPage() {
 		return page;
 	}
 
+	/**
+	 * set page
+	 * @param page
+	 */
 	public void setPage(Page page) {
 		this.page = page;
 	}
 
+	/**
+	 * get content
+	 * @return List<SectionResponse>
+	 */
 	public List<SectionResponse> getContent() {
 		return content;
 	}
 
+	/**
+	 * set content
+	 * @param content
+	 */
 	public void setContent(List<SectionResponse> content) {
 		this.content = content;
 	}
 
+	/**
+	 * convert to string datatype
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		StringBuilder toReturn = new StringBuilder("SectionResponse{");
