@@ -276,13 +276,14 @@ public class StudentClient {
 
 	/**
 	 * Drop Section
- 	 */
+	 * @param section_id
+	 */
 
-	public StudentResponse deleteSection(long id, long section_id)
+	public String deleteSection(long id, long section_id)
 			throws ServerException {
 		Response response = studentResource.deleteSection(id, section_id);
 		if (response.getStatus() == 200) {
-			return response.readEntity(StudentResponse.class);
+			return response.readEntity(String.class);
 		}
 
 		throwNewException(response);

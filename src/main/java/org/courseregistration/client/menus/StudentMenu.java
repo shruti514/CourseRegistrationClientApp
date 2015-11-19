@@ -128,16 +128,28 @@ public class StudentMenu {
 	 * drop from section
 	 */
 	private void dropFromSection() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+		try {
+			System.out.println("Enter the ID of Section to Delete: ");
+			String input = getUserInput();
+
+			this.studentClient.getConnection(userContext);
+
+			String deleteMessage = this.studentClient.deleteSection(Long.valueOf(input));
+
+		} catch(Exception e) {
+			System.out.println("Sorry! Could not drop section");
+		}
 	}
 
 	/**
 	 * enroll to section
 	 */
 	private void enrollToSection() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+		try {
+
+		} catch(Exception e) {
+			System.out.println("Sorry! Could not enroll to section");
+		}
 	}
 
 	/**
