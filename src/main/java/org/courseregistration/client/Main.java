@@ -253,6 +253,7 @@ public class Main {
 					counter++;
 				}
 				int totalPages = studentResponse.getPage().getTotalPages();
+				System.out.println();
 				if(totalPages>page){
 					System.out.println("Press \"n\" to go to next page");
 				}

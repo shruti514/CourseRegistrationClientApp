@@ -90,21 +90,37 @@ public class HttpClientFactory {
      * get WebTarget For Anonymous User
      * @return ResteasyWebTarget
      */
-    public static ResteasyWebTarget getWebTargetForAnonymousUser() {
+    public static ResteasyWebTarget getWebTargetForAnonymousUser() throws ServerException {
+        try {
 
-        final HttpConfig httpConfig = new HttpConfig.Builder().build();
+            final HttpConfig httpConfig = new HttpConfig.Builder().build();
 
-        final PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-        cm.setMaxTotal(httpConfig.getMaxTotalConnections());
-        cm.setDefaultMaxPerRoute(httpConfig.getMaxDefaultConnectionsPerRoute());
+            final SSLContext sslContext = SSLContexts.custom()
+                    .loadTrustMaterial(null, new TrustSelfSignedStrategy())
+                    .useTLS()
+                    .build();
 
-        final CloseableHttpClient httpClient = HttpClientBuilder.create()
-                .setConnectionManager(cm)
-                .build();
+            final SSLConnectionSocketFactory connectionSocketFactory = new SSLConnectionSocketFactory(sslContext, new AllowAllHostnameVerifier());
 
-        final ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient);
-        final ResteasyClient resteasyClient = new ResteasyClientBuilder().httpEngine(engine).build();
-        return resteasyClient.target(httpConfig.getBaseUrl());
+            Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
+                    .register("http", PlainConnectionSocketFactory.getSocketFactory())
+                    .register("https", connectionSocketFactory)
+                    .build();
+
+            final PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(registry);
+            cm.setMaxTotal(httpConfig.getMaxTotalConnections());
+            cm.setDefaultMaxPerRoute(httpConfig.getMaxDefaultConnectionsPerRoute());
+
+            final CloseableHttpClient httpClient = HttpClientBuilder.create()
+                    .setConnectionManager(cm)
+                    .build();
+
+            final ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient);
+            final ResteasyClient resteasyClient = new ResteasyClientBuilder().httpEngine(engine).build();
+            return resteasyClient.target(httpConfig.getBaseUrl());
+        }catch(Exception e){
+            throw new ServerException(e.getMessage());
+        }
     }
 
 }

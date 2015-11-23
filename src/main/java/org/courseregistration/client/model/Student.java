@@ -136,10 +136,8 @@ public class Student extends User {
 	public String toString() {
 		// TODO Auto-generated method stub
 
-		String userDetails = super.toString();
 		StringBuilder builder = new StringBuilder();
 		builder.append("\n\tStudent:__________________________________");
-		builder.append(userDetails);
 		builder.append("\n\tName :\t" + firstName + " " + middleName + " "
 				+ lastName);
 		builder.append("\n\t[ Email: " + emailId);
