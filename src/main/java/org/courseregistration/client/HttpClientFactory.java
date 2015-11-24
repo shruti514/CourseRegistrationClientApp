@@ -39,7 +39,7 @@ public class HttpClientFactory {
      */
     public static ResteasyWebTarget getWebTarget(final String username, final String password) throws ServerException {
         try {
-            final HttpConfig httpConfig = new HttpConfig.Builder().build();
+            final HttpConfig httpConfig = new HttpConfig.Builder().buildHttpsConfig();
 
             final HttpHost targetHost = new HttpHost(httpConfig.getHost(), httpConfig.getPort(), httpConfig.getProtocol());
 
@@ -93,7 +93,7 @@ public class HttpClientFactory {
     public static ResteasyWebTarget getWebTargetForAnonymousUser() throws ServerException {
         try {
 
-            final HttpConfig httpConfig = new HttpConfig.Builder().build();
+            final HttpConfig httpConfig = new HttpConfig.Builder().buildHttpsConfig();
 
             final SSLContext sslContext = SSLContexts.custom()
                     .loadTrustMaterial(null, new TrustSelfSignedStrategy())
