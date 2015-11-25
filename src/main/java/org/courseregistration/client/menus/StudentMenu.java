@@ -279,8 +279,17 @@ public class StudentMenu {
 	 * update student profile
 	 */
 	private void updateProfile() {
-		// TODO Auto-generated method stub
-		System.out.println("Yet to implement");
+        try {
+            studentClient.getConnection(userContext);
+            Long id = userContext.getStudent().getId();
+            StudentResponse studentResponse = studentClient.getStudent(id);
+
+            String responseMessage = studentClient.updateStudent(id,studentResponse.getStudent());
+            System.out.println(responseMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 	}
 
 	/**

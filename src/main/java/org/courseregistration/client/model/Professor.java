@@ -24,6 +24,7 @@ public class Professor extends User {
 	private String officeHoursToTime;
 	@JsonIgnore
 	private List<Link> link;
+	private String hashedPassword;
 
 	public Long getId() {
 		return id;
@@ -172,4 +173,11 @@ public class Professor extends User {
 		this.link = link;
 	}
 
+	public String getHashedPassword() {
+		return hashedPassword;
+	}
+
+	public void setHashedPassword(String hashedPassword) {
+		this.hashedPassword = hashedPassword;
+	}
 }

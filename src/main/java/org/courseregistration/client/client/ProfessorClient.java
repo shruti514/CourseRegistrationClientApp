@@ -1,11 +1,13 @@
 package org.courseregistration.client.client;
 
+import java.io.Console;
 import java.sql.Date;
 import java.util.Scanner;
 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.codec.binary.Base64;
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.model.Address;
@@ -151,6 +153,10 @@ public class ProfessorClient {
 			System.out.println("User Name: ");
 			professor.setUsername(reader.nextLine());
 
+			System.out.println("Password: ");
+            byte[] bytes = Base64.encodeBase64(getPassword().getBytes());
+            professor.setHashedPassword(new String(bytes));
+
 			System.out.println("Address fields: ");
 
 			System.out.println("Street Name: ");
@@ -289,5 +295,24 @@ public class ProfessorClient {
 		System.out
 				.println("You are not able to update as some values are either empty or not set properly.");
 		return null;
+	}
+
+	private String getPassword() {
+		String password = "";
+		Console console = System.console();
+		if (console == null) {
+			System.out.println("Couldn't get Console instance");
+			System.exit(0);
+		}
+		if (console != null) {
+			char passwordArray[] = console.readPassword();
+			if (passwordArray.toString().trim().isEmpty()) {
+				System.out.println("Invalid input - Enter again");
+				getPassword();
+			}
+
+			return new String(passwordArray).trim();
+		}
+		return password;
 	}
 }

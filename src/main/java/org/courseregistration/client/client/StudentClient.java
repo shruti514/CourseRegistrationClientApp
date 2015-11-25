@@ -1,11 +1,13 @@
 package org.courseregistration.client.client;
 
+import java.io.Console;
 import java.sql.Date;
 import java.util.Scanner;
 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.codec.binary.Base64;
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
 import org.courseregistration.client.model.Address;
@@ -115,6 +117,10 @@ public class StudentClient {
 			System.out.println("User Name: ");
 			student.setUsername(reader.nextLine());
 
+			System.out.println("Password: ");
+			byte[] bytes = Base64.encodeBase64(getPassword().getBytes());
+			student.setHashedPassword(new String(bytes));
+
 			System.out.println("Email Id: ");
 			student.setEmailId(reader.nextLine());
 
@@ -174,15 +180,14 @@ public class StudentClient {
 	 * update student Profile
 	 */
 
-	public StudentResponse updateStudent(@PathParam("id")long id, Student current) throws ServerException {
+	public String updateStudent(@PathParam("id")long id, Student current) throws ServerException {
 		Student student = updateFormStudent(current);
 
         if(student!=null) {
             student.setLink(null);
             Response response = studentResource.updateStudent(id, student);
             if (response.getStatus() == 200) {
-                System.out.println(response.toString());
-                return response.readEntity(StudentResponse.class);
+                return response.readEntity(String.class);
             }
             throwNewException(response);
         }
@@ -395,6 +400,25 @@ public class StudentClient {
 		target.getResteasyClient().close();
 		System.out.println("Error:" + response.getStatus() + errorResponse);
 		throw new ServerException(errorResponse);
+	}
+
+	private String getPassword() {
+		String password = "";
+		Console console = System.console();
+		if (console == null) {
+			System.out.println("Couldn't get Console instance");
+			System.exit(0);
+		}
+		if (console != null) {
+			char passwordArray[] = console.readPassword();
+			if (passwordArray.toString().trim().isEmpty()) {
+				System.out.println("Invalid input - Enter again");
+				getPassword();
+			}
+
+			return new String(passwordArray).trim();
+		}
+		return password;
 	}
 
 

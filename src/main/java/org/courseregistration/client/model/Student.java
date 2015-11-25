@@ -25,6 +25,7 @@ public class Student extends User {
 	private Link link;
 
 	private List<Section> sections = new ArrayList<>();
+	private String hashedPassword;
 
 	public Long getId() {
 		return id;
@@ -156,5 +157,13 @@ public class Student extends User {
 
 	public void setLink(Link link) {
 		this.link = link;
+	}
+
+	public String getHashedPassword() {
+		return hashedPassword;
+	}
+
+	public void setHashedPassword(String hashedPassword) {
+		this.hashedPassword = hashedPassword;
 	}
 }
