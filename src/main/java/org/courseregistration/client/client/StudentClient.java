@@ -10,6 +10,8 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.codec.binary.Base64;
 import org.courseregistration.client.HttpClientFactory;
 import org.courseregistration.client.auth.UserContext;
+import org.courseregistration.client.filter.SectionEtagFilter;
+import org.courseregistration.client.filter.StudentEtagFilter;
 import org.courseregistration.client.model.Address;
 import org.courseregistration.client.model.Student;
 import org.courseregistration.client.resources.ProfessorResource;
@@ -24,7 +26,7 @@ public class StudentClient {
 	private StudentResource studentResource = null;
 	private ProfessorResource professorResource = null;
 	private ResteasyWebTarget target = null;
-
+    private StudentWithHeaders currentStudent;
 	Scanner reader = new Scanner(System.in);
 
 	/**
@@ -53,6 +55,22 @@ public class StudentClient {
 			System.out.println(e.getMessage());
 		}
 	}
+
+    //1. See Profile
+    public StudentResponse getStudent(Long id) throws ServerException {
+        target.register(new StudentEtagFilter(currentStudent));
+        Response response = studentResource.getStudent(id);
+         if(response.getStatus() == 200) {
+             this.currentStudent = StudentWithHeaders.getStudentWithHeaders(response);
+             return currentStudent.getCurrent();
+         }if(response.getStatus() == 304){
+            return currentStudent.getCurrent();
+        }
+
+		throwNewException(response);
+		return null;
+	}
+
 
 	/**
 	 * method to add a student to the system
@@ -163,32 +181,25 @@ public class StudentClient {
 	}
 
 
-	/**
-	 * view student by Id
-	 */
-		public StudentResponse getStudent(Long id) throws ServerException {
-		Response response = studentResource.getStudent(id);
-		if (response.getStatus() == 200) {
-			return response.readEntity(StudentResponse.class);
-		}
 
-		throwNewException(response);
-		return null;
-	}
 
-	/**
-	 * update student Profile
-	 */
+		/**
+         * update student Profile
+         */
 
 	public String updateStudent(@PathParam("id")long id, Student current) throws ServerException {
 		Student student = updateFormStudent(current);
 
         if(student!=null) {
             student.setLink(null);
+			target.register(new StudentEtagFilter(currentStudent));
             Response response = studentResource.updateStudent(id, student);
             if (response.getStatus() == 200) {
+                System.out.println(response.toString());
                 return response.readEntity(String.class);
-            }
+            }if(response.getStatus() == 412){
+				return "Other user has changed this student details simultaneously. Please try updating again!";
+			}
             throwNewException(response);
         }
 		return null;
